@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "915378347171",
+    "project_id": "doctorpert-a8e29",
+    "storage_bucket": "doctorpert-a8e29.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915378347171:android:d49ee3f2a3554ad207b316",
+        "android_client_info": {
+          "package_name": "com.example.doctor_pert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915378347171-84fcktfk6qnenbf77j89lbp1qmakum8r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSuvySqAYlo9LNEsOXdRxQefxJEqwsMzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915378347171-84fcktfk6qnenbf77j89lbp1qmakum8r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
