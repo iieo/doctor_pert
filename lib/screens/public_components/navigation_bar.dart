@@ -16,7 +16,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLoggedIn = FirebaseAuth.instance.currentUser != null;
+    bool isLoggedIn = false;
     return SliverAppBar(
       title: const Text('Doctor Pert'),
       actions: [
@@ -26,6 +26,10 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                 Text('Login', style: Theme.of(context).textTheme.labelMedium)),
         ElevatedButton(
             onPressed: _register,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              foregroundColor: Theme.of(context).colorScheme.onSecondary,
+            ),
             child:
                 Text('Login', style: Theme.of(context).textTheme.labelMedium))
       ],
