@@ -16,6 +16,12 @@ Map<String, String> englisch = {
   "ok": "Ok",
   "cancel": "Cancel",
   "error": "Error",
+  "search": "Search",
+  "search-hint": "Search for doctors, hospitals, etc.",
+  "search-no-results": "No results found",
+  "search-results": "Results",
+  "searchDoctor": "Search for doctor",
+  "searchZIP": "Search for ZIP",
 };
 
 Map<String, String> deutsch = {
@@ -37,6 +43,12 @@ Map<String, String> deutsch = {
   "ok": "Ok",
   "cancel": "Abbrechen",
   "error": "Fehler",
+  "search": "Suche",
+  "search-hint": "Suche nach Ärzten, Krankenhäusern, etc.",
+  "search-no-results": "Keine Ergebnisse gefunden",
+  "search-results": "Ergebnisse",
+  "searchDoctor": "Arzt suchen",
+  "searchZIP": "PLZ suchen",
 };
 
 Map<String, String> language = englisch;
