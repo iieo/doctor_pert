@@ -40,7 +40,7 @@ final ThemeData themeData = ThemeData(
   primaryColor: primaryColor,
   colorScheme: colorScheme,
   appBarTheme: const AppBarTheme(backgroundColor: primaryColor),
-  scaffoldBackgroundColor: colorScheme.primaryContainer,
+  scaffoldBackgroundColor: Colors.white,
   dialogBackgroundColor: colorScheme.secondaryContainer,
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
