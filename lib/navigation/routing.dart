@@ -11,6 +11,10 @@ import 'change_notifier.dart';
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
+const List<String> sliverRoutes = <String>[
+  "/",
+];
+
 final GoRouter router = GoRouter(
   initialLocation: "/",
   navigatorKey: _rootNavigatorKey,
@@ -39,8 +43,10 @@ final GoRouter router = GoRouter(
     ShellRoute(
         navigatorKey: _shellNavigatorKey,
         pageBuilder: (context, state, child) {
+          print(state.matchedLocation);
           return NoTransitionPage(
               child: ShellNavBar(
+            isPinned: !sliverRoutes.contains(state.matchedLocation),
             child: child,
           ));
         },

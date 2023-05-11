@@ -1,3 +1,4 @@
+import 'package:doctor_pert/screens/home_screen/components/osm_map.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -13,10 +14,17 @@ class SearchScreen extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Container(
-            color: Colors.red,
-            child: Text("Search Screen"),
-          ),
+            flex: 1,
+            child: ListView.builder(
+                itemCount: 40,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text("Test $index"),
+                  );
+                })),
+        const Expanded(
+          flex: 2,
+          child: OSMMap(),
         )
       ],
     );

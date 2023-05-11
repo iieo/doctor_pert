@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 class ShellNavBar extends StatelessWidget {
   final Widget child;
-
-  const ShellNavBar({super.key, required this.child});
+  final bool isPinned;
+  const ShellNavBar({super.key, required this.child, this.isPinned = true});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,9 @@ class ShellNavBar extends StatelessWidget {
         body: NestedScrollView(
       headerSliverBuilder: (context, innerBoxIsScrolled) {
         return [
-          const NavBar(),
+          NavBar(
+            isPinned: isPinned,
+          ),
         ];
       },
       body: child,
