@@ -1,6 +1,7 @@
 import 'package:doctor_pert/screens/home_screen/components/map_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
 class OSMMap extends StatefulWidget {
@@ -11,13 +12,14 @@ class OSMMap extends StatefulWidget {
 }
 
 class _OSMMapState extends State<OSMMap> {
-  double _zoom = 13.0;
+  double _zoom = 15.0;
   late MapController _mapController;
 
   @override
   void initState() {
     super.initState();
     _mapController = MapController();
+    _moveToLocation();
   }
 
   void _zoomIn() {
@@ -32,6 +34,14 @@ class _OSMMapState extends State<OSMMap> {
       _zoom--;
     });
     _mapController.move(_mapController.center, _zoom);
+  }
+
+  void _moveToLocation() async {
+    await Geolocator.requestPermission();
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    _mapController.move(LatLng(position.latitude, position.longitude), _zoom);
   }
 
   @override
@@ -54,10 +64,12 @@ class _OSMMapState extends State<OSMMap> {
         Positioned(
           bottom: 10,
           left: 10,
-          child: Text(
-            '© OpenStreetMap contributors',
-            style: Theme.of(context).textTheme.labelSmall,
-          ),
+          child: TextButton(
+              onPressed: () {},
+              child: Text(
+                '© OpenStreetMap contributors',
+                style: Theme.of(context).textTheme.labelSmall,
+              )),
         )
       ],
       mapController: _mapController,
@@ -65,8 +77,8 @@ class _OSMMapState extends State<OSMMap> {
           center: LatLng(51.5, -0.09), zoom: _zoom, enableScrollWheel: false),
       children: [
         TileLayer(
-          urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          subdomains: const ['a', 'b', 'c'],
+          urlTemplate:
+              'https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=hQaBTBuPKEQ3xuoB1MZf',
         ),
       ],
     );

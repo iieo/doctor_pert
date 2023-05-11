@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
                   child: ConstrainedBox(
                     constraints:
                         const BoxConstraints(maxWidth: 800, minWidth: 300),
-                    child: const SearchBar(),
+                    child: SearchBar(),
                   )),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(t("findOnMap"),
