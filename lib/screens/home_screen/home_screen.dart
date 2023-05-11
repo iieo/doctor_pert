@@ -1,4 +1,4 @@
-import 'package:doctor_pert/screens/nav_bar/navigation_bar.dart';
+import 'package:doctor_pert/screens/shell/nav_bar/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {

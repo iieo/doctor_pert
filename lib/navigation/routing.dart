@@ -1,4 +1,5 @@
 import 'package:doctor_pert/screens/home_screen/home_screen.dart';
+import 'package:doctor_pert/screens/shell/shell_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -36,7 +37,10 @@ final GoRouter router = GoRouter(
     ShellRoute(
         navigatorKey: _shellNavigatorKey,
         pageBuilder: (context, state, child) {
-          return const NoTransitionPage(child: Placeholder());
+          return NoTransitionPage(
+              child: ShellNavBar(
+            child: child,
+          ));
         },
         routes: [
           GoRoute(

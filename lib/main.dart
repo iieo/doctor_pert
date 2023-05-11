@@ -32,7 +32,7 @@ void main() async {
 
   runApp(MaterialApp(
     theme: themeData,
-    builder: (context, child) => const HomeScreen(),
+    builder: (context, child) => const App(),
   ));
 }
 
