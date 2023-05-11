@@ -1,3 +1,4 @@
+import 'package:doctor_pert/screens/home_screen/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +13,7 @@ final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   redirect: (context, state) {
     // TODO
+    return null;
   },
   refreshListenable:
       GoRouterRefreshStream(FirebaseAuth.instance.authStateChanges()),
@@ -37,7 +39,12 @@ final GoRouter router = GoRouter(
           return const NoTransitionPage(child: Placeholder());
         },
         routes: [
-          // ADD Sub routes here
+          GoRoute(
+            parentNavigatorKey: _shellNavigatorKey,
+            path: "/",
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: HomeScreen()),
+          ),
         ])
   ],
 );
