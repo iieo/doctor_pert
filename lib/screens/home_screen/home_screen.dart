@@ -7,8 +7,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const NavBar(),
+        body: NestedScrollView(
+      headerSliverBuilder: (context, innerBoxIsScrolled) {
+        return [
+          const NavBar(),
+        ];
+      },
       body: Column(children: const [Center(child: Text('Home Screen'))]),
-    );
+    ));
   }
 }
