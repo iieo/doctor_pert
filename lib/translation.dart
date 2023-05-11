@@ -21,7 +21,10 @@ Map<String, String> englisch = {
   "search-no-results": "No results found",
   "search-results": "Results",
   "searchDoctor": "Search for doctor",
-  "searchZIP": "Search for ZIP",
+  "searchZip": "Search for ZIP",
+  "appName": "Doctor Pert",
+  "appSlogan": "Find your doctor nearby",
+  "findOnMap": "Find on map",
 };
 
 Map<String, String> deutsch = {
@@ -48,7 +51,10 @@ Map<String, String> deutsch = {
   "search-no-results": "Keine Ergebnisse gefunden",
   "search-results": "Ergebnisse",
   "searchDoctor": "Arzt suchen",
-  "searchZIP": "PLZ suchen",
+  "searchZip": "PLZ suchen",
+  "appName": "Doctor Pert",
+  "appSlogan": "Finden Sie Ihren Arzt in der Nähe",
+  "findOnMap": "Auf Karte finden",
 };
 
 Map<String, String> language = englisch;
