@@ -1,8 +1,20 @@
 import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({super.key});
+  SearchBar({super.key});
+
+  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+
+  void _navigateToSearch(BuildContext context) {
+    String searchQuery = _searchController.text;
+    String location = "0,0";
+    GoRouter.of(context).go(
+      "/search?searchQuery=$searchQuery&location=$location",
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +39,7 @@ class SearchBar extends StatelessWidget {
             children: [
               Expanded(
                 child: TextField(
+                  controller: _searchController,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -49,6 +62,7 @@ class SearchBar extends StatelessWidget {
               ),
               Expanded(
                   child: TextField(
+                controller: _locationController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -61,7 +75,7 @@ class SearchBar extends StatelessWidget {
                 ),
               )),
               ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () => _navigateToSearch(context),
                   style: TextButton.styleFrom(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
@@ -83,75 +97,5 @@ class SearchBar extends StatelessWidget {
             ],
           ))
     ]);
-    /*
-    return Container(
-        padding: const EdgeInsets.symmetric(
-            vertical: Spacing.spacingStandardPadding),
-        decoration: const BoxDecoration(
-          color: MyColors.primary,
-        ),
-        child: Container(
-            margin: const EdgeInsets.only(
-              left: Spacing.spacingStandardMargin,
-              right: Spacing.spacingStandardMargin,
-            ),
-            child: Row(children: [
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: MyColors.whitePureColor,
-                    hintText: t("searchDoctor"),
-                    prefixIcon: const Icon(Icons.search),
-                    border: const OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft:
-                            Radius.circular(Spacing.borderRadiusStandard),
-                        topLeft: Radius.circular(Spacing.borderRadiusStandard),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: TextField(
-                  key: _globalKey,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: MyColors.whitePureColor,
-                    hintText: t("searchZip"),
-                    prefixIcon: const Icon(Icons.location_pin),
-                    border: const OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.zero,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: _height,
-                child: TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      foregroundColor: MyColors.textColorWhite,
-                      backgroundColor: MyColors.secondary,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomRight:
-                              Radius.circular(Spacing.borderRadiusStandard),
-                          topRight:
-                              Radius.circular(Spacing.borderRadiusStandard),
-                        ),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(t("search")),
-                        const Icon(Icons.arrow_right),
-                      ],
-                    )),
-              )
-            ])));*/
   }
 }

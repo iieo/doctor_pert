@@ -2,9 +2,10 @@ import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
+  final bool isPinned;
   @override
   final Size preferredSize;
-  const NavBar({Key? key})
+  const NavBar({Key? key, this.isPinned = false})
       : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
@@ -18,6 +19,8 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     bool isLoggedIn = false;
     return SliverAppBar(
+      pinned: isPinned,
+      floating: false,
       title: const Text('Doctor Pert'),
       actions: [
         Padding(
