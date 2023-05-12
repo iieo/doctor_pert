@@ -1,4 +1,5 @@
 import 'package:doctor_pert/screens/home_screen/components/osm_map.dart';
+import 'package:doctor_pert/screens/search_screen/components/doctor_card.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -18,9 +19,8 @@ class SearchScreen extends StatelessWidget {
             child: ListView.builder(
                 itemCount: 40,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text("Test $index"),
-                  );
+                  //build card
+                  return DoctorCard();
                 })),
         const Expanded(
           flex: 2,

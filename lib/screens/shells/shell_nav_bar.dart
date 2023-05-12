@@ -1,3 +1,4 @@
+import 'package:doctor_pert/screens/shells/nav_bar/footer.dart';
 import 'package:doctor_pert/screens/shells/nav_bar/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -10,14 +11,13 @@ class ShellNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: NestedScrollView(
-      headerSliverBuilder: (context, innerBoxIsScrolled) {
-        return [
-          NavBar(
-            isPinned: isPinned,
-          ),
-        ];
-      },
-      body: child,
-    ));
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                NavBar(
+                  isPinned: isPinned,
+                ),
+              ];
+            },
+            body: child));
   }
 }

@@ -43,7 +43,6 @@ final GoRouter router = GoRouter(
     ShellRoute(
         navigatorKey: _shellNavigatorKey,
         pageBuilder: (context, state, child) {
-          print(state.matchedLocation);
           return NoTransitionPage(
               child: ShellNavBar(
             isPinned: !sliverRoutes.contains(state.matchedLocation),

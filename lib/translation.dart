@@ -25,6 +25,9 @@ Map<String, String> englisch = {
   "appName": "Doctor Pert",
   "appSlogan": "Find your doctor nearby",
   "findOnMap": "Find on map",
+  "contact": "Contact",
+  "privacy-policy": "Privacy Policy",
+  "imprint": "Imprint",
 };
 
 Map<String, String> deutsch = {
@@ -55,6 +58,9 @@ Map<String, String> deutsch = {
   "appName": "Doctor Pert",
   "appSlogan": "Finden Sie Ihren Arzt in der Nähe",
   "findOnMap": "Auf Karte finden",
+  "contact": "Kontakt",
+  "privacy-policy": "Datenschutz",
+  "imprint": "Impressum",
 };
 
 Map<String, String> language = englisch;
