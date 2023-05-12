@@ -15,21 +15,23 @@ class Doctor {
   List<Review> reviews;
   double rating;
   LatLng location;
+  List<String> services;
 
   Doctor({
     required this.name,
     required this.address,
     required this.phone,
     required this.email,
-    required this.specialities,
     required this.openingHours,
     required this.location,
+    this.specialities = const ["general"],
     this.website,
     this.description,
     this.imageUrl,
     this.languages = const ["german"],
     this.reviews = const [],
     this.rating = 0.0,
+    this.services = const ["general"],
   });
 }
 
@@ -49,7 +51,7 @@ class Address {
 }
 
 class OpeningHours {
-  String day;
+  int day;
   String open;
   String close;
 
