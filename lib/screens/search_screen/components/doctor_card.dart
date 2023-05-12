@@ -1,14 +1,20 @@
+import 'package:doctor_pert/models/doctor.dart';
 import 'package:flutter/material.dart';
 
 class DoctorCard extends StatelessWidget {
-  const DoctorCard({super.key});
+  final Function() onTap;
+  final Doctor doctor;
+  const DoctorCard({super.key, required this.onTap, required this.doctor});
 
   @override
   Widget build(BuildContext context) {
-    return const Card(
-        child: ListTile(
-      title: Text("test"),
-      subtitle: Text("test"),
-    ));
+    return InkWell(
+      onTap: onTap,
+      child: Card(
+          child: ListTile(
+        title: Text(doctor.name),
+        subtitle: Text(doctor.phone),
+      )),
+    );
   }
 }
