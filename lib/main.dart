@@ -36,7 +36,7 @@ void main() async {
   );
 
   runApp(MaterialApp(
-    theme: themeData,
+    theme: lightTheme,
     builder: (context, child) => const App(),
   ));
 }
