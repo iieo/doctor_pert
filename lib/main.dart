@@ -36,9 +36,8 @@ void main() async {
   );
 
   runApp(MaterialApp(
-    theme: lightTheme,
-    builder: (context, child) =>
-        const Scaffold(body: AuthenticationScreen(child: LoginContainer())),
+    theme: themeData,
+    builder: (context, child) => const App(),
   ));
 }
 

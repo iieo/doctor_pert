@@ -1,10 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
+  final bool isPinned;
   @override
   final Size preferredSize;
-  const NavBar({Key? key})
+  const NavBar({Key? key, this.isPinned = false})
       : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
@@ -18,12 +19,17 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     bool isLoggedIn = false;
     return SliverAppBar(
+      pinned: isPinned,
+      floating: false,
       title: const Text('Doctor Pert'),
       actions: [
-        TextButton(
-            onPressed: _login,
-            child:
-                Text('Login', style: Theme.of(context).textTheme.labelMedium)),
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: TextButton(
+              onPressed: isLoggedIn ? _logout : _login,
+              child: Text(t("login"),
+                  style: Theme.of(context).textTheme.labelMedium)),
+        ),
         Padding(
             padding: const EdgeInsets.all(8),
             child: ElevatedButton(
@@ -32,7 +38,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                   foregroundColor: Theme.of(context).colorScheme.onSecondary,
                 ),
-                child: Text('Login',
+                child: Text(t("signup"),
                     style: Theme.of(context).textTheme.labelMedium))),
       ],
     );

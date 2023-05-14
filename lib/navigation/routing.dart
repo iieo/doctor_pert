@@ -1,12 +1,19 @@
 import 'package:doctor_pert/screens/home_screen/home_screen.dart';
+import 'package:doctor_pert/screens/search_screen/search_screen.dart';
+import 'package:doctor_pert/screens/shells/shell_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:latlong2/latlong.dart';
 
 import 'change_notifier.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
+
+const List<String> sliverRoutes = <String>[
+  "/",
+];
 
 final GoRouter router = GoRouter(
   initialLocation: "/",
@@ -36,9 +43,34 @@ final GoRouter router = GoRouter(
     ShellRoute(
         navigatorKey: _shellNavigatorKey,
         pageBuilder: (context, state, child) {
-          return const NoTransitionPage(child: Placeholder());
+          return NoTransitionPage(
+              child: ShellNavBar(
+            isPinned: !sliverRoutes.contains(state.matchedLocation),
+            child: child,
+          ));
         },
         routes: [
+          GoRoute(
+              parentNavigatorKey: _shellNavigatorKey,
+              path: "/search",
+              pageBuilder: (context, state) {
+                String searchQuery = state.queryParameters['q'] ?? "doctor";
+                String locationParameter =
+                    state.queryParameters['location'] ?? "0,0";
+
+                //split location parameter into latitude and longitude and parse to int. if fail set to 0
+                List<String> location = locationParameter.split(",");
+                double latitude = double.tryParse(location[0]) ?? 0;
+                double longitude = double.tryParse(location[1]) ?? 0;
+
+                LatLng locationLatLng = LatLng(latitude, longitude);
+
+                return NoTransitionPage(
+                    child: SearchScreen(
+                  location: locationLatLng,
+                  searchQuery: searchQuery,
+                ));
+              }),
           GoRoute(
             parentNavigatorKey: _shellNavigatorKey,
             path: "/",
