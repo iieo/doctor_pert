@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_pert/firebase_options.dart';
+import 'package:doctor_pert/handler/authentication_handler.dart';
 import 'package:doctor_pert/handler/user_data_handler.dart';
 import 'package:doctor_pert/navigation/routing.dart';
+import 'package:doctor_pert/screens/authentication/authentication_screen.dart';
+import 'package:doctor_pert/screens/authentication/login_screen.dart';
+import 'package:doctor_pert/screens/authentication/sign_up_screen.dart';
 import 'package:doctor_pert/screens/home_screen/home_screen.dart';
-import 'package:doctor_pert/theme/color_theme.dart';
+import 'package:doctor_pert/theme/theme_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -25,24 +29,21 @@ void main() async {
 
   if (kIsWeb) {
     FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
+    initRecaptcha();
   }
   FirebaseFirestore.instance.settings = const Settings(
     persistenceEnabled: true,
   );
 
   runApp(MaterialApp(
-    builder: (context, child) => const HomeScreen(),
+    theme: lightTheme,
+    builder: (context, child) =>
+        const Scaffold(body: AuthenticationScreen(child: LoginContainer())),
   ));
 }
 
 class App extends StatelessWidget {
   const App({super.key});
-
-  static const double defaultRadius = 10;
-  static const double defaultMargin = 30;
-  static const double defaultBoxMargin = 20;
-  static const EdgeInsets defaultPadding =
-      EdgeInsets.symmetric(horizontal: 20, vertical: 35);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +68,7 @@ class App extends StatelessWidget {
                     routerConfig: router,
                     debugShowCheckedModeBanner: false,
                     title: "Doctor Pert",
-                    theme: themeData);
+                    theme: lightTheme);
               }
             }));
   }

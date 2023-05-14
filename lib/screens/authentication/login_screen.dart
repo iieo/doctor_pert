@@ -1,10 +1,12 @@
+import 'package:doctor_pert/screens/authentication/authentication_components.dart';
+import 'package:doctor_pert/screens/authentication/authentication_screen.dart';
+import 'package:doctor_pert/theme/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../handler/authentication_handler.dart';
-import '../dialog/error_dialog.dart';
-import 'loading_screen.dart';
+import 'google_sign_in_button.dart';
 
 class LoginContainer extends StatefulWidget {
   const LoginContainer({super.key});
@@ -48,160 +50,105 @@ class _LoginContainer extends State<LoginContainer> {
     });
   }
 
-  Future<bool> ShowEmailNotVerifiedDialog(BuildContext context) async {
-    await showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("Email not verified"),
-            content: Text(
-                'Please verify your email before logging in. Email was sent to ${emailController.text}'),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text("Dismiss",
-                      style: Theme.of(context).textTheme.labelSmall)),
-              TextButton(
-                  onPressed: () {
-                    FirebaseAuthHandler.resendVerificationEmail();
-                  },
-                  child: Text("Send again",
-                      style: Theme.of(context).textTheme.labelSmall))
-            ],
-          );
-        });
-
-    return true;
-  }
-
   void _loginUser() async {
     UpdateLoading(true);
     try {
       await FirebaseAuthHandler.tryLogin(
           emailController.text, passwordController.text);
     } on FirebaseAuthException catch (e) {
-      showSimpleErrorDialog(
-          context, "Login failed", FirebaseAuthHandler.getFirebaseErrorText(e));
+      ShowError("Login Failed: ${FirebaseAuthHandler.getFirebaseErrorText(e)}",
+          context);
     } on EmailNotVerifiedException catch (e) {
-      ShowEmailNotVerifiedDialog(context);
+      String? mail = FirebaseAuth.instance.currentUser?.email;
+      ShowErrorWithAction("Email not verified. Check your mail: $mail.",
+          "Resend Email", FirebaseAuthHandler.resendVerificationEmail, context);
     } catch (e) {
-      print(e);
-      showSimpleErrorDialog(context, "Unkown Error.", "Please try again.");
+      ShowError("Unknown Error. Please try again.", context);
     }
     UpdateLoading(false);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(alignment: Alignment.center, children: [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-              width: loginWidth,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  key: passwordValidator,
-                  controller: emailController,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  decoration: const InputDecoration(
-                      hoverColor: Colors.black,
-                      border: OutlineInputBorder(),
-                      labelText: 'Email',
-                      hintText: 'Enter valid mail.'),
-                ),
-              )),
-          SizedBox(
-              width: loginWidth,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                      hintText: 'Enter your password'),
-                ),
-              )),
-          SizedBox(
-              width: loginWidth,
-              height: 65,
-              child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: ElevatedButton(
-                    onPressed: _loginUser,
-                    child: const Text('Login'),
-                  ))),
-          SizedBox(
-              width: loginWidth,
-              height: 40,
-              child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                            child: Text("Forgot Password?",
-                                style: Theme.of(context).textTheme.titleSmall),
-                            onTap: () {
-                              UpdateLoading(true);
-                              FirebaseAuthHandler.forgotPassword(
-                                      emailController.text)
-                                  .then((value) {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: const Text("Password reset"),
-                                        content: Text(
-                                            'Email was sent to ${emailController.text}'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text("Ok"),
-                                          )
-                                        ],
-                                      );
-                                    });
-                                UpdateLoading(false);
-                              }).onError((error, stackTrace) {
-                                UpdateLoading(false);
-                                if (error is FirebaseAuthException) {
-                                  showSimpleErrorDialog(
-                                      context,
-                                      "Password reset failed",
-                                      FirebaseAuthHandler.getFirebaseErrorText(
-                                          error));
-                                } else {
-                                  showSimpleErrorDialog(context,
-                                      "Unkown Error.", "Please try again.");
-                                }
-                              });
-                            }),
-                        InkWell(
-                            child: Text("Create User Account.",
-                                style: Theme.of(context).textTheme.titleSmall),
-                            onTap: () {
-                              FirebaseAuthHandler.logout();
-                              GoRouter.of(context).go("/signup");
-                            })
-                      ]))),
-        ],
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      AuthItemWrapper(
+          child: Text("Login",
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.headlineMedium)),
+      AuthItemWrapper(child: GoogleSignInButton()),
+      AuthItemWrapper(
+          maxHeight: 35,
+          minHeight: 25,
+          paddingHeight: 10,
+          paddingWidth: 15,
+          child: Text("or login with email:",
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.titleSmall)),
+      AuthItemWrapper(
+          child: TextFormField(
+        key: passwordValidator,
+        controller: emailController,
+        style: Theme.of(context).textTheme.bodyMedium,
+        decoration: const InputDecoration(
+            labelText: 'Email', hintText: 'Enter valid mail.'),
+      )),
+      AuthItemWrapper(
+        child: TextField(
+          style: Theme.of(context).textTheme.bodyMedium,
+          controller: passwordController,
+          obscureText: true,
+          decoration: InputDecoration(
+              border: GetCurrentTheme(context).inputDecorationTheme.border,
+              labelText: 'Password',
+              hintText: 'Enter your password'),
+        ),
       ),
-      Builder(builder: (context) {
-        if (loading) {
-          return const LoadingScreen();
-        } else {
-          return const SizedBox.shrink();
-        }
-      })
+      AuthItemWrapper(
+          child: SizedBox.expand(
+              child: ElevatedButton(
+                  onPressed: _loginUser,
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          GetCurrentTheme(context).primaryColor)),
+                  child: loading
+                      ? const CircularProgressIndicator()
+                      : const Text('Login')))),
+      AuthItemWrapper(
+          paddingHeight: 2,
+          minHeight: 20,
+          maxHeight: 30,
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            InkWell(
+                child: Text("Forgot Password?",
+                    style: Theme.of(context).textTheme.titleSmall),
+                onTap: () {
+                  UpdateLoading(true);
+                  FirebaseAuthHandler.forgotPassword(emailController.text)
+                      .then((value) {
+                    ShowInfo(
+                        'Email was sent to ${emailController.text}', context);
+
+                    UpdateLoading(false);
+                  }).onError((error, stackTrace) {
+                    UpdateLoading(false);
+                    if (error is FirebaseAuthException) {
+                      ShowError(FirebaseAuthHandler.getFirebaseErrorText(error),
+                          context);
+                    } else {
+                      ShowError(
+                          "Unkown error. Please try again later.", context);
+                    }
+                  });
+                }),
+            InkWell(
+                child: Text("Create User Account.",
+                    style: Theme.of(context).textTheme.titleSmall),
+                onTap: () {
+                  FirebaseAuthHandler.logout();
+                  GoRouter.of(context).go("/signup");
+                })
+          ])),
     ]);
   }
 }
