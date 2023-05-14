@@ -41,11 +41,11 @@ final ThemeData lightTheme = ThemeData(
   primaryColor: primaryColor,
   colorScheme: colorScheme,
   appBarTheme: const AppBarTheme(backgroundColor: primaryColor),
-  scaffoldBackgroundColor: colorScheme.primaryContainer,
+  scaffoldBackgroundColor: Colors.white,
   dialogBackgroundColor: colorScheme.secondaryContainer,
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: colorScheme.background,
+    fillColor: Colors.grey[200],
     border: const OutlineInputBorder(
         borderSide: BorderSide.none,
         borderRadius: BorderRadius.all(Radius.circular(100))),
@@ -58,13 +58,14 @@ final ThemeData lightTheme = ThemeData(
       borderSide: BorderSide.none,
     ),
     errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(defaultRadius),
-      borderSide: BorderSide(color: colorScheme.errorContainer),
+      borderRadius: BorderRadius.circular(100),
+      borderSide: BorderSide(color: colorScheme.error),
     ),
     focusedErrorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(defaultRadius),
-      borderSide: BorderSide(color: colorScheme.errorContainer),
+      borderRadius: BorderRadius.circular(100),
+      borderSide: BorderSide(color: colorScheme.error),
     ),
+    errorStyle: TextStyle(color: colorScheme.errorContainer, fontSize: 0.001),
   ),
   textTheme: TextTheme(
       headlineLarge:

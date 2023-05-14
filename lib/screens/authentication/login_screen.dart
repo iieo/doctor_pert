@@ -86,14 +86,18 @@ class _LoginContainer extends State<LoginContainer> {
               style: Theme.of(context).textTheme.titleSmall)),
       AuthItemWrapper(
           child: TextFormField(
+        autofillHints: const [AutofillHints.email],
         key: passwordValidator,
         controller: emailController,
         style: Theme.of(context).textTheme.bodyMedium,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (value) => value!.isValidEmail() ? null : "Invalid Email",
         decoration: const InputDecoration(
             labelText: 'Email', hintText: 'Enter valid mail.'),
       )),
       AuthItemWrapper(
         child: TextField(
+          autofillHints: const [AutofillHints.password],
           style: Theme.of(context).textTheme.bodyMedium,
           controller: passwordController,
           obscureText: true,
@@ -123,23 +127,23 @@ class _LoginContainer extends State<LoginContainer> {
                 child: Text("Forgot Password?",
                     style: Theme.of(context).textTheme.titleSmall),
                 onTap: () {
-                  UpdateLoading(true);
-                  FirebaseAuthHandler.forgotPassword(emailController.text)
-                      .then((value) {
-                    ShowInfo(
-                        'Email was sent to ${emailController.text}', context);
+                  if (emailController.text.isEmpty) {
+                    ShowError("No Email was provided.", context);
+                    return;
+                  }
 
-                    UpdateLoading(false);
-                  }).onError((error, stackTrace) {
-                    UpdateLoading(false);
-                    if (error is FirebaseAuthException) {
-                      ShowError(FirebaseAuthHandler.getFirebaseErrorText(error),
-                          context);
-                    } else {
-                      ShowError(
-                          "Unkown error. Please try again later.", context);
-                    }
-                  });
+                  if (!emailController.text.isValidEmail()) {
+                    ShowError(
+                        "Email: '${emailController.text}' is not a valid email.",
+                        context);
+                    return;
+                  }
+
+                  UpdateLoading(true);
+                  FirebaseAuthHandler.forgotPassword(emailController.text);
+                  UpdateLoading(false);
+                  ShowInfo(
+                      'Email was sent to ${emailController.text}', context);
                 }),
             InkWell(
                 child: Text("Create User Account.",

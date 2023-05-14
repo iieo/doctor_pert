@@ -2,6 +2,24 @@ import 'package:flutter/material.dart';
 
 import 'authentication_components.dart';
 
+extension EmailValidator on String {
+  bool isValidEmail() {
+    return RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(this);
+  }
+}
+
+extension PasswordValidator on String {
+  bool isValidPassword() {
+    return this.length >= 6 &&
+        this.contains(RegExp(r'[0-9]')) &&
+        this.contains(RegExp(r'[A-Z]')) &&
+        this.contains(RegExp(r'[a-z]')) &&
+        this.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+  }
+}
+
 class AuthenticationScreen extends StatefulWidget {
   final Widget child;
 

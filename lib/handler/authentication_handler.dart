@@ -10,7 +10,7 @@ class EmailNotVerifiedException implements Exception {}
 void initRecaptcha() async {
   if (kIsWeb) {
     bool ready = await GRecaptchaV3.ready(
-        "6LdytgAmAAAAAL0NbdPYrAKHdYW9WTC70UdJt_16",
+        "6LfxPAwmAAAAANBubVzTuAkqRyxq0PNH37i7Swk8",
         showBadge: true); //--2
     // ignore: avoid_print
     print("Is Recaptcha ready? $ready");
@@ -110,12 +110,7 @@ class FirebaseAuthHandler {
 
     await credentials.user!.sendEmailVerification();
     await credentials.user!.updateDisplayName(name);
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(credentials.user!.uid)
-        .set({'name': name, 'email': email, 'points': 0});
-
-    await FirebaseAuth.instance.signOut();
+    FirebaseFirestore.instance.collection('users').doc(credentials.user!.uid);
   }
 
   static Future<void> forgotPassword(String email) async {

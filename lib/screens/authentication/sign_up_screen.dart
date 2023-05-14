@@ -33,15 +33,6 @@ class _SignUpContainer extends State<SignUpContainer> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-
-    if (FirebaseAuth.instance.currentUser != null) {
-      emailController.text = FirebaseAuth.instance.currentUser!.email!;
-    }
-  }
-
   void UpdateLoading(bool isLoading) {
     setState(() {
       loading = isLoading;
@@ -51,7 +42,7 @@ class _SignUpContainer extends State<SignUpContainer> {
   void _signupUser() async {
     UpdateLoading(true);
     try {
-      FirebaseAuthHandler.trySignup(lastNameController.text,
+      await FirebaseAuthHandler.trySignup(lastNameController.text,
           emailController.text, passwordController.text);
     } on FirebaseAuthException catch (e) {
       ShowError("Login Failed: ${FirebaseAuthHandler.getFirebaseErrorText(e)}",
@@ -82,21 +73,30 @@ class _SignUpContainer extends State<SignUpContainer> {
           child: TextFormField(
         controller: lastNameController,
         style: Theme.of(context).textTheme.bodyMedium,
+        autofillHints: const [AutofillHints.familyName],
         decoration: const InputDecoration(
-            labelText: 'Last name', hintText: 'Enter your last name.'),
+            labelText: 'Last name', hintText: 'Enter your family name.'),
       )),
       AuthItemWrapper(
           child: TextFormField(
         controller: emailController,
+        autofillHints: const [AutofillHints.email],
         style: Theme.of(context).textTheme.bodyMedium,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (value) => value!.isValidEmail() ? null : "Invalid Email",
         decoration: const InputDecoration(
             labelText: 'Email', hintText: 'Enter valid mail.'),
       )),
       AuthItemWrapper(
-        child: TextField(
+        child: TextFormField(
+          autofillHints: const [AutofillHints.newPassword],
           style: Theme.of(context).textTheme.bodyMedium,
           controller: passwordController,
           obscureText: true,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) => value!.isValidPassword()
+              ? null
+              : "Password must be at least 8 characters long.",
           decoration: InputDecoration(
               border: GetCurrentTheme(context).inputDecorationTheme.border,
               labelText: 'Password',
@@ -104,10 +104,16 @@ class _SignUpContainer extends State<SignUpContainer> {
         ),
       ),
       AuthItemWrapper(
-        child: TextField(
+        child: TextFormField(
+          autofillHints: const [AutofillHints.newPassword],
           style: Theme.of(context).textTheme.bodyMedium,
-          controller: passwordController,
+          controller: passwordControllerCheck,
           obscureText: true,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) =>
+              passwordController.text == passwordControllerCheck.text
+                  ? null
+                  : "Password must be at least 8 characters long.",
           decoration: InputDecoration(
               border: GetCurrentTheme(context).inputDecorationTheme.border,
               labelText: 'Repeat your Password',
@@ -123,7 +129,7 @@ class _SignUpContainer extends State<SignUpContainer> {
                           GetCurrentTheme(context).primaryColor)),
                   child: loading
                       ? const CircularProgressIndicator()
-                      : const Text('Login')))),
+                      : const Text('Sign Up')))),
       AuthItemWrapper(
           paddingHeight: 2,
           minHeight: 20,
@@ -135,7 +141,7 @@ class _SignUpContainer extends State<SignUpContainer> {
                     style: Theme.of(context).textTheme.titleSmall),
                 onTap: () {
                   FirebaseAuthHandler.logout();
-                  GoRouter.of(context).go("/signup");
+                  GoRouter.of(context).go("/login");
                 })
           ])),
     ]);
