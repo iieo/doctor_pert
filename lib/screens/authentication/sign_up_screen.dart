@@ -1,6 +1,7 @@
 import 'package:doctor_pert/screens/authentication/authentication_components.dart';
 import 'package:doctor_pert/screens/authentication/authentication_screen.dart';
 import 'package:doctor_pert/theme/theme_data.dart';
+import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
@@ -45,19 +46,31 @@ class _SignUpContainer extends State<SignUpContainer> {
       await FirebaseAuthHandler.trySignup(lastNameController.text,
           emailController.text, passwordController.text);
     } on FirebaseAuthException catch (e) {
-      ShowError("Login Failed: ${FirebaseAuthHandler.getFirebaseErrorText(e)}",
+      ShowError(
+          "${t('signup_failed')} ${FirebaseAuthHandler.getFirebaseErrorText(e)}",
           context);
     } catch (e) {
-      ShowError("Unknown Error. Please try again.", context);
+      ShowError(t("unknown_error"), context);
     }
     UpdateLoading(false);
+  }
+
+  InputDecoration getInputDecoration(String label, String hint) {
+    return InputDecoration(
+        fillColor: Colors.grey[200],
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.all(Radius.circular(defaultRadius)),
+        ),
+        labelText: t(label),
+        hintText: t(hint));
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       AuthItemWrapper(
-          child: Text("Sign Up",
+          child: Text(t("signup"),
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.headlineMedium)),
       AuthItemWrapper(child: GoogleSignInButton()),
@@ -66,7 +79,7 @@ class _SignUpContainer extends State<SignUpContainer> {
           minHeight: 25,
           paddingHeight: 10,
           paddingWidth: 15,
-          child: Text("or sign up with email:",
+          child: Text(t("or_login_with_email"),
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.titleSmall)),
       AuthItemWrapper(
@@ -74,8 +87,7 @@ class _SignUpContainer extends State<SignUpContainer> {
         controller: lastNameController,
         style: Theme.of(context).textTheme.bodyMedium,
         autofillHints: const [AutofillHints.familyName],
-        decoration: const InputDecoration(
-            labelText: 'Last name', hintText: 'Enter your family name.'),
+        decoration: getInputDecoration('Last name', 'Enter your family name.'),
       )),
       AuthItemWrapper(
           child: TextFormField(
@@ -83,9 +95,8 @@ class _SignUpContainer extends State<SignUpContainer> {
         autofillHints: const [AutofillHints.email],
         style: Theme.of(context).textTheme.bodyMedium,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: (value) => value!.isValidEmail() ? null : "Invalid Email",
-        decoration: const InputDecoration(
-            labelText: 'Email', hintText: 'Enter valid mail.'),
+        validator: (value) => value!.isValidEmail() ? null : t("invalid_email"),
+        decoration: getInputDecoration('Email', 'Enter your email.'),
       )),
       AuthItemWrapper(
         child: TextFormField(
@@ -97,28 +108,22 @@ class _SignUpContainer extends State<SignUpContainer> {
           validator: (value) => value!.isValidPassword()
               ? null
               : "Password must be at least 8 characters long.",
-          decoration: InputDecoration(
-              border: Theme.of(context).inputDecorationTheme.border,
-              labelText: 'Password',
-              hintText: 'Enter your password'),
+          decoration: getInputDecoration('Password', 'Enter your password'),
         ),
       ),
       AuthItemWrapper(
         child: TextFormField(
-          autofillHints: const [AutofillHints.newPassword],
-          style: Theme.of(context).textTheme.bodyMedium,
-          controller: passwordControllerCheck,
-          obscureText: true,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (value) =>
-              passwordController.text == passwordControllerCheck.text
-                  ? null
-                  : "Password must be at least 8 characters long.",
-          decoration: InputDecoration(
-              border: Theme.of(context).inputDecorationTheme.border,
-              labelText: 'Repeat your Password',
-              hintText: 'Enter your password'),
-        ),
+            autofillHints: const [AutofillHints.newPassword],
+            style: Theme.of(context).textTheme.bodyMedium,
+            controller: passwordControllerCheck,
+            obscureText: true,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) =>
+                passwordController.text == passwordControllerCheck.text
+                    ? null
+                    : "Password must be at least 8 characters long.",
+            decoration: getInputDecoration(
+                'Repeat your Password', "Enter your password again.")),
       ),
       AuthItemWrapper(
           child: SizedBox.expand(
@@ -129,7 +134,7 @@ class _SignUpContainer extends State<SignUpContainer> {
                           Theme.of(context).primaryColor)),
                   child: loading
                       ? const CircularProgressIndicator()
-                      : const Text('Sign Up')))),
+                      : Text(t("signup"))))),
       AuthItemWrapper(
           paddingHeight: 2,
           minHeight: 20,
@@ -137,7 +142,7 @@ class _SignUpContainer extends State<SignUpContainer> {
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             InkWell(
-                child: Text("Have an account? Login.",
+                child: Text(t("go_login"),
                     style: Theme.of(context).textTheme.titleSmall),
                 onTap: () {
                   FirebaseAuthHandler.logout();

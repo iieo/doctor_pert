@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
             ]),
           )),
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(t("findOnMap"), style: Theme.of(context).textTheme.titleMedium),
+        Text(t("findOnMap"), style: Theme.of(context).textTheme.headlineMedium),
         const SizedBox(height: 20),
         ClipRRect(
             borderRadius: BorderRadius.circular(10),

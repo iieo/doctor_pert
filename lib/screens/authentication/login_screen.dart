@@ -16,7 +16,6 @@ class LoginContainer extends StatefulWidget {
   State<LoginContainer> createState() => _LoginContainer();
 }
 
-
 /**
  * ich hab die texte durch t("textinhalt") ersetzt, damit man auch die sprache ändern kann
  * 
@@ -110,13 +109,9 @@ class _LoginContainer extends State<LoginContainer> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => value!.isValidEmail() ? null : t("invalidEmail"),
         decoration: InputDecoration(
-            labelText: t("email"),
-            hintText: t("enterEmail"),
-            fillColor: Colors.grey[200],
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.all(Radius.circular(defaultRadius)),
-            )),
+          labelText: t("email"),
+          hintText: t("enterEmail"),
+        ),
       )),
       AuthItemWrapper(
         child: TextField(
@@ -170,7 +165,7 @@ class _LoginContainer extends State<LoginContainer> {
                       '${t('email_sent_to')} ${emailController.text}', context);
                 }),
             InkWell(
-                child: Text(t("create_account"),
+                child: Text(t("go_signup"),
                     style: Theme.of(context).textTheme.titleSmall),
                 onTap: () {
                   FirebaseAuthHandler.logout();
