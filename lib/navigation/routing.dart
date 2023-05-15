@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../screens/authentication/authentication_screen.dart';
+import '../screens/authentication/login_screen.dart';
+import '../screens/authentication/sign_up_screen.dart';
 import 'change_notifier.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -26,20 +29,20 @@ final GoRouter router = GoRouter(
       GoRouterRefreshStream(FirebaseAuth.instance.authStateChanges()),
   errorBuilder: (context, state) => const NotFoundScreen(),
   routes: <RouteBase>[
-    /*GoRoute(
+    GoRoute(
       path: '/login',
       pageBuilder: (BuildContext context, GoRouterState state) {
         return const NoTransitionPage(
-            child: AuthScreen(child: LoginContainer()));
+            child: AuthenticationScreen(child: LoginContainer()));
       },
     ),
     GoRoute(
       path: '/signup',
       pageBuilder: (BuildContext context, GoRouterState state) {
         return const NoTransitionPage(
-            child: AuthScreen(child: SignUpContainer()));
+            child: AuthenticationScreen(child: SignUpContainer()));
       },
-    )*/
+    ),
     ShellRoute(
         navigatorKey: _shellNavigatorKey,
         pageBuilder: (context, state, child) {

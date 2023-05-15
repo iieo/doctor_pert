@@ -1,7 +1,27 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:g_recaptcha_v3/g_recaptcha_v3.dart';
 
 class EmailNotVerifiedException implements Exception {}
+
+void initRecaptcha() async {
+  if (kIsWeb) {
+    bool ready = await GRecaptchaV3.ready(
+        "6LfxPAwmAAAAANBubVzTuAkqRyxq0PNH37i7Swk8",
+        showBadge: true); //--2
+    // ignore: avoid_print
+    print("Is Recaptcha ready? $ready");
+  }
+}
+
+void generateToken() async {
+  String? token = await GRecaptchaV3.execute('<your_action>');
+  print(token);
+  // send token to server and verify
+}
 
 class FirebaseAuthHandler {
   static String getFirebaseErrorText(FirebaseAuthException e) {
@@ -45,10 +65,28 @@ class FirebaseAuthHandler {
     return FirebaseAuth.instance.currentUser!.emailVerified;
   }
 
+  static Future<void> signInWithGoogle() async {
+    // Create a new provider
+    GoogleAuthProvider googleProvider = GoogleAuthProvider();
+
+    googleProvider
+        .addScope('https://www.googleapis.com/auth/contacts.readonly');
+    googleProvider.setCustomParameters({'login_hint': 'user@example.com'});
+
+    // Once signed in, return the UserCredential
+
+    await FirebaseAuth.instance
+        .signInWithRedirect(googleProvider)
+        .onError((error, stackTrace) => print(error));
+
+    // Or use signInWithRedirect
+    //return await FirebaseAuth.instance.signInWithRedirect(googleProvider);
+  }
+
   static Future<void> tryLogin(String email, String password) async {
     UserCredential credentials = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
-        .timeout(const Duration(seconds: 15),
+        .timeout(const Duration(seconds: 10),
             onTimeout: () => throw FirebaseAuthException(code: "timeout"));
 
     if (credentials.user == null || !credentials.user!.emailVerified) {
@@ -59,6 +97,8 @@ class FirebaseAuthHandler {
 
   static Future<void> trySignup(
       String name, String email, String password) async {
+    generateToken();
+
     UserCredential credentials = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .timeout(const Duration(seconds: 15),
@@ -70,12 +110,7 @@ class FirebaseAuthHandler {
 
     await credentials.user!.sendEmailVerification();
     await credentials.user!.updateDisplayName(name);
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(credentials.user!.uid)
-        .set({'name': name, 'email': email, 'points': 0});
-
-    await FirebaseAuth.instance.signOut();
+    FirebaseFirestore.instance.collection('users').doc(credentials.user!.uid);
   }
 
   static Future<void> forgotPassword(String email) async {

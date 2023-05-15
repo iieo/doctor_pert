@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-double defaultRadius = 8.0;
+double defaultRadius = 6.0;
 
 const Color primaryColor = Color(0xFF0077B6);
 
@@ -13,7 +14,24 @@ ColorScheme colorScheme = ColorScheme.fromSeed(
   secondary: secondaryColor,
 );
 
-final ThemeData themeData = ThemeData(
+final TextTheme _textTheme = TextTheme(
+  headlineLarge: GoogleFonts.lato(fontSize: 50.0, fontWeight: FontWeight.bold),
+  headlineMedium:
+      GoogleFonts.lato(fontSize: 35.0, fontWeight: FontWeight.normal),
+  headlineSmall: GoogleFonts.lato(fontSize: 18.0, fontWeight: FontWeight.w300),
+  displayLarge: GoogleFonts.lato(fontSize: 55.0, fontWeight: FontWeight.bold),
+  displayMedium:
+      GoogleFonts.lato(fontSize: 30.0, fontWeight: FontWeight.normal),
+  displaySmall: GoogleFonts.lato(fontSize: 16.0, fontWeight: FontWeight.w300),
+  bodyLarge: GoogleFonts.lato(fontSize: 28.0, fontWeight: FontWeight.bold),
+  bodyMedium: GoogleFonts.lato(fontSize: 19.0, fontWeight: FontWeight.normal),
+  bodySmall: GoogleFonts.lato(fontSize: 14.0, fontWeight: FontWeight.w300),
+  labelLarge: GoogleFonts.lato(fontSize: 25.0, fontWeight: FontWeight.bold),
+  labelMedium: GoogleFonts.lato(fontSize: 18.0, fontWeight: FontWeight.normal),
+  labelSmall: GoogleFonts.lato(fontSize: 12.0, fontWeight: FontWeight.w300),
+);
+
+final ThemeData lightTheme = ThemeData(
   pageTransitionsTheme: PageTransitionsTheme(
     builders: <TargetPlatform, PageTransitionsBuilder>{
       TargetPlatform.android: NoPageTransitionBuilder(),
@@ -42,6 +60,25 @@ final ThemeData themeData = ThemeData(
   appBarTheme: const AppBarTheme(backgroundColor: primaryColor),
   scaffoldBackgroundColor: Colors.white,
   dialogBackgroundColor: colorScheme.secondaryContainer,
+  inputDecorationTheme: InputDecorationTheme(
+    filled: true,
+    hintStyle: _textTheme.labelMedium,
+    labelStyle: _textTheme.labelMedium,
+    helperStyle: _textTheme.labelMedium,
+    prefixStyle: _textTheme.labelMedium,
+    suffixStyle: _textTheme.labelMedium,
+    counterStyle: _textTheme.labelMedium,
+    errorStyle: _textTheme.labelMedium,
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(defaultRadius),
+      borderSide: BorderSide(color: colorScheme.error),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(defaultRadius),
+      borderSide: BorderSide(color: colorScheme.error),
+    ),
+  ),
+  textTheme: _textTheme,
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all<Color>(secondaryColor),
@@ -51,6 +88,13 @@ final ThemeData themeData = ThemeData(
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
       ),
+    ),
+  ),
+  buttonTheme: ButtonThemeData(
+    buttonColor: secondaryColor,
+    textTheme: ButtonTextTheme.primary,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(defaultRadius),
     ),
   ),
 );
