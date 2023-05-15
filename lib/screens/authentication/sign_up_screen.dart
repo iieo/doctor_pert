@@ -98,7 +98,7 @@ class _SignUpContainer extends State<SignUpContainer> {
               ? null
               : "Password must be at least 8 characters long.",
           decoration: InputDecoration(
-              border: GetCurrentTheme(context).inputDecorationTheme.border,
+              border: Theme.of(context).inputDecorationTheme.border,
               labelText: 'Password',
               hintText: 'Enter your password'),
         ),
@@ -115,7 +115,7 @@ class _SignUpContainer extends State<SignUpContainer> {
                   ? null
                   : "Password must be at least 8 characters long.",
           decoration: InputDecoration(
-              border: GetCurrentTheme(context).inputDecorationTheme.border,
+              border: Theme.of(context).inputDecorationTheme.border,
               labelText: 'Repeat your Password',
               hintText: 'Enter your password'),
         ),
@@ -126,7 +126,7 @@ class _SignUpContainer extends State<SignUpContainer> {
                   onPressed: _signupUser,
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                          GetCurrentTheme(context).primaryColor)),
+                          Theme.of(context).primaryColor)),
                   child: loading
                       ? const CircularProgressIndicator()
                       : const Text('Sign Up')))),

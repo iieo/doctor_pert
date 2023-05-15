@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-double defaultRadius = 8.0;
+double defaultRadius = 6.0;
 
 const Color primaryColor = Color(0xFF0077B6);
 
@@ -12,6 +12,23 @@ ColorScheme colorScheme = ColorScheme.fromSeed(
   brightness: Brightness.light,
   primary: primaryColor,
   secondary: secondaryColor,
+);
+
+final TextTheme _textTheme = TextTheme(
+  headlineLarge: GoogleFonts.lato(fontSize: 50.0, fontWeight: FontWeight.bold),
+  headlineMedium:
+      GoogleFonts.lato(fontSize: 35.0, fontWeight: FontWeight.normal),
+  headlineSmall: GoogleFonts.lato(fontSize: 18.0, fontWeight: FontWeight.w300),
+  displayLarge: GoogleFonts.lato(fontSize: 55.0, fontWeight: FontWeight.bold),
+  displayMedium:
+      GoogleFonts.lato(fontSize: 30.0, fontWeight: FontWeight.normal),
+  displaySmall: GoogleFonts.lato(fontSize: 16.0, fontWeight: FontWeight.w300),
+  bodyLarge: GoogleFonts.lato(fontSize: 28.0, fontWeight: FontWeight.bold),
+  bodyMedium: GoogleFonts.lato(fontSize: 19.0, fontWeight: FontWeight.normal),
+  bodySmall: GoogleFonts.lato(fontSize: 14.0, fontWeight: FontWeight.w300),
+  labelLarge: GoogleFonts.lato(fontSize: 25.0, fontWeight: FontWeight.bold),
+  labelMedium: GoogleFonts.lato(fontSize: 18.0, fontWeight: FontWeight.normal),
+  labelSmall: GoogleFonts.lato(fontSize: 12.0, fontWeight: FontWeight.w300),
 );
 
 final ThemeData lightTheme = ThemeData(
@@ -45,54 +62,23 @@ final ThemeData lightTheme = ThemeData(
   dialogBackgroundColor: colorScheme.secondaryContainer,
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: Colors.grey[200],
-    border: const OutlineInputBorder(
-        borderSide: BorderSide.none,
-        borderRadius: BorderRadius.all(Radius.circular(100))),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(100),
-      borderSide: BorderSide.none,
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(100),
-      borderSide: BorderSide.none,
-    ),
+    hintStyle: _textTheme.labelMedium,
+    labelStyle: _textTheme.labelMedium,
+    helperStyle: _textTheme.labelMedium,
+    prefixStyle: _textTheme.labelMedium,
+    suffixStyle: _textTheme.labelMedium,
+    counterStyle: _textTheme.labelMedium,
+    errorStyle: _textTheme.labelMedium,
     errorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(100),
+      borderRadius: BorderRadius.circular(defaultRadius),
       borderSide: BorderSide(color: colorScheme.error),
     ),
     focusedErrorBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(100),
+      borderRadius: BorderRadius.circular(defaultRadius),
       borderSide: BorderSide(color: colorScheme.error),
     ),
-    errorStyle: TextStyle(color: colorScheme.errorContainer, fontSize: 0.001),
   ),
-  textTheme: TextTheme(
-      headlineLarge:
-          GoogleFonts.lato(fontSize: 50.0, fontWeight: FontWeight.bold),
-      headlineMedium:
-          GoogleFonts.lato(fontSize: 35.0, fontWeight: FontWeight.normal),
-      headlineSmall:
-          GoogleFonts.lato(fontSize: 18.0, fontWeight: FontWeight.w300),
-      displayLarge:
-          GoogleFonts.lato(fontSize: 55.0, fontWeight: FontWeight.bold),
-      displayMedium:
-          GoogleFonts.lato(fontSize: 30.0, fontWeight: FontWeight.normal),
-      displaySmall:
-          GoogleFonts.lato(fontSize: 16.0, fontWeight: FontWeight.w300),
-      bodyLarge: GoogleFonts.lato(fontSize: 28.0, fontWeight: FontWeight.bold),
-      bodyMedium:
-          GoogleFonts.lato(fontSize: 19.0, fontWeight: FontWeight.normal),
-      bodySmall: GoogleFonts.lato(fontSize: 14.0, fontWeight: FontWeight.w300),
-      labelLarge: GoogleFonts.lato(fontSize: 25.0, fontWeight: FontWeight.bold),
-      labelMedium:
-          GoogleFonts.lato(fontSize: 18.0, fontWeight: FontWeight.normal),
-      labelSmall: GoogleFonts.lato(fontSize: 12.0, fontWeight: FontWeight.w300),
-      titleLarge: GoogleFonts.lato(fontSize: 55.0, fontWeight: FontWeight.bold),
-      titleMedium:
-          GoogleFonts.lato(fontSize: 30.0, fontWeight: FontWeight.normal),
-      titleSmall:
-          GoogleFonts.lato(fontSize: 18.0, fontWeight: FontWeight.w300)),
+  textTheme: _textTheme,
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all<Color>(secondaryColor),
@@ -124,8 +110,4 @@ class NoPageTransitionBuilder extends PageTransitionsBuilder {
   ) {
     return child;
   }
-}
-
-ThemeData GetCurrentTheme(BuildContext context) {
-  return Theme.of(context);
 }
