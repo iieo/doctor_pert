@@ -3,7 +3,7 @@ import 'package:doctor_pert/models/doctor.dart';
 import 'package:doctor_pert/models/dummy_data.dart';
 import 'package:doctor_pert/screens/home_screen/components/osm_map.dart';
 import 'package:doctor_pert/screens/search_screen/components/doctor_card.dart';
-import 'package:doctor_pert/screens/search_screen/components/doctor_overview.dart';
+import 'package:doctor_pert/screens/search_screen/components/overview/overview.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:local_hero/local_hero.dart';
@@ -21,7 +21,6 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final List<Doctor> doctors = List.generate(40, (index) => doctor1);
-  int _selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -54,16 +53,16 @@ class _AnimatedOverviewState extends State<AnimatedOverview>
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
-  int _selectedIndex = -1;
+  int _selectedIndex = 1;
 
   @override
   void initState() {
     super.initState();
     _animationController = AnimationController(
         duration: const Duration(milliseconds: 150), vsync: this);
-    _scaleAnimation = Tween<double>(begin: 0, end: 1).animate(
+    _scaleAnimation = Tween<double>(begin: 1, end: 0).animate(
         CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
-    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+    _fadeAnimation = Tween<double>(begin: 1, end: 0).animate(
         CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
   }
 
@@ -85,7 +84,7 @@ class _AnimatedOverviewState extends State<AnimatedOverview>
   Widget build(BuildContext context) {
     return Stack(children: [
       ListView.builder(
-        itemCount: 20,
+        itemCount: widget.doctors.length,
         itemBuilder: (context, index) {
           return DoctorCard(
             onTap: () {
@@ -94,7 +93,7 @@ class _AnimatedOverviewState extends State<AnimatedOverview>
               });
               _toggleAnimation();
             },
-            doctor: widget.doctors[0],
+            doctor: widget.doctors[index],
           );
         },
       ),

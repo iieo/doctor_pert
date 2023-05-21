@@ -39,6 +39,10 @@ class _OSMMapState extends State<OSMMap> {
   void _moveToLocation() async {
     await Geolocator.requestPermission();
 
+    if (!await Geolocator.isLocationServiceEnabled()) {
+      return;
+    }
+
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     _mapController.move(LatLng(position.latitude, position.longitude), _zoom);
