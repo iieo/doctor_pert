@@ -5,7 +5,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
 class OSMMap extends StatefulWidget {
-  const OSMMap({super.key});
+  final List<Marker> markers;
+  const OSMMap({super.key, this.markers = const []});
 
   @override
   State<OSMMap> createState() => _OSMMapState();
@@ -55,8 +56,6 @@ class _OSMMapState extends State<OSMMap> {
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
-      //add zoom buttons
-      //osm credits
       nonRotatedChildren: [
         Positioned(
           bottom: 10,
@@ -88,6 +87,7 @@ class _OSMMapState extends State<OSMMap> {
           urlTemplate:
               'https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=hQaBTBuPKEQ3xuoB1MZf',
         ),
+        MarkerLayer(markers: widget.markers)
       ],
     );
   }

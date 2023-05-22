@@ -24,7 +24,7 @@ Doctor doctor1 = Doctor(
       OpeningHoursDay(day: 5, open: "08:00", close: "12:00"),
       OpeningHoursDay(day: 5, open: "13:00", close: "17:00"),
     ]),
-    location: LatLng(50.0, 8.0),
+    locations: [LatLng(48.2475327, 12.1612037)],
     specialities: ["general"],
     website: "https://www.musterpraxis.de",
     description:

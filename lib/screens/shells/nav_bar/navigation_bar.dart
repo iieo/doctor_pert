@@ -26,9 +26,11 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     bool isLoggedIn = FirebaseAuthHandler.isUserLoggedIn();
     return SliverAppBar(
-      floating: false,
+      floating: true,
+      pinned: false,
+      snap: false,
       title: InkWell(
-          onTap: () => GoRouter.of(context).go("home"),
+          onTap: () => GoRouter.of(context).go("/"),
           child: Text(t("app-name"),
               style: Theme.of(context).textTheme.headlineMedium)),
       actions: [

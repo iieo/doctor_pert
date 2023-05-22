@@ -15,7 +15,7 @@ class Doctor {
   List<String> languages;
   OpeningHours openingHours;
   List<Rating> ratings;
-  LatLng location;
+  List<LatLng> locations;
   List<String> services;
 
   Doctor({
@@ -25,7 +25,7 @@ class Doctor {
     required this.phone,
     required this.email,
     required this.openingHours,
-    required this.location,
+    required this.locations,
     this.specialities = const ["general"],
     this.website,
     this.description,
