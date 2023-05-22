@@ -45,10 +45,19 @@ class _SearchScreenState extends State<SearchScreen>
             point: LatLng(location.latitude, location.longitude),
             builder: (ctx) => GestureDetector(
                 onTap: () {
-                  _toggleAnimation();
-                  setState(() {
-                    _selectedIndex = i;
-                  });
+                  if (_selectedIndex == i) {
+                    _toggleAnimation();
+                    setState(() {
+                      _selectedIndex = -1;
+                    });
+                  } else {
+                    if (_selectedIndex == -1) {
+                      _toggleAnimation();
+                    }
+                    setState(() {
+                      _selectedIndex = i;
+                    });
+                  }
                 },
                 child: Container(
                   decoration: BoxDecoration(
