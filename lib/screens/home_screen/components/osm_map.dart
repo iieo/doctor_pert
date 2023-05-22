@@ -37,15 +37,19 @@ class _OSMMapState extends State<OSMMap> {
   }
 
   void _moveToLocation() async {
-    await Geolocator.requestPermission();
-
-    if (!await Geolocator.isLocationServiceEnabled()) {
+    if (!mounted) {
       return;
     }
 
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    _mapController.move(LatLng(position.latitude, position.longitude), _zoom);
+    if (await Geolocator.isLocationServiceEnabled()) {
+      if (await Geolocator.checkPermission() == LocationPermission.denied) {
+        await Geolocator.requestPermission();
+      }
+
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      _mapController.move(LatLng(position.latitude, position.longitude), _zoom);
+    }
   }
 
   @override

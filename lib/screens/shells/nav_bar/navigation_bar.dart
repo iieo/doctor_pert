@@ -39,7 +39,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
             padding: const EdgeInsets.all(8),
             child: ElevatedButton(
-                onPressed: () => _register(context),
+                onPressed: isLoggedIn ? _account : () => _register(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                   foregroundColor: Theme.of(context).colorScheme.onSecondary,
