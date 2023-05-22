@@ -7,6 +7,7 @@ import 'package:doctor_pert/screens/search_screen/components/overview/animated_o
 import 'package:doctor_pert/screens/search_screen/components/overview/overview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:local_hero/local_hero.dart';
 
@@ -30,20 +31,37 @@ class _SearchScreenState extends State<SearchScreen> {
     for (int i = 0; i < doctors.length; i++) {
       for (LatLng location in doctors[i].locations) {
         Marker marker = Marker(
-            width: 80.0,
-            height: 80.0,
+            width: 55.0,
+            height: 55.0,
             point: LatLng(location.latitude, location.longitude),
             builder: (ctx) => GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedIndex = i;
-                    });
-                  },
-                  child: const Icon(
-                    Icons.location_on,
-                    color: Colors.red,
-                  ),
-                ));
+                onTap: () {
+                  setState(() {
+                    _selectedIndex = i;
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: _selectedIndex == i
+                          ? Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.5)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(
+                          color: _selectedIndex == i
+                              ? Theme.of(context).colorScheme.onPrimary
+                              : Theme.of(context).colorScheme.primary,
+                          width: 3)),
+                  child: Center(
+                      child: FaIcon(
+                    Doctor.getIconData(doctors[i].type),
+                    color: _selectedIndex == i
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : Theme.of(context).colorScheme.primary,
+                  )),
+                )));
         markers.add(marker);
       }
     }

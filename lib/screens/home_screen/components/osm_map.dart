@@ -38,10 +38,6 @@ class _OSMMapState extends State<OSMMap> {
   }
 
   void _moveToLocation() async {
-    if (!mounted) {
-      return;
-    }
-
     if (await Geolocator.isLocationServiceEnabled()) {
       if (await Geolocator.checkPermission() == LocationPermission.denied) {
         await Geolocator.requestPermission();
@@ -49,7 +45,10 @@ class _OSMMapState extends State<OSMMap> {
 
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      _mapController.move(LatLng(position.latitude, position.longitude), _zoom);
+      if (mounted) {
+        _mapController.move(
+            LatLng(position.latitude, position.longitude), _zoom);
+      }
     }
   }
 

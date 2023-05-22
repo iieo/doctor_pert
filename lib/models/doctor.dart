@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/icon_data.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
 
 class Doctor {
@@ -34,6 +37,55 @@ class Doctor {
     this.ratings = const [],
     this.services = const ["general"],
   });
+
+  static IconData getIconData(DoctorType type) {
+    IconData icon;
+    switch (type) {
+      case DoctorType.genral:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+      case DoctorType.chiropractor:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+      case DoctorType.dentist:
+        icon = FontAwesomeIcons.tooth;
+        break;
+      case DoctorType.dermatologist:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+      case DoctorType.dietitian:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+      case DoctorType.gynecologist:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+      case DoctorType.neurologist:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+      case DoctorType.ophthalmologist:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+      case DoctorType.orthopedist:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+      case DoctorType.pediatrician:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+      case DoctorType.psychiatrist:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+      case DoctorType.urologist:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+      case DoctorType.veterinarian:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+      case DoctorType.other:
+        icon = FontAwesomeIcons.userDoctor;
+        break;
+    }
+    return icon;
+  }
 }
 
 enum DoctorType {
