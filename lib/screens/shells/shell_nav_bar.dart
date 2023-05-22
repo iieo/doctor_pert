@@ -11,6 +11,9 @@ class ShellNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: NestedScrollView(
+            physics: isPinned
+                ? const NeverScrollableScrollPhysics()
+                : const BouncingScrollPhysics(),
             headerSliverBuilder: (context, innerBoxIsScrolled) {
               return [
                 NavBar(

@@ -3,7 +3,6 @@ import 'dart:html';
 import 'package:doctor_pert/models/doctor.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/about_overview_tab.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/contact_overview_tab.dart';
-import 'package:doctor_pert/screens/search_screen/components/overview/overview_body.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/overview_header.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/ratings_overview_tab.dart';
 import 'package:doctor_pert/translation.dart';

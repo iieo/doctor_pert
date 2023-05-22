@@ -31,6 +31,7 @@ final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: '/login',
+      name: 'login',
       pageBuilder: (BuildContext context, GoRouterState state) {
         return const NoTransitionPage(
             child: AuthenticationScreen(child: LoginContainer()));
@@ -38,6 +39,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/signup',
+      name: 'signup',
       pageBuilder: (BuildContext context, GoRouterState state) {
         return const NoTransitionPage(
             child: AuthenticationScreen(child: SignUpContainer()));
@@ -55,6 +57,7 @@ final GoRouter router = GoRouter(
         routes: [
           GoRoute(
               parentNavigatorKey: _shellNavigatorKey,
+              name: "search",
               path: "/search",
               pageBuilder: (context, state) {
                 String searchQuery = state.queryParameters['q'] ?? "doctor";
@@ -77,6 +80,7 @@ final GoRouter router = GoRouter(
           GoRoute(
             parentNavigatorKey: _shellNavigatorKey,
             path: "/",
+            name: "home",
             pageBuilder: (context, state) =>
                 const NoTransitionPage(child: HomeScreen()),
           ),
