@@ -26,6 +26,10 @@ class DoctorOverview extends StatelessWidget {
 
     SliverAppBar getSliverAppBar() {
       return SliverAppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: onPressed,
+        ),
         expandedHeight: 420,
         pinned: true,
         flexibleSpace: FlexibleSpaceBar(
