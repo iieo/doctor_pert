@@ -22,9 +22,18 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends State<SearchScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
   final List<Doctor> doctors = List.generate(40, (index) => doctor1);
   int _selectedIndex = -1;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+        duration: const Duration(milliseconds: 150), vsync: this);
+  }
 
   List<Marker> _getMarkersOfDoctors() {
     List<Marker> markers = [];
@@ -36,6 +45,7 @@ class _SearchScreenState extends State<SearchScreen> {
             point: LatLng(location.latitude, location.longitude),
             builder: (ctx) => GestureDetector(
                 onTap: () {
+                  _toggleAnimation();
                   setState(() {
                     _selectedIndex = i;
                   });
@@ -75,6 +85,8 @@ class _SearchScreenState extends State<SearchScreen> {
         Expanded(
             flex: 2,
             child: AnimatedOverview(
+              animationController: _animationController,
+              toggleAnimation: _toggleAnimation,
               doctors: doctors,
               setIndex: (index) {
                 setState(() {
@@ -91,5 +103,22 @@ class _SearchScreenState extends State<SearchScreen> {
         )
       ],
     );
+  }
+
+  void _toggleAnimation() {
+    if (_animationController.isCompleted) {
+      _animationController.reverse();
+      setState(() {
+        _selectedIndex = -1;
+      });
+    } else {
+      _animationController.forward();
+    }
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 }
