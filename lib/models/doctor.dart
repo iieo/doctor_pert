@@ -23,7 +23,7 @@ class Doctor {
   List<Rating> ratings;
   List<LatLng> locations;
   List<String> services;
-
+  List<List<TimeOfDay>> availableAppointments;
   Doctor({
     required this.id,
     required this.name,
@@ -33,6 +33,7 @@ class Doctor {
     required this.email,
     required this.openingHours,
     required this.locations,
+    required this.availableAppointments,
     this.specialities = const ["general"],
     this.website,
     this.description,

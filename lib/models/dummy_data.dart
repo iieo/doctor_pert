@@ -3,7 +3,7 @@ import 'package:doctor_pert/models/reservation.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
-List<Reservation> reservations = [
+List<Reservation> reservations1 = [
   Reservation(
     doctorId: doctor1.id,
     workerId: doctor1.id,
@@ -21,7 +21,7 @@ List<Reservation> reservations = [
     status: ReservationStatus.accepted,
     userId: "1",
     date: DateTime.now().add(const Duration(days: 1)),
-    time: const TimeOfDay(hour: 9, minute: 0),
+    time: const TimeOfDay(hour: 8, minute: 30),
     location: LatLng(48.2475327, 12.1612037),
   ),
   Reservation(
@@ -41,7 +41,7 @@ List<Reservation> reservations = [
     status: ReservationStatus.accepted,
     userId: "1",
     date: DateTime.now().add(const Duration(days: 1)),
-    time: const TimeOfDay(hour: 11, minute: 0),
+    time: const TimeOfDay(hour: 11, minute: 30),
     location: LatLng(48.2475327, 12.1612037),
   ),
 ];
@@ -94,4 +94,36 @@ Doctor doctor1 = Doctor(
         created: DateTime.now().subtract(const Duration(days: 2)),
         updated: DateTime.now().subtract(const Duration(days: 2)),
       )
+    ],
+    availableAppointments: [
+      [
+        const TimeOfDay(hour: 8, minute: 0),
+        const TimeOfDay(hour: 12, minute: 0),
+        const TimeOfDay(hour: 13, minute: 0),
+        const TimeOfDay(hour: 17, minute: 0)
+      ],
+      [
+        const TimeOfDay(hour: 8, minute: 0),
+        const TimeOfDay(hour: 8, minute: 30),
+        const TimeOfDay(hour: 10, minute: 0),
+        const TimeOfDay(hour: 11, minute: 30)
+      ],
+      [
+        const TimeOfDay(hour: 8, minute: 0),
+        const TimeOfDay(hour: 12, minute: 0),
+        const TimeOfDay(hour: 13, minute: 0),
+        const TimeOfDay(hour: 17, minute: 0)
+      ],
+      [
+        const TimeOfDay(hour: 8, minute: 0),
+        const TimeOfDay(hour: 8, minute: 30),
+        const TimeOfDay(hour: 10, minute: 0),
+        const TimeOfDay(hour: 11, minute: 30)
+      ],
+      [
+        const TimeOfDay(hour: 8, minute: 0),
+        const TimeOfDay(hour: 12, minute: 0),
+        const TimeOfDay(hour: 13, minute: 0),
+        const TimeOfDay(hour: 17, minute: 0)
+      ],
     ]);
