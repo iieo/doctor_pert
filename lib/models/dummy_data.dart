@@ -1,7 +1,53 @@
 import 'package:doctor_pert/models/doctor.dart';
+import 'package:doctor_pert/models/reservation.dart';
+import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
+List<Reservation> reservations = [
+  Reservation(
+    doctorId: doctor1.id,
+    workerId: doctor1.id,
+    created: DateTime.now().subtract(const Duration(days: 1)),
+    status: ReservationStatus.accepted,
+    userId: "1",
+    date: DateTime.now().add(const Duration(days: 1)),
+    time: const TimeOfDay(hour: 8, minute: 0),
+    location: LatLng(48.2475327, 12.1612037),
+  ),
+  Reservation(
+    doctorId: doctor1.id,
+    workerId: doctor1.id,
+    created: DateTime.now().subtract(const Duration(days: 1)),
+    status: ReservationStatus.accepted,
+    userId: "1",
+    date: DateTime.now().add(const Duration(days: 1)),
+    time: const TimeOfDay(hour: 9, minute: 0),
+    location: LatLng(48.2475327, 12.1612037),
+  ),
+  Reservation(
+    doctorId: doctor1.id,
+    workerId: doctor1.id,
+    created: DateTime.now().subtract(const Duration(days: 1)),
+    status: ReservationStatus.accepted,
+    userId: "1",
+    date: DateTime.now().add(const Duration(days: 2)),
+    time: const TimeOfDay(hour: 10, minute: 0),
+    location: LatLng(48.2475327, 12.1612037),
+  ),
+  Reservation(
+    doctorId: doctor1.id,
+    workerId: doctor1.id,
+    created: DateTime.now().subtract(const Duration(days: 1)),
+    status: ReservationStatus.accepted,
+    userId: "1",
+    date: DateTime.now().add(const Duration(days: 1)),
+    time: const TimeOfDay(hour: 11, minute: 0),
+    location: LatLng(48.2475327, 12.1612037),
+  ),
+];
+
 Doctor doctor1 = Doctor(
+    id: "1",
     name: "Dr. med. Max Mustermann",
     type: DoctorType.genral,
     address: Address(

@@ -1,4 +1,5 @@
 import 'package:doctor_pert/screens/home_screen/home_screen.dart';
+import 'package:doctor_pert/screens/reserve_screen/reserve_screen.dart';
 import 'package:doctor_pert/screens/search_screen/search_screen.dart';
 import 'package:doctor_pert/screens/shells/shell_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -76,6 +77,18 @@ final GoRouter router = GoRouter(
                   location: locationLatLng,
                   searchQuery: searchQuery,
                 ));
+              }),
+          GoRoute(
+              parentNavigatorKey: _shellNavigatorKey,
+              name: "reserve",
+              path: "/reserve",
+              pageBuilder: (context, state) {
+                String? doctorId = state.queryParameters['doctorId'];
+                if (doctorId == null) {
+                  //TODO: reroute
+                }
+                return NoTransitionPage(
+                    child: ReserveScreen(doctorId: "dummyId"));
               }),
           GoRoute(
             parentNavigatorKey: _shellNavigatorKey,

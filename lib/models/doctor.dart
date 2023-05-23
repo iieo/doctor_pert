@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_pert/models/worker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/icon_data.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
@@ -6,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
 
 class Doctor {
+  String id;
   String name;
   DoctorType type;
   Address address;
@@ -16,12 +18,14 @@ class Doctor {
   String? imageUrl;
   List<String> specialities;
   List<String> languages;
+  List<Worker> workers;
   OpeningHours openingHours;
   List<Rating> ratings;
   List<LatLng> locations;
   List<String> services;
 
   Doctor({
+    required this.id,
     required this.name,
     required this.type,
     required this.address,
@@ -36,7 +40,15 @@ class Doctor {
     this.languages = const ["german"],
     this.ratings = const [],
     this.services = const ["general"],
-  });
+  }) : workers = [
+          Worker(
+            id: id,
+            name: name,
+            email: email,
+            phone: phone,
+            type: WorkerType.doctor,
+          )
+        ];
 
   static IconData getIconData(DoctorType type) {
     IconData icon;
