@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../screens/authentication/authentication_screen.dart';
-import '../screens/authentication/login_screen.dart';
-import '../screens/authentication/sign_up_screen.dart';
+import '../screens/authentication_screen/authentication_screen.dart';
+import '../screens/authentication_screen/login_screen.dart';
+import '../screens/authentication_screen/sign_up_screen.dart';
 import 'change_notifier.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();

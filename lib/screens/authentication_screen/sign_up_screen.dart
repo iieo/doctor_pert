@@ -1,5 +1,5 @@
-import 'package:doctor_pert/screens/authentication/authentication_components.dart';
-import 'package:doctor_pert/screens/authentication/authentication_screen.dart';
+import 'package:doctor_pert/screens/authentication_screen/authentication_components.dart';
+import 'package:doctor_pert/screens/authentication_screen/authentication_screen.dart';
 import 'package:doctor_pert/theme/theme_data.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
