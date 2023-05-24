@@ -1,4 +1,3 @@
-import 'package:doctor_pert/theme/theme_data.dart';
 import 'package:flutter/material.dart';
 
 class ErrorSnackBar extends SnackBar {
@@ -8,7 +7,7 @@ class ErrorSnackBar extends SnackBar {
             key: key,
             duration: const Duration(seconds: 8),
             content: Center(child: Text(message)),
-            backgroundColor: GetCurrentTheme(context).colorScheme.error);
+            backgroundColor: Theme.of(context).colorScheme.error);
 }
 
 class InfoSnackBar extends SnackBar {
@@ -37,7 +36,7 @@ class ErrorSnackBarWithAction extends SnackBar {
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
                   handler();
                 }),
-            backgroundColor: GetCurrentTheme(context).colorScheme.error);
+            backgroundColor: Theme.of(context).colorScheme.error);
 }
 
 class AuthItemWrapper extends StatelessWidget {
