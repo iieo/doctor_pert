@@ -1,12 +1,22 @@
 import 'package:doctor_pert/models/doctor.dart';
+import 'package:doctor_pert/models/person.dart';
 import 'package:doctor_pert/models/reservation.dart';
+import 'package:doctor_pert/models/worker.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
+
+Person person1 = Person(
+  firstName: "Max",
+  lastName: "Mustermann",
+  email: "tet@test.de",
+  phone: "0123456789",
+);
 
 List<Reservation> reservations1 = [
   Reservation(
     doctorId: doctor1.id,
     workerId: doctor1.id,
+    patient: person1,
     created: DateTime.now().subtract(const Duration(days: 1)),
     status: ReservationStatus.accepted,
     userId: "1",
@@ -17,6 +27,7 @@ List<Reservation> reservations1 = [
   Reservation(
     doctorId: doctor1.id,
     workerId: doctor1.id,
+    patient: person1,
     created: DateTime.now().subtract(const Duration(days: 1)),
     status: ReservationStatus.accepted,
     userId: "1",
@@ -27,6 +38,7 @@ List<Reservation> reservations1 = [
   Reservation(
     doctorId: doctor1.id,
     workerId: doctor1.id,
+    patient: person1,
     created: DateTime.now().subtract(const Duration(days: 1)),
     status: ReservationStatus.accepted,
     userId: "1",
@@ -37,6 +49,7 @@ List<Reservation> reservations1 = [
   Reservation(
     doctorId: doctor1.id,
     workerId: doctor1.id,
+    patient: person1,
     created: DateTime.now().subtract(const Duration(days: 1)),
     status: ReservationStatus.accepted,
     userId: "1",
@@ -48,7 +61,8 @@ List<Reservation> reservations1 = [
 
 Doctor doctor1 = Doctor(
     id: "1",
-    name: "Dr. med. Max Mustermann",
+    name: "Musterpraxis",
+    owner: "Dr. med. Max Mustermann",
     type: DoctorType.genral,
     address: Address(
         street: "Musterstraße 1",
@@ -95,35 +109,47 @@ Doctor doctor1 = Doctor(
         updated: DateTime.now().subtract(const Duration(days: 2)),
       )
     ],
-    availableAppointments: [
-      [
-        const TimeOfDay(hour: 8, minute: 0),
-        const TimeOfDay(hour: 12, minute: 0),
-        const TimeOfDay(hour: 13, minute: 0),
-        const TimeOfDay(hour: 17, minute: 0)
-      ],
-      [
-        const TimeOfDay(hour: 8, minute: 0),
-        const TimeOfDay(hour: 8, minute: 30),
-        const TimeOfDay(hour: 10, minute: 0),
-        const TimeOfDay(hour: 11, minute: 30)
-      ],
-      [
-        const TimeOfDay(hour: 8, minute: 0),
-        const TimeOfDay(hour: 12, minute: 0),
-        const TimeOfDay(hour: 13, minute: 0),
-        const TimeOfDay(hour: 17, minute: 0)
-      ],
-      [
-        const TimeOfDay(hour: 8, minute: 0),
-        const TimeOfDay(hour: 8, minute: 30),
-        const TimeOfDay(hour: 10, minute: 0),
-        const TimeOfDay(hour: 11, minute: 30)
-      ],
-      [
-        const TimeOfDay(hour: 8, minute: 0),
-        const TimeOfDay(hour: 12, minute: 0),
-        const TimeOfDay(hour: 13, minute: 0),
-        const TimeOfDay(hour: 17, minute: 0)
-      ],
+    workers: [
+      Worker(
+          id: "1",
+          person: Person(
+            titles: "Dr. med.",
+            firstName: "Max",
+            lastName: "Mustermann",
+            phone: "0123456789",
+            email: "test@tes.de",
+          ),
+          type: WorkerType.doctor,
+          availableAppointments: [
+            [
+              const TimeOfDay(hour: 8, minute: 0),
+              const TimeOfDay(hour: 12, minute: 0),
+              const TimeOfDay(hour: 13, minute: 0),
+              const TimeOfDay(hour: 17, minute: 0)
+            ],
+            [
+              const TimeOfDay(hour: 8, minute: 0),
+              const TimeOfDay(hour: 8, minute: 30),
+              const TimeOfDay(hour: 10, minute: 0),
+              const TimeOfDay(hour: 11, minute: 30)
+            ],
+            [
+              const TimeOfDay(hour: 8, minute: 0),
+              const TimeOfDay(hour: 12, minute: 0),
+              const TimeOfDay(hour: 13, minute: 0),
+              const TimeOfDay(hour: 17, minute: 0)
+            ],
+            [
+              const TimeOfDay(hour: 8, minute: 0),
+              const TimeOfDay(hour: 8, minute: 30),
+              const TimeOfDay(hour: 10, minute: 0),
+              const TimeOfDay(hour: 11, minute: 30)
+            ],
+            [
+              const TimeOfDay(hour: 8, minute: 0),
+              const TimeOfDay(hour: 12, minute: 0),
+              const TimeOfDay(hour: 13, minute: 0),
+              const TimeOfDay(hour: 17, minute: 0)
+            ],
+          ])
     ]);

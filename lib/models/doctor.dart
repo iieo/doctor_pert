@@ -9,6 +9,7 @@ import 'package:latlong2/latlong.dart';
 class Doctor {
   String id;
   String name;
+  String owner;
   DoctorType type;
   Address address;
   String phone;
@@ -23,17 +24,17 @@ class Doctor {
   List<Rating> ratings;
   List<LatLng> locations;
   List<String> services;
-  List<List<TimeOfDay>> availableAppointments;
   Doctor({
     required this.id,
     required this.name,
+    required this.owner,
     required this.type,
     required this.address,
     required this.phone,
     required this.email,
     required this.openingHours,
     required this.locations,
-    required this.availableAppointments,
+    required this.workers,
     this.specialities = const ["general"],
     this.website,
     this.description,
@@ -41,15 +42,17 @@ class Doctor {
     this.languages = const ["german"],
     this.ratings = const [],
     this.services = const ["general"],
-  }) : workers = [
-          Worker(
-            id: id,
-            name: name,
-            email: email,
-            phone: phone,
-            type: WorkerType.doctor,
-          )
-        ];
+  });
+
+  List<List<TimeOfDay>> get availableAppointments {
+    List<List<TimeOfDay>> availableAppointments = [[], [], [], [], [], [], []];
+    for (Worker worker in workers) {
+      for (int i = 0; i < worker.availableAppointments.length && i < 7; i++) {
+        availableAppointments[i].addAll(worker.availableAppointments[i]);
+      }
+    }
+    return availableAppointments;
+  }
 
   static IconData getIconData(DoctorType type) {
     IconData icon;
