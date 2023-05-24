@@ -18,8 +18,12 @@ void initRecaptcha() async {
 }
 
 void generateToken() async {
-  String? token = await GRecaptchaV3.execute('<your_action>');
-  print(token);
+  String? token = await GRecaptchaV3.execute('sign_up');
+  //print(token.toString());
+  if (token == null) {
+    print("token is null");
+    return;
+  }
   // send token to server and verify
 }
 
@@ -97,7 +101,7 @@ class FirebaseAuthHandler {
 
   static Future<void> trySignup(
       String name, String email, String password) async {
-    generateToken();
+    //generateToken();
 
     UserCredential credentials = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)

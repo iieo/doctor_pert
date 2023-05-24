@@ -44,8 +44,12 @@ class _SignUpContainer extends State<SignUpContainer> {
     try {
       await FirebaseAuthHandler.trySignup(lastNameController.text,
           emailController.text, passwordController.text);
+      if (!context.mounted) {
+        return;
+      }
+      GoRouter.of(context).go("/search");
     } on FirebaseAuthException catch (e) {
-      ShowError("Login Failed: ${FirebaseAuthHandler.getFirebaseErrorText(e)}",
+      ShowError("Signup Failed: ${FirebaseAuthHandler.getFirebaseErrorText(e)}",
           context);
     } catch (e) {
       ShowError("Unknown Error. Please try again.", context);

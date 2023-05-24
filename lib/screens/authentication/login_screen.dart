@@ -55,6 +55,10 @@ class _LoginContainer extends State<LoginContainer> {
     try {
       await FirebaseAuthHandler.tryLogin(
           emailController.text, passwordController.text);
+      if (!context.mounted) {
+        return;
+      }
+      GoRouter.of(context).go("/search");
     } on FirebaseAuthException catch (e) {
       ShowError("Login Failed: ${FirebaseAuthHandler.getFirebaseErrorText(e)}",
           context);

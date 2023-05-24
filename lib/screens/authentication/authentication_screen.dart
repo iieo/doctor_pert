@@ -63,5 +63,5 @@ void ShowErrorWithAction(
     String message, String action, Function handler, BuildContext context) {
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
   ScaffoldMessenger.of(context).showSnackBar(ErrorSnackBarWithAction(
-      message: "Test", action: action, handler: handler, context: context));
+      message: message, action: action, handler: handler, context: context));
 }
