@@ -1,4 +1,4 @@
-import 'package:doctor_pert/models/doctor.dart';
+import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 

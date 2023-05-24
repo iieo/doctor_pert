@@ -1,16 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doctor_pert/models/worker.dart';
+import 'package:doctor_pert/models/employee.dart';
+import 'package:doctor_pert/models/person.dart';
+import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/icon_data.dart';
-import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
 
-class Doctor {
+import 'address.dart';
+import 'time.dart';
+
+class MedicalPractice {
   String id;
   String name;
-  String owner;
-  DoctorType type;
+  List<Person> owner;
+  List<DoctorType> type;
   Address address;
   String phone;
   String email;
@@ -19,12 +21,12 @@ class Doctor {
   String? imageUrl;
   List<String> specialities;
   List<String> languages;
-  List<Worker> workers;
+  List<Employee> employees;
   OpeningHours openingHours;
   List<Rating> ratings;
   List<LatLng> locations;
   List<String> services;
-  Doctor({
+  MedicalPractice({
     required this.id,
     required this.name,
     required this.owner,
@@ -34,7 +36,7 @@ class Doctor {
     required this.email,
     required this.openingHours,
     required this.locations,
-    required this.workers,
+    required this.employees,
     this.specialities = const ["general"],
     this.website,
     this.description,
@@ -44,11 +46,19 @@ class Doctor {
     this.services = const ["general"],
   });
 
+  List<Doctor> get doctors {
+    return employees.whereType<Doctor>().toList();
+  }
+
+  List<Assistant> get assistants {
+    return employees.whereType<Assistant>().toList();
+  }
+
   List<List<TimeOfDay>> get availableAppointments {
     List<List<TimeOfDay>> availableAppointments = [[], [], [], [], [], [], []];
-    for (Worker worker in workers) {
-      for (int i = 0; i < worker.availableAppointments.length && i < 7; i++) {
-        availableAppointments[i].addAll(worker.availableAppointments[i]);
+    for (Doctor doctor in doctors) {
+      for (int i = 0; i < doctor.availableAppointments.length && i < 7; i++) {
+        availableAppointments[i].addAll(doctor.availableAppointments[i]);
       }
     }
     return availableAppointments;
@@ -57,7 +67,7 @@ class Doctor {
   static IconData getIconData(DoctorType type) {
     IconData icon;
     switch (type) {
-      case DoctorType.genral:
+      case DoctorType.general:
         icon = FontAwesomeIcons.userDoctor;
         break;
       case DoctorType.chiropractor:
@@ -105,7 +115,7 @@ class Doctor {
 }
 
 enum DoctorType {
-  genral,
+  general,
   chiropractor,
   dentist,
   dermatologist,
@@ -121,86 +131,39 @@ enum DoctorType {
   other,
 }
 
-class Address {
-  String street;
-  String city;
-  String state;
-  String country;
-  String postalCode;
-
-  Address(
-      {required this.street,
-      required this.city,
-      required this.state,
-      required this.country,
-      required this.postalCode});
-
-  String get fullAddress {
-    return "$street, $postalCode $city, $country";
+PhraseKey fromDoctorType(DoctorType type) {
+  switch (type) {
+    case DoctorType.general:
+      return PhraseKey.general;
+    case DoctorType.chiropractor:
+      return PhraseKey.chiropractor;
+    case DoctorType.dentist:
+      return PhraseKey.dentist;
+    case DoctorType.dermatologist:
+      return PhraseKey.dermatologist;
+    case DoctorType.dietitian:
+      return PhraseKey.dietitian;
+    case DoctorType.gynecologist:
+      return PhraseKey.gynecologist;
+    case DoctorType.neurologist:
+      return PhraseKey.neurologist;
+    case DoctorType.ophthalmologist:
+      return PhraseKey.ophthalmologist;
+    case DoctorType.orthopedist:
+      return PhraseKey.orthopedist;
+    case DoctorType.pediatrician:
+      return PhraseKey.pediatrician;
+    case DoctorType.psychiatrist:
+      return PhraseKey.psychiatrist;
+    case DoctorType.urologist:
+      return PhraseKey.urologist;
+    case DoctorType.veterinarian:
+      return PhraseKey.veterinarian;
+    case DoctorType.other:
+      return PhraseKey.other;
+    default:
+      return PhraseKey.other;
   }
-}
-
-class OpeningHours {
-  List<OpeningHoursDay> days;
-
-  OpeningHoursDay get monday {
-    return days.firstWhere((element) => element.day == 1);
-  }
-
-  OpeningHoursDay get tuesday {
-    return days.firstWhere((element) => element.day == 2);
-  }
-
-  OpeningHoursDay get wednesday {
-    return days.firstWhere((element) => element.day == 3);
-  }
-
-  OpeningHoursDay get thursday {
-    return days.firstWhere((element) => element.day == 4);
-  }
-
-  OpeningHoursDay get friday {
-    return days.firstWhere((element) => element.day == 5);
-  }
-
-  OpeningHoursDay get saturday {
-    return days.firstWhere((element) => element.day == 6);
-  }
-
-  OpeningHoursDay get sunday {
-    return days.firstWhere((element) => element.day == 7);
-  }
-
-  OpeningHours({required this.days});
-}
-
-class OpeningHoursDay {
-  int day;
-  String open;
-  String close;
-
-  String get weekdayName {
-    switch (day) {
-      case 1:
-        return "monday";
-      case 2:
-        return "tuesday";
-      case 3:
-        return "wednesday";
-      case 4:
-        return "thursday";
-      case 5:
-        return "friday";
-      case 6:
-        return "saturday";
-      case 7:
-        return "sunday";
-      default:
-        return "monday";
-    }
-  }
-
-  OpeningHoursDay({required this.day, required this.open, required this.close});
 }
 
 class Rating {

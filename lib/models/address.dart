@@ -1,14 +1,18 @@
 class Address {
   String street;
   String city;
-  String? state;
+  String state;
   String country;
-  String zipCode;
+  String postalCode;
 
   Address(
       {required this.street,
       required this.city,
-      this.state,
+      required this.state,
       required this.country,
-      required this.zipCode});
+      required this.postalCode});
+
+  String get fullAddress {
+    return "$street, $postalCode $city, $country";
+  }
 }

@@ -1,8 +1,8 @@
-import 'package:doctor_pert/models/doctor.dart';
 import 'package:doctor_pert/models/dummy_data.dart';
+import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:doctor_pert/models/person.dart';
 import 'package:doctor_pert/models/reservation.dart';
-import 'package:doctor_pert/models/worker.dart';
+import 'package:doctor_pert/models/employee.dart';
 import 'package:doctor_pert/screens/reserve_screen/stepper_content/time_table.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +20,11 @@ class _ReserveScreenState extends State<ReserveScreen> {
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
 
-  Worker _selectedWorker = doctor1.workers[0];
+  Employee _selectedEmployee = practice1.employees[0];
   Person _patient = person1;
 
   final int _maxStep = 3;
-  Doctor doctor = doctor1;
+  MedicalPractice practice = practice1;
   List<Reservation> reservations = reservations1;
 
   @override
@@ -38,22 +38,22 @@ class _ReserveScreenState extends State<ReserveScreen> {
             if (_currentStep == 0)
               TextButton(
                   onPressed: () {},
-                  child: Text(t("cancel").toUpperCase(),
+                  child: Text(t(PhraseKey.cancel).toUpperCase(),
                       style: Theme.of(context).textTheme.labelMedium)),
             if (_currentStep > 0)
               TextButton(
                   onPressed: details.onStepCancel,
-                  child: Text(t("back").toUpperCase(),
+                  child: Text(t(PhraseKey.no_entry).toUpperCase(),
                       style: Theme.of(context).textTheme.labelMedium)),
             if (_currentStep < _maxStep)
               TextButton(
                   onPressed: details.onStepContinue,
-                  child: Text(t("next").toUpperCase(),
+                  child: Text(t(PhraseKey.no_entry).toUpperCase(),
                       style: Theme.of(context).textTheme.labelMedium)),
             if (_currentStep == _maxStep)
               TextButton(
                   onPressed: () {},
-                  child: Text(t("confirm").toUpperCase(),
+                  child: Text(t(PhraseKey.no_entry).toUpperCase(),
                       style: Theme.of(context).textTheme.labelMedium)),
           ],
         );
@@ -79,21 +79,21 @@ class _ReserveScreenState extends State<ReserveScreen> {
       },
       steps: [
         Step(
-            title: Text(t("time_table_step"),
+            title: Text(t(PhraseKey.no_entry),
                 style: Theme.of(context).textTheme.labelLarge),
             content: TimeTable(
-                availableAppointments: doctor.availableAppointments,
+                availableAppointments: practice.availableAppointments,
                 reservations: reservations)),
         Step(
-          title: Text(t("select_worker_step")),
+          title: Text(""),
           content: Column(
             children: <Widget>[
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: doctor.workers.length,
+                itemCount: practice.availableAppointments.length,
                 itemBuilder: (BuildContext context, int itemIndex) {
                   return ListTile(
-                    title: Text(doctor.workers[itemIndex].name,
+                    title: Text(practice.employees[itemIndex].name,
                         style: Theme.of(context).textTheme.labelLarge),
                   );
                 },
@@ -102,54 +102,58 @@ class _ReserveScreenState extends State<ReserveScreen> {
           ),
         ),
         Step(
-          title: Text(t("personal_data_step"),
+          title: Text(t(PhraseKey.no_entry),
               style: Theme.of(context).textTheme.labelLarge),
           content: Column(
             children: [
               TextFormField(
                 decoration: InputDecoration(
-                    labelText: t("first_name"), hintText: t("first_name_hint")),
+                    labelText: t(PhraseKey.first_name),
+                    hintText: t(PhraseKey.first_name_hint)),
               ),
               TextFormField(
                 decoration: InputDecoration(
-                    labelText: t("last_name"), hintText: t("last_name_hint")),
+                    labelText: t(PhraseKey.last_name),
+                    hintText: t(PhraseKey.last_name_hint)),
               ),
               TextFormField(
                 decoration: InputDecoration(
-                    labelText: t("phone"), hintText: t("phone_hint")),
+                    labelText: t(PhraseKey.phone),
+                    hintText: t(PhraseKey.phone_hint)),
               ),
               TextFormField(
                 decoration: InputDecoration(
-                    labelText: t("email"), hintText: t("email_hint")),
+                    labelText: t(PhraseKey.email),
+                    hintText: t(PhraseKey.email_hint)),
               ),
             ],
           ),
         ),
         Step(
-          title: Text(t("reservation_overview_step"),
+          title: Text(t(PhraseKey.reservation_overview_step),
               style: Theme.of(context).textTheme.labelLarge),
           content: Column(
             children: [
               ListTile(
-                title: Text(t("date")),
+                title: Text(t(PhraseKey.date)),
                 trailing: Text(_selectedDate.toString()),
               ),
               ListTile(
-                title: Text(t("time")),
+                title: Text(t(PhraseKey.time)),
                 trailing: Text(_selectedTime.toString()),
               ),
               const Divider(),
               ListTile(
-                title: Text(t("doctor")),
-                trailing: Text(doctor.name),
+                title: Text(t(PhraseKey.doctor)),
+                trailing: Text(practice.name),
               ),
               ListTile(
-                title: Text(t("worker")),
-                trailing: Text(_selectedWorker.name),
+                title: Text(t(PhraseKey.employee)),
+                trailing: Text(_selectedEmployee.name),
               ),
               const Divider(),
               ListTile(
-                title: Text(t("patient")),
+                title: Text(t(PhraseKey.patient)),
                 trailing: Text(_patient.name),
               ),
             ],

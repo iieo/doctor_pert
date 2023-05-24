@@ -1,5 +1,5 @@
 import 'package:animations/animations.dart';
-import 'package:doctor_pert/models/doctor.dart';
+import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:doctor_pert/models/dummy_data.dart';
 import 'package:doctor_pert/screens/home_screen/components/osm_map.dart';
 import 'package:doctor_pert/screens/search_screen/components/doctor_card.dart';
@@ -25,7 +25,8 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  final List<Doctor> doctors = List.generate(40, (index) => doctor1);
+  final List<MedicalPractice> medicalPractices =
+      List.generate(40, (index) => practice1);
   int _selectedIndex = -1;
 
   @override
@@ -37,8 +38,8 @@ class _SearchScreenState extends State<SearchScreen>
 
   List<Marker> _getMarkersOfDoctors() {
     List<Marker> markers = [];
-    for (int i = 0; i < doctors.length; i++) {
-      for (LatLng location in doctors[i].locations) {
+    for (int i = 0; i < medicalPractices.length; i++) {
+      for (LatLng location in medicalPractices[i].locations) {
         Marker marker = Marker(
             width: 55.0,
             height: 55.0,
@@ -75,7 +76,7 @@ class _SearchScreenState extends State<SearchScreen>
                           width: 3)),
                   child: Center(
                       child: FaIcon(
-                    Doctor.getIconData(doctors[i].type),
+                    MedicalPractice.getIconData(medicalPractices[i].type[0]),
                     color: _selectedIndex == i
                         ? Theme.of(context).colorScheme.onPrimary
                         : Theme.of(context).colorScheme.primary,
@@ -96,7 +97,7 @@ class _SearchScreenState extends State<SearchScreen>
             child: AnimatedOverview(
               animationController: _animationController,
               toggleAnimation: _toggleAnimation,
-              doctors: doctors,
+              doctors: medicalPractices,
               setIndex: (index) {
                 setState(() {
                   _selectedIndex = index;

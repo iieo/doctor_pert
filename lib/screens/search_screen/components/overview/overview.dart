@@ -1,6 +1,6 @@
 import 'dart:html';
 
-import 'package:doctor_pert/models/doctor.dart';
+import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/overview_header.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/tabs/about_overview_tab.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/tabs/contact_overview_tab.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DoctorOverview extends StatelessWidget {
-  final Doctor? doctor;
+  final MedicalPractice? doctor;
   final Function() onPressed;
   const DoctorOverview(
       {super.key, required this.doctor, required this.onPressed});
@@ -22,7 +22,7 @@ class DoctorOverview extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    Doctor doctor = this.doctor!;
+    MedicalPractice doctor = this.doctor!;
 
     SliverAppBar getSliverAppBar() {
       return SliverAppBar(
@@ -43,15 +43,15 @@ class DoctorOverview extends StatelessWidget {
           tabs: [
             Tab(
               icon: const Icon(Icons.info),
-              text: t("about"),
+              text: t(PhraseKey.about),
             ),
             Tab(
               icon: const Icon(Icons.star),
-              text: t("ratings"),
+              text: t(PhraseKey.ratings),
             ),
             Tab(
               icon: const Icon(Icons.phone),
-              text: t("contact"),
+              text: t(PhraseKey.contact),
             )
           ],
         ),

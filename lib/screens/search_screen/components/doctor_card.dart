@@ -1,9 +1,9 @@
-import 'package:doctor_pert/models/doctor.dart';
+import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:flutter/material.dart';
 
 class DoctorCard extends StatelessWidget {
   final Function() onTap;
-  final Doctor doctor;
+  final MedicalPractice doctor;
   const DoctorCard({super.key, required this.onTap, required this.doctor});
 
   @override

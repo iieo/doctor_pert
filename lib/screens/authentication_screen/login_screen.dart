@@ -76,12 +76,12 @@ class _LoginContainer extends State<LoginContainer> {
     } on EmailNotVerifiedException catch (e) {
       String? mail = FirebaseAuth.instance.currentUser?.email;
       ShowErrorWithAction(
-          "${t('email_not_verified')} $mail.",
-          t("resend_email"),
+          "${t(PhraseKey.email_not_verified)} $mail.",
+          t(PhraseKey.resend_verification_email),
           FirebaseAuthHandler.resendVerificationEmail,
           context);
     } catch (e) {
-      ShowError(t("unknown_error"), context);
+      ShowError(t(PhraseKey.unknown_error), context);
     }
     UpdateLoading(false);
   }
@@ -90,14 +90,14 @@ class _LoginContainer extends State<LoginContainer> {
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       AuthItemWrapper(
-          child: Text(t("login"),
+          child: Text(t(PhraseKey.login),
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.headlineMedium)),
       AuthItemWrapper(child: GoogleSignInButton()),
       AuthItemWrapper(
           paddingHeight: 10,
           paddingWidth: 15,
-          child: Text(t("or_login_with_email"),
+          child: Text(t(PhraseKey.or_login_with_email),
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.titleSmall)),
       AuthItemWrapper(
@@ -107,10 +107,11 @@ class _LoginContainer extends State<LoginContainer> {
         controller: emailController,
         style: Theme.of(context).textTheme.bodyMedium,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: (value) => value!.isValidEmail() ? null : t("invalidEmail"),
+        validator: (value) =>
+            value!.isValidEmail() ? null : t(PhraseKey.invalid_email),
         decoration: InputDecoration(
-          labelText: t("email"),
-          hintText: t("enterEmail"),
+          labelText: t(PhraseKey.email),
+          hintText: t(PhraseKey.enter_email),
         ),
       )),
       AuthItemWrapper(
@@ -121,8 +122,8 @@ class _LoginContainer extends State<LoginContainer> {
             obscureText: true,
             decoration: InputDecoration(
                 fillColor: Colors.grey[200],
-                labelText: t("password"),
-                hintText: t("enterPassword"),
+                labelText: t(PhraseKey.password),
+                hintText: t(PhraseKey.enter_password),
                 border: OutlineInputBorder(
                   borderSide: BorderSide.none,
                   borderRadius:
@@ -138,22 +139,23 @@ class _LoginContainer extends State<LoginContainer> {
                           Theme.of(context).primaryColor)),
                   child: loading
                       ? const CircularProgressIndicator()
-                      : Text(t("login"))))),
+                      : Text(t(PhraseKey.login))))),
       AuthItemWrapper(
           paddingHeight: 2,
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             InkWell(
-                child: Text(t("forgot_password"),
+                child: Text(t(PhraseKey.forgot_password),
                     style: Theme.of(context).textTheme.titleSmall),
                 onTap: () {
                   if (emailController.text.isEmpty) {
-                    ShowError(t("no_email_provided"), context);
+                    ShowError(t(PhraseKey.no_email_provided), context);
                     return;
                   }
 
                   if (!emailController.text.isValidEmail()) {
-                    ShowError("${t('invalid_email')} '${emailController.text}'",
+                    ShowError(
+                        "${t(PhraseKey.invalid_email)} '${emailController.text}'",
                         context);
                     return;
                   }
@@ -162,10 +164,11 @@ class _LoginContainer extends State<LoginContainer> {
                   FirebaseAuthHandler.forgotPassword(emailController.text);
                   UpdateLoading(false);
                   ShowInfo(
-                      '${t('email_sent_to')} ${emailController.text}', context);
+                      '${t(PhraseKey.email_sent_to)} ${emailController.text}',
+                      context);
                 }),
             InkWell(
-                child: Text(t("go_signup"),
+                child: Text(t(PhraseKey.go_signup),
                     style: Theme.of(context).textTheme.titleSmall),
                 onTap: () {
                   FirebaseAuthHandler.logout();

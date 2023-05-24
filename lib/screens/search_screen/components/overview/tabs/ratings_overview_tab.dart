@@ -1,9 +1,9 @@
-import 'package:doctor_pert/models/doctor.dart';
+import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class RatingsOverviewTab extends StatelessWidget {
-  final Doctor doctor;
+  final MedicalPractice doctor;
   const RatingsOverviewTab({super.key, required this.doctor});
 
   @override
