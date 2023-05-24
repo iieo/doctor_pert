@@ -5,7 +5,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 
 class OSMMap extends StatefulWidget {
-  const OSMMap({super.key});
+  final List<Marker> markers;
+  const OSMMap({super.key, this.markers = const []});
 
   @override
   State<OSMMap> createState() => _OSMMapState();
@@ -37,18 +38,23 @@ class _OSMMapState extends State<OSMMap> {
   }
 
   void _moveToLocation() async {
-    await Geolocator.requestPermission();
+    if (await Geolocator.isLocationServiceEnabled()) {
+      if (await Geolocator.checkPermission() == LocationPermission.denied) {
+        await Geolocator.requestPermission();
+      }
 
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    _mapController.move(LatLng(position.latitude, position.longitude), _zoom);
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      if (mounted) {
+        _mapController.move(
+            LatLng(position.latitude, position.longitude), _zoom);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
-      //add zoom buttons
-      //osm credits
       nonRotatedChildren: [
         Positioned(
           bottom: 10,
@@ -80,6 +86,7 @@ class _OSMMapState extends State<OSMMap> {
           urlTemplate:
               'https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=hQaBTBuPKEQ3xuoB1MZf',
         ),
+        MarkerLayer(markers: widget.markers)
       ],
     );
   }

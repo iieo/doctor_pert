@@ -3,8 +3,11 @@ import 'package:doctor_pert/models/doctor.dart';
 import 'package:doctor_pert/models/dummy_data.dart';
 import 'package:doctor_pert/screens/home_screen/components/osm_map.dart';
 import 'package:doctor_pert/screens/search_screen/components/doctor_card.dart';
-import 'package:doctor_pert/screens/search_screen/components/doctor_overview.dart';
+import 'package:doctor_pert/screens/search_screen/components/overview/animated_overview.dart';
+import 'package:doctor_pert/screens/search_screen/components/overview/overview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/plugin_api.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:local_hero/local_hero.dart';
 
@@ -19,41 +22,10 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
-  final List<Doctor> doctors = List.generate(40, (index) => doctor1);
-  int _selectedIndex = -1;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(flex: 2, child: AnimatedOverview(doctors: doctors)),
-        const Expanded(
-          flex: 3,
-          child: OSMMap(),
-        )
-      ],
-    );
-  }
-}
-
-class AnimatedOverview extends StatefulWidget {
-  final List<Doctor> doctors;
-
-  const AnimatedOverview({
-    super.key,
-    required this.doctors,
-  });
-
-  @override
-  State<AnimatedOverview> createState() => _AnimatedOverviewState();
-}
-
-class _AnimatedOverviewState extends State<AnimatedOverview>
+class _SearchScreenState extends State<SearchScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  late Animation<double> _scaleAnimation;
-  late Animation<double> _fadeAnimation;
+  final List<Doctor> doctors = List.generate(40, (index) => doctor1);
   int _selectedIndex = -1;
 
   @override
@@ -61,15 +33,93 @@ class _AnimatedOverviewState extends State<AnimatedOverview>
     super.initState();
     _animationController = AnimationController(
         duration: const Duration(milliseconds: 150), vsync: this);
-    _scaleAnimation = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
-    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
+  }
+
+  List<Marker> _getMarkersOfDoctors() {
+    List<Marker> markers = [];
+    for (int i = 0; i < doctors.length; i++) {
+      for (LatLng location in doctors[i].locations) {
+        Marker marker = Marker(
+            width: 55.0,
+            height: 55.0,
+            point: LatLng(location.latitude, location.longitude),
+            builder: (ctx) => GestureDetector(
+                onTap: () {
+                  if (_selectedIndex == i) {
+                    _toggleAnimation();
+                    setState(() {
+                      _selectedIndex = -1;
+                    });
+                  } else {
+                    if (_selectedIndex == -1) {
+                      _toggleAnimation();
+                    }
+                    setState(() {
+                      _selectedIndex = i;
+                    });
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: _selectedIndex == i
+                          ? Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.5)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(
+                          color: _selectedIndex == i
+                              ? Theme.of(context).colorScheme.onPrimary
+                              : Theme.of(context).colorScheme.primary,
+                          width: 3)),
+                  child: Center(
+                      child: FaIcon(
+                    Doctor.getIconData(doctors[i].type),
+                    color: _selectedIndex == i
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : Theme.of(context).colorScheme.primary,
+                  )),
+                )));
+        markers.add(marker);
+      }
+    }
+    return markers;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+            flex: 2,
+            child: AnimatedOverview(
+              animationController: _animationController,
+              toggleAnimation: _toggleAnimation,
+              doctors: doctors,
+              setIndex: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              selectedIndex: _selectedIndex,
+            )),
+        Expanded(
+          flex: 3,
+          child: OSMMap(
+            markers: _getMarkersOfDoctors(),
+          ),
+        )
+      ],
+    );
   }
 
   void _toggleAnimation() {
     if (_animationController.isCompleted) {
       _animationController.reverse();
+      setState(() {
+        _selectedIndex = -1;
+      });
     } else {
       _animationController.forward();
     }
@@ -79,39 +129,5 @@ class _AnimatedOverviewState extends State<AnimatedOverview>
   void dispose() {
     _animationController.dispose();
     super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(children: [
-      ListView.builder(
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return DoctorCard(
-            onTap: () {
-              setState(() {
-                _selectedIndex = index;
-              });
-              _toggleAnimation();
-            },
-            doctor: widget.doctors[0],
-          );
-        },
-      ),
-      AnimatedBuilder(
-          animation: _animationController,
-          builder: (context, child) {
-            return Transform.scale(
-                scaleY: _scaleAnimation.value,
-                child: Opacity(
-                  opacity: _fadeAnimation.value,
-                  child: child,
-                ));
-          },
-          child: DoctorOverview(
-            onPressed: _toggleAnimation,
-            doctor: _selectedIndex < 0 ? null : widget.doctors[_selectedIndex],
-          ))
-    ]);
   }
 }

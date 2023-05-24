@@ -1,4 +1,5 @@
 import 'package:doctor_pert/screens/home_screen/home_screen.dart';
+import 'package:doctor_pert/screens/reserve_screen/reserve_screen.dart';
 import 'package:doctor_pert/screens/search_screen/search_screen.dart';
 import 'package:doctor_pert/screens/shells/shell_nav_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../screens/authentication/authentication_screen.dart';
-import '../screens/authentication/login_screen.dart';
-import '../screens/authentication/sign_up_screen.dart';
+import '../screens/authentication_screen/authentication_screen.dart';
+import '../screens/authentication_screen/login_screen.dart';
+import '../screens/authentication_screen/sign_up_screen.dart';
 import 'change_notifier.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -31,6 +32,7 @@ final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: '/login',
+      name: 'login',
       pageBuilder: (BuildContext context, GoRouterState state) {
         return const NoTransitionPage(
             child: AuthenticationScreen(child: LoginContainer()));
@@ -38,6 +40,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/signup',
+      name: 'signup',
       pageBuilder: (BuildContext context, GoRouterState state) {
         return const NoTransitionPage(
             child: AuthenticationScreen(child: SignUpContainer()));
@@ -55,6 +58,7 @@ final GoRouter router = GoRouter(
         routes: [
           GoRoute(
               parentNavigatorKey: _shellNavigatorKey,
+              name: "search",
               path: "/search",
               pageBuilder: (context, state) {
                 String searchQuery = state.queryParameters['q'] ?? "doctor";
@@ -75,8 +79,21 @@ final GoRouter router = GoRouter(
                 ));
               }),
           GoRoute(
+              parentNavigatorKey: _shellNavigatorKey,
+              name: "reserve",
+              path: "/reserve",
+              pageBuilder: (context, state) {
+                String? doctorId = state.queryParameters['doctorId'];
+                if (doctorId == null) {
+                  //TODO: reroute
+                }
+                return NoTransitionPage(
+                    child: ReserveScreen(doctorId: "dummyId"));
+              }),
+          GoRoute(
             parentNavigatorKey: _shellNavigatorKey,
             path: "/",
+            name: "home",
             pageBuilder: (context, state) =>
                 const NoTransitionPage(child: HomeScreen()),
           ),

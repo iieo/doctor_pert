@@ -1,3 +1,4 @@
+import 'package:doctor_pert/handler/authentication_handler.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -23,28 +24,32 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLoggedIn = false;
+    bool isLoggedIn = FirebaseAuthHandler.isUserLoggedIn();
     return SliverAppBar(
-      pinned: isPinned,
-      floating: false,
-      title: const Text('Doctor Pert'),
+      floating: true,
+      pinned: false,
+      snap: false,
+      title: InkWell(
+          onTap: () => GoRouter.of(context).go("/"),
+          child: Text(t("app-name"),
+              style: Theme.of(context).textTheme.headlineMedium)),
       actions: [
         Padding(
           padding: const EdgeInsets.all(8),
           child: TextButton(
               onPressed: isLoggedIn ? _logout : () => _login(context),
-              child: Text(t("login"),
+              child: Text(isLoggedIn ? t("logout") : t("login"),
                   style: Theme.of(context).textTheme.labelMedium)),
         ),
         Padding(
             padding: const EdgeInsets.all(8),
             child: ElevatedButton(
-                onPressed: () => _register(context),
+                onPressed: isLoggedIn ? _account : () => _register(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                   foregroundColor: Theme.of(context).colorScheme.onSecondary,
                 ),
-                child: Text(t("signup"),
+                child: Text(isLoggedIn ? t("account") : t("signup"),
                     style: Theme.of(context).textTheme.labelMedium))),
       ],
     );
