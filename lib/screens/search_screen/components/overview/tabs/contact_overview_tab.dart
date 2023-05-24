@@ -1,9 +1,9 @@
-import 'package:doctor_pert/models/doctor.dart';
+import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
 
 class ContactOverviewTab extends StatelessWidget {
-  final Doctor doctor;
+  final MedicalPractice doctor;
   const ContactOverviewTab({super.key, required this.doctor});
 
   @override
@@ -14,16 +14,16 @@ class ContactOverviewTab extends StatelessWidget {
             child: Column(
           children: [
             ListTile(
-              title: Text(t("phone")),
+              title: Text(t(PhraseKey.phone)),
               subtitle: Text(doctor.phone),
             ),
             ListTile(
-              title: Text(t("email")),
+              title: Text(t(PhraseKey.email)),
               subtitle: Text(doctor.email),
             ),
             for (int i = 0; i < 30; i++)
               ListTile(
-                title: Text(t("address")),
+                title: Text(t(PhraseKey.address)),
                 subtitle: Text(doctor.address.fullAddress),
               ),
           ],

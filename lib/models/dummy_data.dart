@@ -1,7 +1,9 @@
-import 'package:doctor_pert/models/doctor.dart';
+import 'package:doctor_pert/models/address.dart';
+import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:doctor_pert/models/person.dart';
 import 'package:doctor_pert/models/reservation.dart';
-import 'package:doctor_pert/models/worker.dart';
+import 'package:doctor_pert/models/employee.dart';
+import 'package:doctor_pert/models/time.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -14,8 +16,8 @@ Person person1 = Person(
 
 List<Reservation> reservations1 = [
   Reservation(
-    doctorId: doctor1.id,
-    workerId: doctor1.id,
+    doctorId: practice1.id,
+    workerId: practice1.id,
     patient: person1,
     created: DateTime.now().subtract(const Duration(days: 1)),
     status: ReservationStatus.accepted,
@@ -25,8 +27,8 @@ List<Reservation> reservations1 = [
     location: LatLng(48.2475327, 12.1612037),
   ),
   Reservation(
-    doctorId: doctor1.id,
-    workerId: doctor1.id,
+    doctorId: practice1.id,
+    workerId: practice1.id,
     patient: person1,
     created: DateTime.now().subtract(const Duration(days: 1)),
     status: ReservationStatus.accepted,
@@ -36,8 +38,8 @@ List<Reservation> reservations1 = [
     location: LatLng(48.2475327, 12.1612037),
   ),
   Reservation(
-    doctorId: doctor1.id,
-    workerId: doctor1.id,
+    doctorId: practice1.id,
+    workerId: practice1.id,
     patient: person1,
     created: DateTime.now().subtract(const Duration(days: 1)),
     status: ReservationStatus.accepted,
@@ -47,8 +49,8 @@ List<Reservation> reservations1 = [
     location: LatLng(48.2475327, 12.1612037),
   ),
   Reservation(
-    doctorId: doctor1.id,
-    workerId: doctor1.id,
+    doctorId: practice1.id,
+    workerId: practice1.id,
     patient: person1,
     created: DateTime.now().subtract(const Duration(days: 1)),
     status: ReservationStatus.accepted,
@@ -59,11 +61,19 @@ List<Reservation> reservations1 = [
   ),
 ];
 
-Doctor doctor1 = Doctor(
+Doctor doc1 = Doctor(
+    firstName: "Max",
+    lastName: "Mustermann",
+    email: "test@g",
+    phone: "3269",
+    id: "s",
+    availableAppointments: List.empty());
+
+MedicalPractice practice1 = MedicalPractice(
     id: "1",
     name: "Musterpraxis",
-    owner: "Dr. med. Max Mustermann",
-    type: DoctorType.genral,
+    owner: [doc1],
+    type: [DoctorType.general],
     address: Address(
         street: "Musterstraße 1",
         city: "Musterstadt",
@@ -109,17 +119,13 @@ Doctor doctor1 = Doctor(
         updated: DateTime.now().subtract(const Duration(days: 2)),
       )
     ],
-    workers: [
-      Worker(
+    employees: [
+      Doctor(
           id: "1",
-          person: Person(
-            titles: "Dr. med.",
-            firstName: "Max",
-            lastName: "Mustermann",
-            phone: "0123456789",
-            email: "test@tes.de",
-          ),
-          type: WorkerType.doctor,
+          firstName: "Max",
+          lastName: "Mustermann",
+          phone: "0123456789",
+          email: "test@tes.de",
           availableAppointments: [
             [
               const TimeOfDay(hour: 8, minute: 0),

@@ -47,10 +47,10 @@ class _SignUpContainer extends State<SignUpContainer> {
           emailController.text, passwordController.text);
     } on FirebaseAuthException catch (e) {
       ShowError(
-          "${t('signup_failed')} ${FirebaseAuthHandler.getFirebaseErrorText(e)}",
+          "${t(PhraseKey.signup_failed)} ${FirebaseAuthHandler.getFirebaseErrorText(e)}",
           context);
     } catch (e) {
-      ShowError(t("unknown_error"), context);
+      ShowError(t(PhraseKey.unknown_error), context);
     }
     UpdateLoading(false);
   }
@@ -62,15 +62,15 @@ class _SignUpContainer extends State<SignUpContainer> {
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(Radius.circular(defaultRadius)),
         ),
-        labelText: t(label),
-        hintText: t(hint));
+        labelText: label,
+        hintText: hint);
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       AuthItemWrapper(
-          child: Text(t("signup"),
+          child: Text(t(PhraseKey.signup),
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.headlineMedium)),
       AuthItemWrapper(child: GoogleSignInButton()),
@@ -79,7 +79,7 @@ class _SignUpContainer extends State<SignUpContainer> {
           minHeight: 25,
           paddingHeight: 10,
           paddingWidth: 15,
-          child: Text(t("or_login_with_email"),
+          child: Text(t(PhraseKey.or_login_with_email),
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.titleSmall)),
       AuthItemWrapper(
@@ -95,7 +95,8 @@ class _SignUpContainer extends State<SignUpContainer> {
         autofillHints: const [AutofillHints.email],
         style: Theme.of(context).textTheme.bodyMedium,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: (value) => value!.isValidEmail() ? null : t("invalid_email"),
+        validator: (value) =>
+            value!.isValidEmail() ? null : t(PhraseKey.invalid_email),
         decoration: getInputDecoration('Email', 'Enter your email.'),
       )),
       AuthItemWrapper(
@@ -134,7 +135,7 @@ class _SignUpContainer extends State<SignUpContainer> {
                           Theme.of(context).primaryColor)),
                   child: loading
                       ? const CircularProgressIndicator()
-                      : Text(t("signup"))))),
+                      : Text(t(PhraseKey.signup))))),
       AuthItemWrapper(
           paddingHeight: 2,
           minHeight: 20,
@@ -142,7 +143,7 @@ class _SignUpContainer extends State<SignUpContainer> {
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             InkWell(
-                child: Text(t("go_login"),
+                child: Text(t(PhraseKey.go_login),
                     style: Theme.of(context).textTheme.titleSmall),
                 onTap: () {
                   FirebaseAuthHandler.logout();

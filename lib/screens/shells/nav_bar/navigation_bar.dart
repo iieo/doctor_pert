@@ -31,14 +31,14 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
       snap: false,
       title: InkWell(
           onTap: () => GoRouter.of(context).go("/"),
-          child: Text(t("app-name"),
+          child: Text(t(PhraseKey.app_name),
               style: Theme.of(context).textTheme.headlineMedium)),
       actions: [
         Padding(
           padding: const EdgeInsets.all(8),
           child: TextButton(
               onPressed: isLoggedIn ? _logout : () => _login(context),
-              child: Text(isLoggedIn ? t("logout") : t("login"),
+              child: Text(isLoggedIn ? t(PhraseKey.logout) : t(PhraseKey.login),
                   style: Theme.of(context).textTheme.labelMedium)),
         ),
         Padding(
@@ -49,7 +49,8 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                   foregroundColor: Theme.of(context).colorScheme.onSecondary,
                 ),
-                child: Text(isLoggedIn ? t("account") : t("signup"),
+                child: Text(
+                    isLoggedIn ? t(PhraseKey.account) : t(PhraseKey.signup),
                     style: Theme.of(context).textTheme.labelMedium))),
       ],
     );

@@ -13,15 +13,15 @@ class Footer extends StatelessWidget {
         children: [
           TextButton(
               onPressed: () {},
-              child: Text(t("imprint"),
+              child: Text(t(PhraseKey.imprint),
                   style: Theme.of(context).textTheme.labelMedium)),
           TextButton(
               onPressed: () {},
-              child: Text(t("contact"),
+              child: Text(t(PhraseKey.contact),
                   style: Theme.of(context).textTheme.labelMedium)),
           TextButton(
               onPressed: () {},
-              child: Text(t("privacy-policy"),
+              child: Text(t(PhraseKey.privacy_policy),
                   style: Theme.of(context).textTheme.labelMedium)),
         ],
       ),

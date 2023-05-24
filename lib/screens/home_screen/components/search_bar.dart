@@ -37,7 +37,7 @@ class SearchBar extends StatelessWidget {
                 controller: _searchController,
                 decoration: InputDecoration(
                   fillColor: Colors.white,
-                  hintText: t("searchDoctor"),
+                  hintText: t(PhraseKey.searchDoctor),
                   prefixIcon: const Icon(Icons.search),
                   border: const OutlineInputBorder(
                     borderSide: BorderSide.none,
@@ -59,7 +59,7 @@ class SearchBar extends StatelessWidget {
               controller: _locationController,
               decoration: InputDecoration(
                 fillColor: Colors.white,
-                hintText: t("searchZip"),
+                hintText: t(PhraseKey.searchZip),
                 prefixIcon: const Icon(Icons.location_pin),
                 border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
@@ -84,7 +84,7 @@ class SearchBar extends StatelessWidget {
                 label: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Text(
-                      t("search"),
+                      t(PhraseKey.search),
                       style: Theme.of(context).textTheme.labelMedium,
                     )))
           ],
