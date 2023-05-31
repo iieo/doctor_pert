@@ -1,3 +1,7 @@
+// ignore_for_file: constant_identifier_names
+
+enum Language { english, german }
+
 enum PhraseKey {
   login,
   signup,
@@ -22,6 +26,7 @@ enum PhraseKey {
   search_results,
   searchDoctor,
   searchZip,
+  signInWithGoogle,
   appName,
   appSlogan,
   findOnMap,
@@ -86,177 +91,290 @@ enum PhraseKey {
   no_email_provided,
   email_sent_to,
   signup_failed,
-  app_name
+  repeat_password,
+  repeat_password_hint,
+  passwords_dont_match,
 }
 
-Map<PhraseKey, String> englisch = {
-  PhraseKey.login: "Login",
-  PhraseKey.signup: "Signup",
-  PhraseKey.email: "Email",
-  PhraseKey.password: "Password",
-  PhraseKey.name: "Name",
-  PhraseKey.logout: "Logout",
-  PhraseKey.home: "Home",
-  PhraseKey.account: "Account",
-  PhraseKey.email_already_in_use: "Email already in use or invalid",
-  PhraseKey.invalid_email: "Email already in use or invalid",
-  PhraseKey.weak_password: "Password is too weak",
-  PhraseKey.email_not_verified: "Email not verified. Please check your inbox.",
-  PhraseKey.missing_email: "Please enter an email",
-  PhraseKey.timeout: "The request timed out. Please try again.",
-  PhraseKey.ok: "Ok",
-  PhraseKey.cancel: "Cancel",
-  PhraseKey.error: "Error",
-  PhraseKey.search: "Search",
-  PhraseKey.search_hint: "Search for doctors, hospitals, etc.",
-  PhraseKey.search_no_results: "No results found",
-  PhraseKey.search_results: "Results",
-  PhraseKey.searchDoctor: "Search for doctor",
-  PhraseKey.searchZip: "Search for ZIP",
-  PhraseKey.appName: "Doctor Pert",
-  PhraseKey.appSlogan: "Find your doctor nearby",
-  PhraseKey.findOnMap: "Find on map",
-  PhraseKey.contact: "Contact",
-  PhraseKey.privacy_policy: "Privacy Policy",
-  PhraseKey.imprint: "Imprint",
-  PhraseKey.or_login_with_email: "Or login with email",
-  PhraseKey.go_login: "Go to login",
-  PhraseKey.go_signup: "Go to signup",
-  PhraseKey.phone: "Phone",
-  PhraseKey.fax: "Fax",
-  PhraseKey.website: "Website",
-  PhraseKey.address: "Address",
-  PhraseKey.opening_hours: "Opening hours",
-  PhraseKey.reservate: "Reservate",
-  PhraseKey.about: "About",
-  PhraseKey.ratings: "Ratings",
-  PhraseKey.languages: "Languages",
-  PhraseKey.specialities: "Specialities",
-  PhraseKey.general: "General",
-  PhraseKey.chiropractor: "Chiropractor",
-  PhraseKey.dentist: "Dentist",
-  PhraseKey.dermatologist: "Dermatologist",
-  PhraseKey.dietitian: "Dietitian",
-  PhraseKey.gynecologist: "Gynecologist",
-  PhraseKey.neurologist: "Neurologist",
-  PhraseKey.ophthalmologist: "Ophthalmologist",
-  PhraseKey.orthopedist: "Orthopedist",
-  PhraseKey.pediatrician: "Pediatrician",
-  PhraseKey.psychiatrist: "Psychiatrist",
-  PhraseKey.urologist: "Urologist",
-  PhraseKey.veterinarian: "Veterinarian",
-  PhraseKey.other: "Other",
-  PhraseKey.monday: "Monday",
-  PhraseKey.tuesday: "Tuesday",
-  PhraseKey.wednesday: "Wednesday",
-  PhraseKey.thursday: "Thursday",
-  PhraseKey.friday: "Friday",
-  PhraseKey.saturday: "Saturday",
-  PhraseKey.sunday: "Sunday",
-  PhraseKey.open: "Open",
-  PhraseKey.closed: "Closed",
-  PhraseKey.openingHours: "Opening hours",
-  PhraseKey.no_entry: "No entry yet",
-  PhraseKey.first_name: "First name",
-  PhraseKey.last_name: "Lats name",
-  PhraseKey.first_name_hint: "Enter your first name",
-  PhraseKey.last_name_hint: "Enter your last name",
-  PhraseKey.phone_hint: "Enter your phone number",
-  PhraseKey.email_hint: "Enter your email address",
-  PhraseKey.reservation_overview_step: "KA was hier sthen soll",
-  PhraseKey.date: "Date",
-  PhraseKey.doctor: "Doctor",
-  PhraseKey.employee: "Employee",
-  PhraseKey.patient: "Patient",
-  PhraseKey.time: "Time",
+Map<PhraseKey, Map<Language, String>> languageMapping = {
+  PhraseKey.login: {Language.english: "Login", Language.german: "Anmelden"},
+  PhraseKey.signup: {
+    Language.english: "Signup",
+    Language.german: "Registrieren"
+  },
+  PhraseKey.email: {Language.english: "Email", Language.german: "Email"},
+  PhraseKey.password: {
+    Language.english: "Password",
+    Language.german: "Passwort"
+  },
+  PhraseKey.name: {Language.english: "Name", Language.german: "Name"},
+  PhraseKey.logout: {Language.english: "Logout", Language.german: "Logout"},
+  PhraseKey.home: {Language.english: "Home", Language.german: "Home"},
+  PhraseKey.account: {Language.english: "Account", Language.german: "Account"},
+  PhraseKey.email_already_in_use: {
+    Language.english: "Email already in use or invalid",
+    Language.german: "Email existiert bereits oder ist ungültig"
+  },
+  PhraseKey.invalid_email: {
+    Language.english: "Email already in use or invalid",
+    Language.german: "Email existiert bereits oder ist ungültig"
+  },
+  PhraseKey.weak_password: {
+    Language.english: "Password is too weak",
+    Language.german: "Passwort ist zu schwach"
+  },
+  PhraseKey.email_not_verified: {
+    Language.english: "Email not verified. Please check your inbox.",
+    Language.german:
+        "Email nicht verifiziert. Bitte überprüfen Sie Ihr Postfach."
+  },
+  PhraseKey.missing_email: {
+    Language.english: "Please enter an email",
+    Language.german: "Bitte geben Sie eine Email ein"
+  },
+  PhraseKey.timeout: {
+    Language.english: "The request timed out. Please try again.",
+    Language.german:
+        "Die Anfrage ist abgelaufen. Bitte versuchen Sie es erneut."
+  },
+  PhraseKey.ok: {Language.english: "Ok", Language.german: "Ok"},
+  PhraseKey.cancel: {Language.english: "Cancel", Language.german: "Abbrechen"},
+  PhraseKey.error: {Language.english: "Error", Language.german: "Fehler"},
+  PhraseKey.search: {Language.english: "Search", Language.german: "Suchen"},
+  PhraseKey.search_hint: {
+    Language.english: "Search for doctors, hospitals, etc.",
+    Language.german: "Suche nach Ärzten, Krankenhäusern, etc."
+  },
+  PhraseKey.search_no_results: {
+    Language.english: "No results found",
+    Language.german: "Keine Ergebnisse gefunden"
+  },
+  PhraseKey.search_results: {
+    Language.english: "Results",
+    Language.german: "Ergebnisse"
+  },
+  PhraseKey.searchDoctor: {
+    Language.english: "Search for doctor",
+    Language.german: "Suche nach Ärzten"
+  },
+  PhraseKey.searchZip: {
+    Language.english: "Search for ZIP",
+    Language.german: "Suche nach PLZ"
+  },
+  PhraseKey.appName: {
+    Language.english: "Doctor Pert",
+    Language.german: "Doctor Pert"
+  },
+  PhraseKey.appSlogan: {
+    Language.english: "Find your doctor nearby",
+    Language.german: "Finde deinen Arzt in der Nähe"
+  },
+  PhraseKey.findOnMap: {
+    Language.english: "Find on map",
+    Language.german: "Auf Karte anzeigen"
+  },
+  PhraseKey.contact: {Language.english: "Contact", Language.german: "Kontakt"},
+  PhraseKey.privacy_policy: {
+    Language.english: "Privacy Policy",
+    Language.german: "Datenschutz"
+  },
+  PhraseKey.imprint: {
+    Language.english: "Imprint",
+    Language.german: "Impressum"
+  },
+  PhraseKey.or_login_with_email: {
+    Language.english: "Or login with email",
+    Language.german: "Oder mit Email anmelden"
+  },
+  PhraseKey.go_login: {
+    Language.english: "Go to login",
+    Language.german: "Zur Anmeldung"
+  },
+  PhraseKey.go_signup: {
+    Language.english: "Go to signup",
+    Language.german: "Zur Registrierung"
+  },
+  PhraseKey.phone: {Language.english: "Phone", Language.german: "Telefon"},
+  PhraseKey.fax: {Language.english: "Fax", Language.german: "Fax"},
+  PhraseKey.website: {Language.english: "Website", Language.german: "Website"},
+  PhraseKey.address: {Language.english: "Address", Language.german: "Adresse"},
+  PhraseKey.opening_hours: {
+    Language.english: "Opening hours",
+    Language.german: "Öffnungszeiten"
+  },
+  PhraseKey.reservate: {
+    Language.english: "Reservate",
+    Language.german: "Reservieren"
+  },
+  PhraseKey.about: {Language.english: "About", Language.german: "Über"},
+  PhraseKey.ratings: {
+    Language.english: "Ratings",
+    Language.german: "Bewertungen"
+  },
+  PhraseKey.languages: {
+    Language.english: "Languages",
+    Language.german: "Sprachen"
+  },
+  PhraseKey.specialities: {
+    Language.english: "Specialities",
+    Language.german: "Spezialisierungen"
+  },
+  PhraseKey.general: {
+    Language.english: "General",
+    Language.german: "Allgemein"
+  },
+  PhraseKey.chiropractor: {
+    Language.english: "Chiropractor",
+    Language.german: "Chiropraktiker"
+  },
+  PhraseKey.dentist: {Language.english: "Dentist", Language.german: "Zahnarzt"},
+  PhraseKey.dermatologist: {
+    Language.english: "Dermatologist",
+    Language.german: "Dermatologe"
+  },
+  PhraseKey.dietitian: {
+    Language.english: "Dietitian",
+    Language.german: "Diätologe"
+  },
+  PhraseKey.gynecologist: {
+    Language.english: "Gynecologist",
+    Language.german: "Gynäkologe"
+  },
+  PhraseKey.neurologist: {
+    Language.english: "Neurologist",
+    Language.german: "Neurologe"
+  },
+  PhraseKey.ophthalmologist: {
+    Language.english: "Ophthalmologist",
+    Language.german: "Augenarzt"
+  },
+  PhraseKey.orthopedist: {
+    Language.english: "Orthopedist",
+    Language.german: "Orthopäde"
+  },
+  PhraseKey.pediatrician: {
+    Language.english: "Pediatrician",
+    Language.german: "Kinderarzt"
+  },
+  PhraseKey.psychiatrist: {
+    Language.english: "Psychiatrist",
+    Language.german: "Psychiater"
+  },
+  PhraseKey.urologist: {
+    Language.english: "Urologist",
+    Language.german: "Urologe"
+  },
+  PhraseKey.veterinarian: {
+    Language.english: "Veterinarian",
+    Language.german: "Tierarzt"
+  },
+  PhraseKey.other: {Language.english: "Other", Language.german: "Andere"},
+  PhraseKey.monday: {Language.english: "Monday", Language.german: "Montag"},
+  PhraseKey.tuesday: {Language.english: "Tuesday", Language.german: "Dienstag"},
+  PhraseKey.wednesday: {
+    Language.english: "Wednesday",
+    Language.german: "Mittwoch"
+  },
+  PhraseKey.thursday: {
+    Language.english: "Thursday",
+    Language.german: "Donnerstag"
+  },
+  PhraseKey.friday: {Language.english: "Friday", Language.german: "Freitag"},
+  PhraseKey.saturday: {
+    Language.english: "Saturday",
+    Language.german: "Samstag"
+  },
+  PhraseKey.sunday: {Language.english: "Sunday", Language.german: "Sonntag"},
+  PhraseKey.open: {Language.english: "Open", Language.german: "Offen"},
+  PhraseKey.closed: {
+    Language.english: "Closed",
+    Language.german: "Geschlossen"
+  },
+  PhraseKey.openingHours: {
+    Language.english: "Opening hours",
+    Language.german: "Öffnungszeiten"
+  },
+  PhraseKey.no_entry: {
+    Language.english: "No entry yet",
+    Language.german: "Noch kein Eintrag"
+  },
+  PhraseKey.first_name: {
+    Language.english: "First name",
+    Language.german: "Vorname"
+  },
+  PhraseKey.last_name: {
+    Language.english: "Lats name",
+    Language.german: "Nachname"
+  },
+  PhraseKey.first_name_hint: {
+    Language.english: "Enter your first name",
+    Language.german: "Geben Sie ihren Vornamen ein"
+  },
+  PhraseKey.last_name_hint: {
+    Language.english: "Enter your last name",
+    Language.german: "Geben Sie ihren Nachnamen ein"
+  },
+  PhraseKey.phone_hint: {
+    Language.english: "Enter your phone number",
+    Language.german: "Geben Sie ihre Telefonnummer ein"
+  },
+  PhraseKey.email_hint: {
+    Language.english: "Enter your email address",
+    Language.german: "Geben Sie ihre Email-Adresse ein"
+  },
+  PhraseKey.reservation_overview_step: {
+    Language.english: "KA was hier sthen soll",
+    Language.german: "KA was hier sthen soll"
+  },
+  PhraseKey.date: {Language.english: "Date", Language.german: "Datum"},
+  PhraseKey.doctor: {Language.english: "Doctor", Language.german: "Arzt"},
+  PhraseKey.employee: {
+    Language.english: "Employee",
+    Language.german: "Mitarbeiter"
+  },
+  PhraseKey.patient: {Language.english: "Patient", Language.german: "Patient"},
+  PhraseKey.time: {Language.english: "Time", Language.german: "Uhrzeit"},
+  PhraseKey.signInWithGoogle: {
+    Language.english: "Sign in with Google",
+    Language.german: "Mit Google anmelden"
+  },
+  PhraseKey.forgot_password: {
+    Language.english: "Forgot password?",
+    Language.german: "Passwort vergessen?"
+  },
+  PhraseKey.enter_email: {
+    Language.english: "Enter your email address",
+    Language.german: "Geben Sie ihre Email-Adresse ein"
+  },
+  PhraseKey.enter_password: {
+    Language.english: "Enter your password",
+    Language.german: "Geben Sie ihr Passwort ein"
+  },
+  PhraseKey.signup_failed: {
+    Language.english: "Sign up failed",
+    Language.german: "Anmeldung fehlgeschlagen"
+  },
+  PhraseKey.passwords_dont_match: {
+    Language.english: "passwords don't match",
+    Language.german: "Passwörte stimmen nicht überein"
+  },
+  PhraseKey.repeat_password: {
+    Language.english: "Repeat password",
+    Language.german: "Passwort wiederholen"
+  },
+  PhraseKey.repeat_password_hint: {
+    Language.english: "Repeat your password",
+    Language.german: "Wiederholen Sie ihr Passwort"
+  }
 };
 
-Map<PhraseKey, String> deutsch = {
-  PhraseKey.login: "Anmelden",
-  PhraseKey.signup: "Registrieren",
-  PhraseKey.email: "Email",
-  PhraseKey.password: "Passwort",
-  PhraseKey.name: "Name",
-  PhraseKey.logout: "Abmelden",
-  PhraseKey.home: "Startseite",
-  PhraseKey.account: "Konto",
-  PhraseKey.email_already_in_use: "Email existiert bereits oder ist ungültig",
-  PhraseKey.invalid_email: "Email existiert bereits oder ist ungültig",
-  PhraseKey.weak_password: "Passwort ist zu schwach",
-  PhraseKey.email_not_verified:
-      "Email nicht verifiziert. Bitte überprüfen Sie Ihren Posteingang.",
-  PhraseKey.missing_email: "Bitte geben Sie eine Email ein",
-  PhraseKey.timeout:
-      "Die Anfrage ist abgelaufen. Bitte versuchen Sie es erneut.",
-  PhraseKey.ok: "Ok",
-  PhraseKey.cancel: "Abbrechen",
-  PhraseKey.error: "Fehler",
-  PhraseKey.search: "Suche",
-  PhraseKey.search_hint: "Suche nach Ärzten, Krankenhäusern, etc.",
-  PhraseKey.search_no_results: "Keine Ergebnisse gefunden",
-  PhraseKey.search_results: "Ergebnisse",
-  PhraseKey.searchDoctor: "Arzt suchen",
-  PhraseKey.searchZip: "PLZ suchen",
-  PhraseKey.appName: "Doctor Pert",
-  PhraseKey.appSlogan: "Finden Sie Ihren Arzt in der Nähe",
-  PhraseKey.findOnMap: "Auf Karte finden",
-  PhraseKey.contact: "Kontakt",
-  PhraseKey.privacy_policy: "Datenschutz",
-  PhraseKey.imprint: "Impressum",
-  PhraseKey.or_login_with_email: "Oder mit Email anmelden",
-  PhraseKey.go_login: "Zum Login",
-  PhraseKey.go_signup: "Zur Registrierung",
-  PhraseKey.phone: "Telefon",
-  PhraseKey.fax: "Fax",
-  PhraseKey.website: "Website",
-  PhraseKey.address: "Adresse",
-  PhraseKey.opening_hours: "Öffnungszeiten",
-  PhraseKey.reservate: "Termin vereinbaren",
-  PhraseKey.about: "Über",
-  PhraseKey.ratings: "Bewertungen",
-  PhraseKey.languages: "Sprachen",
-  PhraseKey.specialities: "Spezialisierungen",
-  PhraseKey.general: "Allgemein",
-  PhraseKey.chiropractor: "Chiropraktiker",
-  PhraseKey.dentist: "Zahnarzt",
-  PhraseKey.dermatologist: "Dermatologe",
-  PhraseKey.dietitian: "Diätassistent",
-  PhraseKey.gynecologist: "Frauenarzt",
-  PhraseKey.neurologist: "Neurologe",
-  PhraseKey.ophthalmologist: "Augenarzt",
-  PhraseKey.orthopedist: "Orthopäde",
-  PhraseKey.pediatrician: "Kinderarzt",
-  PhraseKey.psychiatrist: "Psychiater",
-  PhraseKey.urologist: "Urologe",
-  PhraseKey.veterinarian: "Tierarzt",
-  PhraseKey.other: "Andere",
-  PhraseKey.monday: "Montag",
-  PhraseKey.tuesday: "Dienstag",
-  PhraseKey.wednesday: "Mittwoch",
-  PhraseKey.thursday: "Donnerstag",
-  PhraseKey.friday: "Freitag",
-  PhraseKey.saturday: "Samstag",
-  PhraseKey.sunday: "Sonntag",
-  PhraseKey.open: "Geöffnet",
-  PhraseKey.closed: "Geschlossen",
-  PhraseKey.openingHours: "Öffnungszeiten",
-  PhraseKey.no_entry: "Kein Eintrag vorhanden",
-  PhraseKey.first_name: "Vorname",
-  PhraseKey.last_name: "Familienname",
-  PhraseKey.first_name_hint: "Gib deinen Vornamen ein",
-  PhraseKey.last_name_hint: "Gib deinen Nachnamen ein",
-  PhraseKey.phone_hint: "Gib deine Telefonnummer ein",
-  PhraseKey.email_hint: "Gib deine Email-Adresse ein",
-  PhraseKey.reservation_overview_step: "KA was hier sthen soll",
-  PhraseKey.date: "Datum",
-  PhraseKey.doctor: "Arzt",
-  PhraseKey.employee: "Mitarbeiter",
-  PhraseKey.patient: "Patient",
-  PhraseKey.time: "Zeit",
-};
-
-Map<PhraseKey, String> language = englisch;
+Language language = Language.german;
 
 String t(PhraseKey key) {
-  return language[key] ?? key.toString();
+  var m = languageMapping[key];
+  if (m == null) {
+    return key.toString();
+  }
+
+  return m[language] ?? key.toString();
 }

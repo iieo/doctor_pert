@@ -73,7 +73,7 @@ class _SignUpContainer extends State<SignUpContainer> {
           child: Text(t(PhraseKey.signup),
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.headlineMedium)),
-      AuthItemWrapper(child: GoogleSignInButton()),
+      const AuthItemWrapper(child: GoogleSignInButton()),
       AuthItemWrapper(
           maxHeight: 35,
           minHeight: 25,
@@ -87,7 +87,8 @@ class _SignUpContainer extends State<SignUpContainer> {
         controller: lastNameController,
         style: Theme.of(context).textTheme.bodyMedium,
         autofillHints: const [AutofillHints.familyName],
-        decoration: getInputDecoration('Last name', 'Enter your family name.'),
+        decoration: getInputDecoration(
+            t(PhraseKey.last_name), t(PhraseKey.last_name_hint)),
       )),
       AuthItemWrapper(
           child: TextFormField(
@@ -97,21 +98,23 @@ class _SignUpContainer extends State<SignUpContainer> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) =>
             value!.isValidEmail() ? null : t(PhraseKey.invalid_email),
-        decoration: getInputDecoration('Email', 'Enter your email.'),
+        decoration:
+            getInputDecoration(t(PhraseKey.email), t(PhraseKey.enter_email)),
       )),
       AuthItemWrapper(
-        child: TextFormField(
-          autofillHints: const [AutofillHints.newPassword],
-          style: Theme.of(context).textTheme.bodyMedium,
-          controller: passwordController,
-          obscureText: true,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (value) => value!.isValidPassword()
-              ? null
-              : "Password must be at least 8 characters long.",
-          decoration: getInputDecoration('Password', 'Enter your password'),
+          child: TextFormField(
+        autofillHints: const [AutofillHints.newPassword],
+        style: Theme.of(context).textTheme.bodyMedium,
+        controller: passwordController,
+        obscureText: true,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (value) =>
+            value!.isValidPassword() ? null : t(PhraseKey.weak_password),
+        decoration: getInputDecoration(
+          t(PhraseKey.password),
+          t(PhraseKey.enter_password),
         ),
-      ),
+      )),
       AuthItemWrapper(
         child: TextFormField(
             autofillHints: const [AutofillHints.newPassword],
@@ -122,9 +125,9 @@ class _SignUpContainer extends State<SignUpContainer> {
             validator: (value) =>
                 passwordController.text == passwordControllerCheck.text
                     ? null
-                    : "Password must be at least 8 characters long.",
-            decoration: getInputDecoration(
-                'Repeat your Password', "Enter your password again.")),
+                    : t(PhraseKey.passwords_dont_match),
+            decoration: getInputDecoration(t(PhraseKey.repeat_password),
+                t(PhraseKey.repeat_password_hint))),
       ),
       AuthItemWrapper(
           child: SizedBox.expand(

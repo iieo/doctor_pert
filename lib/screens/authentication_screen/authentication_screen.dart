@@ -12,11 +12,11 @@ extension EmailValidator on String {
 
 extension PasswordValidator on String {
   bool isValidPassword() {
-    return this.length >= 6 &&
-        this.contains(RegExp(r'[0-9]')) &&
-        this.contains(RegExp(r'[A-Z]')) &&
-        this.contains(RegExp(r'[a-z]')) &&
-        this.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+    return length >= 6 &&
+        contains(RegExp(r'[0-9]')) &&
+        contains(RegExp(r'[A-Z]')) &&
+        contains(RegExp(r'[a-z]')) &&
+        contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
   }
 }
 

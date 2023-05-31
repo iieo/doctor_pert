@@ -1,15 +1,11 @@
-import 'package:animations/animations.dart';
 import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:doctor_pert/models/dummy_data.dart';
 import 'package:doctor_pert/screens/home_screen/components/osm_map.dart';
-import 'package:doctor_pert/screens/search_screen/components/doctor_card.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/animated_overview.dart';
-import 'package:doctor_pert/screens/search_screen/components/overview/overview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:local_hero/local_hero.dart';
 
 class SearchScreen extends StatefulWidget {
   final String searchQuery;
