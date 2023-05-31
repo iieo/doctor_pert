@@ -16,23 +16,21 @@ class LoginContainer extends StatefulWidget {
   State<LoginContainer> createState() => _LoginContainer();
 }
 
-/**
- * ich hab die texte durch t("textinhalt") ersetzt, damit man auch die sprache ändern kann
- * 
- * zudem würde ich empfehlen die AuthItemWrapper zu vermeiden. ich hatte des ja auch im letzten projekt mit meinem button
- * letztendlich ist es aber sinnvoller es nur dann hin zu schreiben, wenn man es wirklich braucht
- * Des Problem ist halt, dass die Größe in Zahlen angegeben ist und des sollte man, wenn möglich immer vermeiden
- * damit es halt responsive ist.
- * z.B. beim textfield error sieht man des ganz gut
- * 
- * was zu überlegen ist: es gibt ein Form Widget. Da werden normal die TextFormFields rein getan. Was das bringt keine Ahnung
- * aber bestimmt interessant anzuschauen
- * 
- * Design sieht sonst aber mega aus, ich hoff ich hab nix zerstört :O
- * hab nämlich versucht meins zu reparieren und hab deswegen die border eigenschaft von der
- * themedata entfernt.
- * 
- */
+/// ich hab die texte durch t("textinhalt") ersetzt, damit man auch die sprache ändern kann
+/// 
+/// zudem würde ich empfehlen die AuthItemWrapper zu vermeiden. ich hatte des ja auch im letzten projekt mit meinem button
+/// letztendlich ist es aber sinnvoller es nur dann hin zu schreiben, wenn man es wirklich braucht
+/// Des Problem ist halt, dass die Größe in Zahlen angegeben ist und des sollte man, wenn möglich immer vermeiden
+/// damit es halt responsive ist.
+/// z.B. beim textfield error sieht man des ganz gut
+/// 
+/// was zu überlegen ist: es gibt ein Form Widget. Da werden normal die TextFormFields rein getan. Was das bringt keine Ahnung
+/// aber bestimmt interessant anzuschauen
+/// 
+/// Design sieht sonst aber mega aus, ich hoff ich hab nix zerstört :O
+/// hab nämlich versucht meins zu reparieren und hab deswegen die border eigenschaft von der
+/// themedata entfernt.
+/// 
 
 class _LoginContainer extends State<LoginContainer> {
   final double loginWidth = 300;
@@ -73,7 +71,7 @@ class _LoginContainer extends State<LoginContainer> {
     } on FirebaseAuthException catch (e) {
       ShowError("Login Failed: ${FirebaseAuthHandler.getFirebaseErrorText(e)}",
           context);
-    } on EmailNotVerifiedException catch (e) {
+    } on EmailNotVerifiedException {
       String? mail = FirebaseAuth.instance.currentUser?.email;
       ShowErrorWithAction(
           "${t(PhraseKey.email_not_verified)} $mail.",
@@ -93,7 +91,7 @@ class _LoginContainer extends State<LoginContainer> {
           child: Text(t(PhraseKey.login),
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.headlineMedium)),
-      AuthItemWrapper(child: GoogleSignInButton()),
+      const AuthItemWrapper(child: GoogleSignInButton()),
       AuthItemWrapper(
           paddingHeight: 10,
           paddingWidth: 15,

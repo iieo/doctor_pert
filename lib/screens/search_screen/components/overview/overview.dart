@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/overview_header.dart';
@@ -7,8 +6,6 @@ import 'package:doctor_pert/screens/search_screen/components/overview/tabs/conta
 import 'package:doctor_pert/screens/search_screen/components/overview/tabs/ratings_overview_tab.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class DoctorOverview extends StatelessWidget {
   final MedicalPractice? doctor;

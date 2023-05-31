@@ -1,4 +1,3 @@
-import 'package:doctor_pert/screens/shells/nav_bar/footer.dart';
 import 'package:doctor_pert/screens/shells/nav_bar/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
