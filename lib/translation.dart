@@ -94,6 +94,10 @@ enum PhraseKey {
   repeat_password,
   repeat_password_hint,
   passwords_dont_match,
+  stepper_select_time,
+  stepper_person_details,
+  stepper_overview,
+  no_appointments_available_this_week
 }
 
 Map<PhraseKey, Map<Language, String>> languageMapping = {
@@ -365,7 +369,39 @@ Map<PhraseKey, Map<Language, String>> languageMapping = {
   PhraseKey.repeat_password_hint: {
     Language.english: "Repeat your password",
     Language.german: "Wiederholen Sie ihr Passwort"
-  }
+  },
+  PhraseKey.no_email_provided: {
+    Language.english: "No email provided",
+    Language.german: "Keine Email angegeben"
+  },
+  PhraseKey.email_sent_to: {
+    Language.english: "Email sent to",
+    Language.german: "Email gesendet an"
+  },
+  PhraseKey.resend_verification_email: {
+    Language.english: "Resend verification email",
+    Language.german: "Verifizierungs-Email erneut senden"
+  },
+  PhraseKey.unknown_error: {
+    Language.english: "Unknown error",
+    Language.german: "Unbekannter Fehler"
+  },
+  PhraseKey.stepper_select_time: {
+    Language.english: "Select time",
+    Language.german: "Zeit auswählen"
+  },
+  PhraseKey.stepper_person_details: {
+    Language.english: "Patient details",
+    Language.german: "Patientendaten"
+  },
+  PhraseKey.stepper_overview: {
+    Language.english: "Overview",
+    Language.german: "Übersicht"
+  },
+  PhraseKey.no_appointments_available_this_week: {
+    Language.english: "No appointments left this week",
+    Language.german: "Alle Termine dieser Woche sind ausgebucht"
+  },
 };
 
 Language language = Language.german;

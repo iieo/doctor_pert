@@ -53,11 +53,11 @@ class MedicalPractice {
     return employees.whereType<Assistant>().toList();
   }
 
-  Future<List<CalendarEvent>> availableAppointments(
+  Future<List<CalendarAppointmentEvent>> availableAppointments(
       DateTime startWeek, DateTime endWeek) async {
-    List<CalendarEvent> events = [];
+    List<CalendarAppointmentEvent> events = [];
     for (Employee employee in employees) {
-      List<CalendarEvent> employeeEvents =
+      List<CalendarAppointmentEvent> employeeEvents =
           await employee.calendar.getAvailableEventsForWeek(startWeek, endWeek);
       events.addAll(employeeEvents);
     }

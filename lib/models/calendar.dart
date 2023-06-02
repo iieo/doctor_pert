@@ -26,20 +26,22 @@ class Calendar {
         .toList();
   }
 
-  Future<List<CalendarEvent>> getAvailableEventsForWeek(
+  Future<List<CalendarAppointmentEvent>> getAvailableEventsForWeek(
       DateTime startOfWeek, DateTime endOfWeek) async {
     //get all Reservations with id of appointment
-    List<CalendarEvent> appintments = calendarEvents
+    List<CalendarAppointmentEvent> appintments = calendarEvents
         .where((event) =>
             event.startDate.isAfter(startOfWeek) &&
             event.endDate.isBefore(endOfWeek) &&
             event is CalendarAppointmentEvent)
+        .map((e) => e as CalendarAppointmentEvent)
         .toList();
     List<String> eventIds = appintments.map((e) => e.id).toList();
+
     List<Reservation> reservations =
         await FirestoreHandler.getResrvationsWithId(eventIds);
     //remove all appointments that are reserved
-    List<CalendarEvent> availableEvents = appintments
+    List<CalendarAppointmentEvent> availableEvents = appintments
         .where((event) =>
             !reservations.any((reservation) => reservation.eventId == event.id))
         .toList();

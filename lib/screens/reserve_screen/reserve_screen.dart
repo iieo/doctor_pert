@@ -2,6 +2,8 @@ import 'package:doctor_pert/models/calendar_event.dart';
 import 'package:doctor_pert/models/dummy_data.dart';
 import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:doctor_pert/models/person.dart';
+import 'package:doctor_pert/screens/reserve_screen/stepper_content/StepperControls.dart';
+import 'package:doctor_pert/screens/reserve_screen/stepper_content/person_details.dart';
 import 'package:doctor_pert/util.dart';
 import 'package:doctor_pert/models/reservation.dart';
 import 'package:doctor_pert/models/employee.dart';
@@ -19,49 +21,30 @@ class ReserveScreen extends StatefulWidget {
 
 class _ReserveScreenState extends State<ReserveScreen> {
   int _currentStep = 0;
-  final DateTime _selectedDate = DateTime.now();
-  final TimeOfDay _selectedTime = TimeOfDay.now();
+  final int _maxStep = 2;
 
   final Employee _selectedEmployee = practice1.employees[0];
-  final Person _patient = person1;
+  final MedicalPractice practice = practice1;
 
-  final int _maxStep = 3;
-  MedicalPractice practice = practice1;
+  CalendarAppointmentEvent? _selectedEvent;
+  Person _patient = person1;
+
+  void setSelectedEvent(CalendarAppointmentEvent event) {
+    _selectedEvent = event;
+  }
+
+  void setSelectedPerson(Person person) {
+    _patient = person;
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<CalendarEvent> availableAppointments = await practice1.availableAppointments(
-        DateTime.startOfCurrentWeek,
-        DateTime.startOfCurrentWeek.add(const Duration(days: 7)));
-
     return Stepper(
       currentStep: _currentStep,
       type: StepperType.vertical,
-      controlsBuilder: (context, details) {
-        return Row(
-          children: [
-            if (_currentStep == 0)
-              TextButton(
-                  onPressed: () {},
-                  child: Text(t(PhraseKey.cancel).toUpperCase(),
-                      style: Theme.of(context).textTheme.labelMedium)),
-            if (_currentStep > 0)
-              TextButton(
-                  onPressed: details.onStepCancel,
-                  child: Text(t(PhraseKey.no_entry).toUpperCase(),
-                      style: Theme.of(context).textTheme.labelMedium)),
-            if (_currentStep < _maxStep)
-              TextButton(
-                  onPressed: details.onStepContinue,
-                  child: Text(t(PhraseKey.no_entry).toUpperCase(),
-                      style: Theme.of(context).textTheme.labelMedium)),
-            if (_currentStep == _maxStep)
-              TextButton(
-                  onPressed: () {},
-                  child: Text(t(PhraseKey.no_entry).toUpperCase(),
-                      style: Theme.of(context).textTheme.labelMedium)),
-          ],
-        );
+      controlsBuilder: (BuildContext context, ControlsDetails details) {
+        return StepperControls(
+            currentStep: _currentStep, maxStep: _maxStep, details: details);
       },
       onStepCancel: () {
         if (_currentStep > 0) {
@@ -72,6 +55,12 @@ class _ReserveScreenState extends State<ReserveScreen> {
       },
       onStepContinue: () {
         if (_currentStep < _maxStep) {
+          if (_currentStep == 0 && _selectedEvent == null) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(t(PhraseKey.no_entry)),
+                duration: const Duration(seconds: 1)));
+            return;
+          }
           setState(() {
             _currentStep++;
           });
@@ -84,68 +73,32 @@ class _ReserveScreenState extends State<ReserveScreen> {
       },
       steps: [
         Step(
-            title: Text(t(PhraseKey.no_entry),
+            title: Text(t(PhraseKey.stepper_select_time),
                 style: Theme.of(context).textTheme.labelLarge),
             content: TimeTable(
-                availableAppointments: availableAppointments,
-                reservations: reservations)),
+              practice: practice,
+              onSelected: setSelectedEvent,
+            )),
         Step(
-          title: const Text(""),
-          content: Column(
-            children: <Widget>[
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: practice.availableAppointments.length,
-                itemBuilder: (BuildContext context, int itemIndex) {
-                  return ListTile(
-                    title: Text(practice.employees[itemIndex].name,
-                        style: Theme.of(context).textTheme.labelLarge),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-        Step(
-          title: Text(t(PhraseKey.no_entry),
+          title: Text(t(PhraseKey.stepper_person_details),
               style: Theme.of(context).textTheme.labelLarge),
-          content: Column(
-            children: [
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: t(PhraseKey.first_name),
-                    hintText: t(PhraseKey.first_name_hint)),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: t(PhraseKey.last_name),
-                    hintText: t(PhraseKey.last_name_hint)),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: t(PhraseKey.phone),
-                    hintText: t(PhraseKey.phone_hint)),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: t(PhraseKey.email),
-                    hintText: t(PhraseKey.email_hint)),
-              ),
-            ],
-          ),
+          content: const StepperPersonDetails(),
         ),
         Step(
-          title: Text(t(PhraseKey.reservation_overview_step),
+          title: Text(t(PhraseKey.stepper_overview),
               style: Theme.of(context).textTheme.labelLarge),
           content: Column(
             children: [
               ListTile(
                 title: Text(t(PhraseKey.date)),
-                trailing: Text(_selectedDate.toString()),
+                //print month and day
+                trailing: Text(_selectedEvent?.startDate.toMonthDayString() ??
+                    "No date selected"),
               ),
               ListTile(
                 title: Text(t(PhraseKey.time)),
-                trailing: Text(_selectedTime.toString()),
+                trailing: Text(
+                    "${_selectedEvent?.startDate.toTimeOfDay().format(context)} - ${_selectedEvent?.endDate.toTimeOfDay().format(context)}"),
               ),
               const Divider(),
               ListTile(
@@ -166,13 +119,5 @@ class _ReserveScreenState extends State<ReserveScreen> {
         ),
       ],
     );
-  }
-}
-
-extension StartOfWeek on DateTime {
-  static DateTime get startOfCurrentWeek {
-    DateTime monday = DateTime.now();
-    monday.subtract(Duration(days: monday.weekday - 1));
-    return DateTime(monday.year, monday.month, monday.day);
   }
 }
