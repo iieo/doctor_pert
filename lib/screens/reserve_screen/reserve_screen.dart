@@ -17,11 +17,11 @@ class ReserveScreen extends StatefulWidget {
 
 class _ReserveScreenState extends State<ReserveScreen> {
   int _currentStep = 0;
-  DateTime _selectedDate = DateTime.now();
-  TimeOfDay _selectedTime = TimeOfDay.now();
+  final DateTime _selectedDate = DateTime.now();
+  final TimeOfDay _selectedTime = TimeOfDay.now();
 
-  Employee _selectedEmployee = practice1.employees[0];
-  Person _patient = person1;
+  final Employee _selectedEmployee = practice1.employees[0];
+  final Person _patient = person1;
 
   final int _maxStep = 3;
   MedicalPractice practice = practice1;
@@ -85,7 +85,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                 availableAppointments: practice.availableAppointments,
                 reservations: reservations)),
         Step(
-          title: Text(""),
+          title: const Text(""),
           content: Column(
             children: <Widget>[
               ListView.builder(

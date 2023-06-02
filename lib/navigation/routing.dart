@@ -87,7 +87,7 @@ final GoRouter router = GoRouter(
                 if (doctorId == null) {
                   //TODO: reroute
                 }
-                return NoTransitionPage(
+                return const NoTransitionPage(
                     child: ReserveScreen(doctorId: "dummyId"));
               }),
           GoRoute(

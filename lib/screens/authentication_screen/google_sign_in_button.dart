@@ -1,7 +1,10 @@
 import 'package:doctor_pert/handler/authentication_handler.dart';
+import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
 
 class GoogleSignInButton extends StatefulWidget {
+  const GoogleSignInButton({super.key});
+
   @override
   _GoogleSignInButtonState createState() => _GoogleSignInButtonState();
 }
@@ -46,16 +49,16 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    Image(
+                  children: <Widget>[
+                    const Image(
                       image: AssetImage("assets/icons/google_logo.png"),
                       height: 35.0,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 10),
                       child: Text(
-                        'Sign in with Google',
-                        style: TextStyle(
+                        t(PhraseKey.signInWithGoogle),
+                        style: const TextStyle(
                           fontSize: 20,
                           color: Colors.black54,
                           fontWeight: FontWeight.w600,

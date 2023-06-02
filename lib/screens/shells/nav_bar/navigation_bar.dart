@@ -31,7 +31,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
       snap: false,
       title: InkWell(
           onTap: () => GoRouter.of(context).go("/"),
-          child: Text(t(PhraseKey.app_name),
+          child: Text(t(PhraseKey.appName),
               style: Theme.of(context).textTheme.headlineMedium)),
       actions: [
         Padding(
