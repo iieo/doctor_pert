@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:doctor_pert/screens/home_screen/components/osm_map.dart';
+import 'package:doctor_pert/screens/home_screen/components/search_bar.dart';
 import 'package:doctor_pert/screens/shells/nav_bar/footer.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
               Text(t(PhraseKey.appSlogan),
                   style: Theme.of(context).textTheme.headlineSmall),
               const SizedBox(height: 35),
-              const SearchBar()
+              SearchBar()
             ]),
           )),
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

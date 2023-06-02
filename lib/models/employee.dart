@@ -1,9 +1,10 @@
+import 'package:doctor_pert/models/calendar.dart';
 import 'package:doctor_pert/models/person.dart';
 import 'package:flutter/material.dart';
 
 abstract class Employee extends Person {
   String id;
-  List<List<TimeOfDay>> availableAppointments;
+  Calendar calendar;
 
   Employee(
       {required super.firstName,
@@ -11,7 +12,8 @@ abstract class Employee extends Person {
       required super.email,
       required super.phone,
       required this.id,
-      required this.availableAppointments});
+      required this.calendar});
+
 }
 
 class Doctor extends Employee {
@@ -24,7 +26,7 @@ class Doctor extends Employee {
       required super.email,
       required super.phone,
       required super.id,
-      required super.availableAppointments,
+      required super.calendar,
       this.speciality});
 }
 
@@ -35,5 +37,5 @@ class Assistant extends Employee {
       required super.email,
       required super.phone,
       required super.id,
-      required super.availableAppointments});
+      required super.calendar});
 }

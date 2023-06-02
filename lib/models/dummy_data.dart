@@ -1,4 +1,6 @@
 import 'package:doctor_pert/models/address.dart';
+import 'package:doctor_pert/models/calendar.dart';
+import 'package:doctor_pert/models/calendar_event.dart';
 import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:doctor_pert/models/person.dart';
 import 'package:doctor_pert/models/reservation.dart';
@@ -14,65 +16,16 @@ Person person1 = Person(
   phone: "0123456789",
 );
 
-List<Reservation> reservations1 = [
-  Reservation(
-    doctorId: practice1.id,
-    workerId: practice1.id,
-    patient: person1,
-    created: DateTime.now().subtract(const Duration(days: 1)),
-    status: ReservationStatus.accepted,
-    userId: "1",
-    date: DateTime.now().add(const Duration(days: 1)),
-    time: const TimeOfDay(hour: 8, minute: 0),
-    location: LatLng(48.2475327, 12.1612037),
-  ),
-  Reservation(
-    doctorId: practice1.id,
-    workerId: practice1.id,
-    patient: person1,
-    created: DateTime.now().subtract(const Duration(days: 1)),
-    status: ReservationStatus.accepted,
-    userId: "1",
-    date: DateTime.now().add(const Duration(days: 1)),
-    time: const TimeOfDay(hour: 8, minute: 30),
-    location: LatLng(48.2475327, 12.1612037),
-  ),
-  Reservation(
-    doctorId: practice1.id,
-    workerId: practice1.id,
-    patient: person1,
-    created: DateTime.now().subtract(const Duration(days: 1)),
-    status: ReservationStatus.accepted,
-    userId: "1",
-    date: DateTime.now().add(const Duration(days: 2)),
-    time: const TimeOfDay(hour: 10, minute: 0),
-    location: LatLng(48.2475327, 12.1612037),
-  ),
-  Reservation(
-    doctorId: practice1.id,
-    workerId: practice1.id,
-    patient: person1,
-    created: DateTime.now().subtract(const Duration(days: 1)),
-    status: ReservationStatus.accepted,
-    userId: "1",
-    date: DateTime.now().add(const Duration(days: 1)),
-    time: const TimeOfDay(hour: 11, minute: 30),
-    location: LatLng(48.2475327, 12.1612037),
-  ),
-];
-
-Doctor doc1 = Doctor(
-    firstName: "Max",
-    lastName: "Mustermann",
-    email: "test@g",
-    phone: "3269",
-    id: "s",
-    availableAppointments: List.empty());
-
 MedicalPractice practice1 = MedicalPractice(
     id: "1",
     name: "Musterpraxis",
-    owner: [doc1],
+    owner: [
+      Person(
+          firstName: "Max",
+          lastName: "Mustermann",
+          phone: "0123456789",
+          email: "test@test.de")
+    ],
     type: [DoctorType.general],
     address: Address(
         street: "Musterstraße 1",
@@ -95,7 +48,6 @@ MedicalPractice practice1 = MedicalPractice(
       OpeningHoursDay(day: 5, open: "13:00", close: "17:00"),
     ]),
     locations: [LatLng(48.2475327, 12.1612037)],
-    specialities: ["general"],
     website: "https://www.musterpraxis.de",
     description:
         "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut.",
@@ -126,36 +78,42 @@ MedicalPractice practice1 = MedicalPractice(
           lastName: "Mustermann",
           phone: "0123456789",
           email: "test@tes.de",
-          availableAppointments: [
-            [
-              const TimeOfDay(hour: 8, minute: 0),
-              const TimeOfDay(hour: 12, minute: 0),
-              const TimeOfDay(hour: 13, minute: 0),
-              const TimeOfDay(hour: 17, minute: 0)
-            ],
-            [
-              const TimeOfDay(hour: 8, minute: 0),
-              const TimeOfDay(hour: 8, minute: 30),
-              const TimeOfDay(hour: 10, minute: 0),
-              const TimeOfDay(hour: 11, minute: 30)
-            ],
-            [
-              const TimeOfDay(hour: 8, minute: 0),
-              const TimeOfDay(hour: 12, minute: 0),
-              const TimeOfDay(hour: 13, minute: 0),
-              const TimeOfDay(hour: 17, minute: 0)
-            ],
-            [
-              const TimeOfDay(hour: 8, minute: 0),
-              const TimeOfDay(hour: 8, minute: 30),
-              const TimeOfDay(hour: 10, minute: 0),
-              const TimeOfDay(hour: 11, minute: 30)
-            ],
-            [
-              const TimeOfDay(hour: 8, minute: 0),
-              const TimeOfDay(hour: 12, minute: 0),
-              const TimeOfDay(hour: 13, minute: 0),
-              const TimeOfDay(hour: 17, minute: 0)
-            ],
-          ])
+          calendar: calendar1)
     ]);
+
+Calendar calendar1 = Calendar(calendarEvents: [
+  CalendarAppointmentEvent(
+      note: "Test",
+      startDate: DateTime.now(),
+      endDate: DateTime.now().add(const Duration(hours: 1)),
+      id: "1",
+      title: "Test",
+      location: LatLng(48.2475327, 12.1612037)),
+  CalendarAppointmentEvent(
+      note: "Test",
+      startDate: DateTime.now().add(const Duration(days: 1)),
+      endDate: DateTime.now().add(const Duration(days: 1, hours: 1)),
+      id: "2",
+      title: "Test",
+      location: LatLng(48.2475327, 12.1612037)),
+  CalendarAppointmentEvent(
+      note: "Test",
+      startDate: DateTime.now().add(const Duration(days: 2, hours: 2)),
+      endDate: DateTime.now().add(const Duration(days: 2, hours: 3)),
+      id: "3",
+      title: "Test",
+      location: LatLng(48.2475327, 12.1612037)),
+], id: "1", name: "Kalender", ownerId: "1");
+
+List<Reservation> reservations = [
+  Reservation(
+    eventId: "1",
+    id: "1",
+    note: "Test",
+    doctorId: practice1.id,
+    workerId: practice1.id,
+    patient: person1,
+    status: ReservationStatus.accepted,
+    userId: "1",
+  ),
+];

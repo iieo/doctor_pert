@@ -12,5 +12,12 @@ class Person {
     required this.phone,
   });
 
+  Person.fromMap(Map<String, dynamic> map)
+      : titles = map['titles'],
+        firstName = map['firstName'],
+        lastName = map['lastName'],
+        email = map['email'],
+        phone = map['phone'];
+
   String get name => "${titles ?? ""} $firstName $lastName".trim();
 }

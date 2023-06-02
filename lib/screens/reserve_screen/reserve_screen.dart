@@ -1,6 +1,8 @@
+import 'package:doctor_pert/models/calendar_event.dart';
 import 'package:doctor_pert/models/dummy_data.dart';
 import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:doctor_pert/models/person.dart';
+import 'package:doctor_pert/util.dart';
 import 'package:doctor_pert/models/reservation.dart';
 import 'package:doctor_pert/models/employee.dart';
 import 'package:doctor_pert/screens/reserve_screen/stepper_content/time_table.dart';
@@ -25,10 +27,13 @@ class _ReserveScreenState extends State<ReserveScreen> {
 
   final int _maxStep = 3;
   MedicalPractice practice = practice1;
-  List<Reservation> reservations = reservations1;
 
   @override
   Widget build(BuildContext context) {
+    List<CalendarEvent> availableAppointments = await practice1.availableAppointments(
+        DateTime.startOfCurrentWeek,
+        DateTime.startOfCurrentWeek.add(const Duration(days: 7)));
+
     return Stepper(
       currentStep: _currentStep,
       type: StepperType.vertical,
@@ -82,7 +87,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
             title: Text(t(PhraseKey.no_entry),
                 style: Theme.of(context).textTheme.labelLarge),
             content: TimeTable(
-                availableAppointments: practice.availableAppointments,
+                availableAppointments: availableAppointments,
                 reservations: reservations)),
         Step(
           title: const Text(""),
@@ -161,5 +166,13 @@ class _ReserveScreenState extends State<ReserveScreen> {
         ),
       ],
     );
+  }
+}
+
+extension StartOfWeek on DateTime {
+  static DateTime get startOfCurrentWeek {
+    DateTime monday = DateTime.now();
+    monday.subtract(Duration(days: monday.weekday - 1));
+    return DateTime(monday.year, monday.month, monday.day);
   }
 }
