@@ -11,6 +11,12 @@ class Person {
     required this.email,
     required this.phone,
   });
+  Person.empty()
+      : titles = "",
+        firstName = "",
+        lastName = "",
+        email = "",
+        phone = "";
 
   Person.fromMap(Map<String, dynamic> map)
       : titles = map['titles'],

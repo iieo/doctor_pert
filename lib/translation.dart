@@ -97,7 +97,11 @@ enum PhraseKey {
   stepper_select_time,
   stepper_person_details,
   stepper_overview,
-  no_appointments_available_this_week
+  no_appointments_available_this_week,
+  submit,
+  cancelStep,
+  continueStep,
+  abort
 }
 
 Map<PhraseKey, Map<Language, String>> languageMapping = {
@@ -402,6 +406,13 @@ Map<PhraseKey, Map<Language, String>> languageMapping = {
     Language.english: "No appointments left this week",
     Language.german: "Alle Termine dieser Woche sind ausgebucht"
   },
+  PhraseKey.submit: {Language.english: "Submit", Language.german: "Absenden"},
+  PhraseKey.cancelStep: {Language.english: "Back", Language.german: "Zurück"},
+  PhraseKey.continueStep: {
+    Language.english: "Continue",
+    Language.german: "Weiter"
+  },
+  PhraseKey.abort: {Language.english: "Abort", Language.german: "Abbrechen"},
 };
 
 Language language = Language.german;

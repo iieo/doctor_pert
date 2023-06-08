@@ -79,8 +79,24 @@ final ThemeData lightTheme = ThemeData(
     ),
   ),
   textTheme: _textTheme,
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsets>(
+        const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
+      ),
+      foregroundColor: MaterialStateProperty.all<Color>(secondaryColor),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(defaultRadius),
+        ),
+      ),
+    ),
+  ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsets>(
+        const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
+      ),
       backgroundColor: MaterialStateProperty.all<Color>(secondaryColor),
       foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(

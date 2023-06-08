@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
               Text(t(PhraseKey.appSlogan),
                   style: Theme.of(context).textTheme.headlineSmall),
               const SizedBox(height: 35),
-              SearchBar()
+              DoctorSearchBar()
             ]),
           )),
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

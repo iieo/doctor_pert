@@ -1,6 +1,5 @@
 import 'package:doctor_pert/models/calendar_event.dart';
 import 'package:doctor_pert/models/medical_practice.dart';
-import 'package:doctor_pert/models/reservation.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:doctor_pert/util.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,7 @@ import 'package:collection/collection.dart';
 /// It is used to display the available times for a doctor.
 /// It is for the user to select a date and time for a reservation.
 
-class TimeTable extends StatelessWidget {
+class TimeTable extends StatefulWidget {
   final MedicalPractice practice;
   final Function(CalendarAppointmentEvent) onSelected;
   const TimeTable(
@@ -20,6 +19,20 @@ class TimeTable extends StatelessWidget {
     DateTime monday = DateTime.now();
     monday.subtract(Duration(days: monday.weekday - 1));
     return DateTime(monday.year, monday.month, monday.day);
+  }
+
+  @override
+  State<TimeTable> createState() => _TimeTableState();
+}
+
+class _TimeTableState extends State<TimeTable> {
+  CalendarAppointmentEvent? _selected;
+
+  void onSelected(CalendarAppointmentEvent event) {
+    setState(() {
+      _selected = event;
+    });
+    widget.onSelected(event);
   }
 
   Set<TimeOfDay> _getAllTimesFromEvents(List<CalendarAppointmentEvent> events) {
@@ -46,13 +59,13 @@ class TimeTable extends StatelessWidget {
               style: Theme.of(context).textTheme.labelLarge));
     }
 
-    List<Column> columns = [];
-
     Set<TimeOfDay> allTimes = _getAllTimesFromEvents(events);
 
     List<TimeOfDay> sortedTimes = _sortByTime(allTimes.toList());
 
-    DateTime currentDate = startOfCurrentWeek;
+    List<Column> columns = [];
+
+    DateTime currentDate = widget.startOfCurrentWeek;
     for (int i = 0; i < 7; i++) {
       List<TimeTableItem> items = [];
       for (TimeOfDay time in sortedTimes) {
@@ -62,7 +75,11 @@ class TimeTable extends StatelessWidget {
             event.startDate.year == currentDate.year &&
             event.startDate.month == currentDate.month &&
             event.startDate.day == currentDate.day);
-        items.add(TimeTableItem(event: event));
+        items.add(TimeTableItem(
+          event: event,
+          onSelected: onSelected,
+          active: _selected == event,
+        ));
       }
       currentDate = currentDate.add(const Duration(days: 1));
       columns.add(Column(children: items));
@@ -76,8 +93,8 @@ class TimeTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: practice.availableAppointments(
-          startOfCurrentWeek, startOfCurrentWeek.add(const Duration(days: 7))),
+      future: widget.practice.availableAppointments(widget.startOfCurrentWeek,
+          widget.startOfCurrentWeek.add(const Duration(days: 7))),
       builder: (context, snapshot) {
         if (snapshot.hasData &&
             snapshot.data is List<CalendarAppointmentEvent>) {
@@ -93,20 +110,31 @@ class TimeTable extends StatelessWidget {
 
 class TimeTableItem extends StatelessWidget {
   final CalendarAppointmentEvent? event;
-  const TimeTableItem({super.key, required this.event});
+  final bool active;
+  final Function(CalendarAppointmentEvent) onSelected;
+  const TimeTableItem(
+      {super.key,
+      required this.event,
+      required this.onSelected,
+      required this.active});
 
   @override
   Widget build(BuildContext context) {
     if (event != null) {
       return Container(
-          width: 100,
+          width: 120,
           height: 50,
-          color: Colors.green,
+          color: active ? Colors.amber : Colors.green,
           alignment: Alignment.center,
-          child: Text(event!.startDate.toTimeOfDay().format(context)));
+          child: TextButton(
+              onPressed: () => onSelected(event!),
+              child: Text(
+                event!.startDate.toTimeOfDay().format(context),
+                style: Theme.of(context).textTheme.labelMedium,
+              )));
     } else {
       return Container(
-        width: 100,
+        width: 120,
         height: 50,
         color: Colors.red,
         alignment: Alignment.center,

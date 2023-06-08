@@ -18,22 +18,22 @@ class StepperControls extends StatelessWidget {
         if (currentStep == 0)
           TextButton(
               onPressed: () {},
-              child: Text(t(PhraseKey.cancel).toUpperCase(),
+              child: Text(t(PhraseKey.abort).toUpperCase(),
                   style: Theme.of(context).textTheme.labelMedium)),
         if (currentStep > 0)
           TextButton(
               onPressed: details.onStepCancel,
-              child: Text(t(PhraseKey.no_entry).toUpperCase(),
+              child: Text(t(PhraseKey.cancelStep).toUpperCase(),
                   style: Theme.of(context).textTheme.labelMedium)),
         if (currentStep < maxStep)
           TextButton(
               onPressed: details.onStepContinue,
-              child: Text(t(PhraseKey.no_entry).toUpperCase(),
+              child: Text(t(PhraseKey.continueStep).toUpperCase(),
                   style: Theme.of(context).textTheme.labelMedium)),
         if (currentStep == maxStep)
           TextButton(
               onPressed: () {},
-              child: Text(t(PhraseKey.no_entry).toUpperCase(),
+              child: Text(t(PhraseKey.submit).toUpperCase(),
                   style: Theme.of(context).textTheme.labelMedium)),
       ],
     );

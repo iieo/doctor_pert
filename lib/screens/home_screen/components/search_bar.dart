@@ -2,8 +2,8 @@ import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class SearchBar extends StatelessWidget {
-  SearchBar({super.key});
+class DoctorSearchBar extends StatelessWidget {
+  DoctorSearchBar({super.key});
 
   final TextEditingController _searchController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
