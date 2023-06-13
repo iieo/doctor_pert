@@ -1,6 +1,40 @@
 import 'package:doctor_pert/models/person.dart';
-import 'package:flutter/material.dart';
-import 'package:latlong2/latlong.dart';
+
+class Reservation {
+  String id;
+  String userId;
+  String eventId;
+  String doctorId;
+  String workerId;
+  String note; //damit der Patient bemerkungen machen kann
+  Person patient;
+  ReservationStatus status;
+
+  Reservation({
+    required this.id,
+    required this.userId,
+    required this.eventId,
+    required this.doctorId,
+    required this.workerId,
+    required this.note,
+    required this.patient,
+    required this.status,
+  });
+
+  Reservation.fromMap(Map<String, dynamic> map)
+      : id = map['id'],
+        userId = map['userId'],
+        eventId = map['eventId'],
+        doctorId = map['doctorId'],
+        workerId = map['workerId'],
+        note = map['note'],
+        patient = Person.fromMap(map['patient']),
+        status = ReservationStatus.values[map['status']];
+
+  
+}
+
+/*
 
 class Reservation {
   String userId;
@@ -26,7 +60,7 @@ class Reservation {
     this.note,
     required this.status,
   });
-}
+}*/
 
 enum ReservationStatus {
   pending,

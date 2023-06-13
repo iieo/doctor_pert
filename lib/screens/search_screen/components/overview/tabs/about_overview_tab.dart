@@ -2,10 +2,15 @@ import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:doctor_pert/models/time.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AboutOverviewTab extends StatelessWidget {
   final MedicalPractice doctor;
   const AboutOverviewTab({super.key, required this.doctor});
+
+  void _navigateToReserve(BuildContext context) {
+    GoRouter.of(context).go("/reserve?id=${doctor.id}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +21,11 @@ class AboutOverviewTab extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ElevatedButton(
-                onPressed: () {},
-                child: Text(t(PhraseKey.reservate),
-                    style: Theme.of(context).textTheme.labelMedium)),
+                onPressed: () => _navigateToReserve(context),
+                child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text(t(PhraseKey.reservate),
+                        style: Theme.of(context).textTheme.labelMedium))),
             const Divider(
               height: 40,
             ),

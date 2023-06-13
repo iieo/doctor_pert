@@ -1,7 +1,10 @@
+import 'package:doctor_pert/models/calendar_event.dart';
 import 'package:doctor_pert/models/dummy_data.dart';
 import 'package:doctor_pert/models/medical_practice.dart';
 import 'package:doctor_pert/models/person.dart';
-import 'package:doctor_pert/models/reservation.dart';
+import 'package:doctor_pert/screens/reserve_screen/stepper_content/StepperControls.dart';
+import 'package:doctor_pert/screens/reserve_screen/stepper_content/person_details.dart';
+import 'package:doctor_pert/util.dart';
 import 'package:doctor_pert/models/employee.dart';
 import 'package:doctor_pert/screens/reserve_screen/stepper_content/time_table.dart';
 import 'package:doctor_pert/translation.dart';
@@ -17,46 +20,57 @@ class ReserveScreen extends StatefulWidget {
 
 class _ReserveScreenState extends State<ReserveScreen> {
   int _currentStep = 0;
-  final DateTime _selectedDate = DateTime.now();
-  final TimeOfDay _selectedTime = TimeOfDay.now();
+  int _currentMaxStep = 0;
+  final int _maxStep = 2;
 
   final Employee _selectedEmployee = practice1.employees[0];
-  final Person _patient = person1;
+  final MedicalPractice practice = practice1;
 
-  final int _maxStep = 3;
-  MedicalPractice practice = practice1;
-  List<Reservation> reservations = reservations1;
+  CalendarAppointmentEvent? _selectedEvent;
+  Person _patient = Person.empty();
+
+  void setSelectedEvent(CalendarAppointmentEvent event) {
+    _selectedEvent = event;
+  }
+
+  void setPersonFirstName(String name) {
+    _patient.firstName = name;
+  }
+
+  void setPersonLastName(String name) {
+    _patient.lastName = name;
+  }
+
+  void setPersonEmail(String email) {
+    _patient.email = email;
+  }
+
+  void setPersonPhone(String phone) {
+    _patient.phone = phone;
+  }
+
+  void _reserveAppointment(
+      CalendarAppointmentEvent event, Person patient) async {
+    /*  final bool success = await DummyData.reserveAppointment(event, patient);
+    if (success) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(t(PhraseKey.appointment_reserved)),
+          duration: const Duration(seconds: 1)));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(t(PhraseKey.appointment_reserved)),
+          duration: const Duration(seconds: 1)));
+    }*/
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stepper(
       currentStep: _currentStep,
       type: StepperType.vertical,
-      controlsBuilder: (context, details) {
-        return Row(
-          children: [
-            if (_currentStep == 0)
-              TextButton(
-                  onPressed: () {},
-                  child: Text(t(PhraseKey.cancel).toUpperCase(),
-                      style: Theme.of(context).textTheme.labelMedium)),
-            if (_currentStep > 0)
-              TextButton(
-                  onPressed: details.onStepCancel,
-                  child: Text(t(PhraseKey.no_entry).toUpperCase(),
-                      style: Theme.of(context).textTheme.labelMedium)),
-            if (_currentStep < _maxStep)
-              TextButton(
-                  onPressed: details.onStepContinue,
-                  child: Text(t(PhraseKey.no_entry).toUpperCase(),
-                      style: Theme.of(context).textTheme.labelMedium)),
-            if (_currentStep == _maxStep)
-              TextButton(
-                  onPressed: () {},
-                  child: Text(t(PhraseKey.no_entry).toUpperCase(),
-                      style: Theme.of(context).textTheme.labelMedium)),
-          ],
-        );
+      controlsBuilder: (BuildContext context, ControlsDetails details) {
+        return StepperControls(
+            currentStep: _currentStep, maxStep: _maxStep, details: details);
       },
       onStepCancel: () {
         if (_currentStep > 0) {
@@ -67,80 +81,74 @@ class _ReserveScreenState extends State<ReserveScreen> {
       },
       onStepContinue: () {
         if (_currentStep < _maxStep) {
+          if (_currentStep == 2) {
+            _reserveAppointment(_selectedEvent!, _patient);
+          }
+          if (_currentStep == 0 && _selectedEvent == null) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(t(PhraseKey.no_entry)),
+                duration: const Duration(seconds: 1)));
+            return;
+          }
+          if (_currentStep == 1 &&
+              (_patient.name.isEmpty ||
+                  _patient.email.isEmpty ||
+                  _patient.phone.isEmpty)) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(t(PhraseKey.openingHours)),
+                duration: const Duration(seconds: 1)));
+            return;
+          }
           setState(() {
             _currentStep++;
+            _currentMaxStep = _currentStep;
           });
         }
       },
       onStepTapped: (index) {
-        setState(() {
-          _currentStep = index;
-        });
+        if (index <= _currentMaxStep) {
+          setState(() {
+            _currentStep = index;
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(t(PhraseKey.no_entry)),
+              duration: const Duration(seconds: 1)));
+        }
       },
       steps: [
         Step(
-            title: Text(t(PhraseKey.no_entry),
+            title: Text(t(PhraseKey.stepper_select_time),
                 style: Theme.of(context).textTheme.labelLarge),
             content: TimeTable(
-                availableAppointments: practice.availableAppointments,
-                reservations: reservations)),
+              practice: practice,
+              onSelected: setSelectedEvent,
+            )),
         Step(
-          title: const Text(""),
-          content: Column(
-            children: <Widget>[
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: practice.availableAppointments.length,
-                itemBuilder: (BuildContext context, int itemIndex) {
-                  return ListTile(
-                    title: Text(practice.employees[itemIndex].name,
-                        style: Theme.of(context).textTheme.labelLarge),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-        Step(
-          title: Text(t(PhraseKey.no_entry),
+          title: Text(t(PhraseKey.stepper_person_details),
               style: Theme.of(context).textTheme.labelLarge),
-          content: Column(
-            children: [
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: t(PhraseKey.first_name),
-                    hintText: t(PhraseKey.first_name_hint)),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: t(PhraseKey.last_name),
-                    hintText: t(PhraseKey.last_name_hint)),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: t(PhraseKey.phone),
-                    hintText: t(PhraseKey.phone_hint)),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: t(PhraseKey.email),
-                    hintText: t(PhraseKey.email_hint)),
-              ),
-            ],
+          content: StepperPersonDetails(
+            onFirstNameChanged: setPersonFirstName,
+            onLastNameChanged: setPersonLastName,
+            onEmailChanged: setPersonEmail,
+            onPhoneChanged: setPersonPhone,
           ),
         ),
         Step(
-          title: Text(t(PhraseKey.reservation_overview_step),
+          title: Text(t(PhraseKey.stepper_overview),
               style: Theme.of(context).textTheme.labelLarge),
           content: Column(
             children: [
               ListTile(
                 title: Text(t(PhraseKey.date)),
-                trailing: Text(_selectedDate.toString()),
+                //print month and day
+                trailing: Text(_selectedEvent?.startDate.toMonthDayString() ??
+                    "No date selected"),
               ),
               ListTile(
                 title: Text(t(PhraseKey.time)),
-                trailing: Text(_selectedTime.toString()),
+                trailing: Text(
+                    "${_selectedEvent?.startDate.toTimeOfDay().format(context)} - ${_selectedEvent?.endDate.toTimeOfDay().format(context)}"),
               ),
               const Divider(),
               ListTile(

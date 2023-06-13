@@ -1,3 +1,4 @@
+import 'package:doctor_pert/models/calendar_event.dart';
 import 'package:doctor_pert/models/employee.dart';
 import 'package:doctor_pert/models/person.dart';
 import 'package:doctor_pert/translation.dart';
@@ -19,7 +20,6 @@ class MedicalPractice {
   String? website;
   String? description;
   String? imageUrl;
-  List<String> specialities;
   List<String> languages;
   List<Employee> employees;
   OpeningHours openingHours;
@@ -37,7 +37,6 @@ class MedicalPractice {
     required this.openingHours,
     required this.locations,
     required this.employees,
-    this.specialities = const ["general"],
     this.website,
     this.description,
     this.imageUrl,
@@ -54,14 +53,15 @@ class MedicalPractice {
     return employees.whereType<Assistant>().toList();
   }
 
-  List<List<TimeOfDay>> get availableAppointments {
-    List<List<TimeOfDay>> availableAppointments = [[], [], [], [], [], [], []];
-    for (Doctor doctor in doctors) {
-      for (int i = 0; i < doctor.availableAppointments.length && i < 7; i++) {
-        availableAppointments[i].addAll(doctor.availableAppointments[i]);
-      }
+  Future<List<CalendarAppointmentEvent>> availableAppointments(
+      DateTime startWeek, DateTime endWeek) async {
+    List<CalendarAppointmentEvent> events = [];
+    for (Employee employee in employees) {
+      List<CalendarAppointmentEvent> employeeEvents =
+          await employee.calendar.getAvailableEventsForWeek(startWeek, endWeek);
+      events.addAll(employeeEvents);
     }
-    return availableAppointments;
+    return events;
   }
 
   static IconData getIconData(DoctorType type) {
