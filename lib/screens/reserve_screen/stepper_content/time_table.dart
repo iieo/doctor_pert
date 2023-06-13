@@ -1,5 +1,5 @@
 import 'package:doctor_pert/models/calendar_event.dart';
-import 'package:doctor_pert/models/medical_practice.dart';
+import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:doctor_pert/util.dart';
 import 'package:flutter/material.dart';

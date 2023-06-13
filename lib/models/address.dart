@@ -1,18 +1,23 @@
-class Address {
-  String street;
-  String city;
-  String state;
-  String country;
-  String postalCode;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Address(
-      {required this.street,
-      required this.city,
-      required this.state,
-      required this.country,
-      required this.postalCode});
+part 'address.freezed.dart';
+part 'address.g.dart';
 
-  String get fullAddress {
+@unfreezed
+class Address with _$Address {
+  factory Address({
+    required String street,
+    required String city,
+    required String state,
+    required String country,
+    required String postalCode,
+  }) = _Address;
+
+  factory Address.fromJson(Map<String, dynamic> json) =>
+      _$AddressFromJson(json);
+
+  /*
+      String get fullAddress {
     return "$street, $postalCode $city, $country";
-  }
+  }*/
 }

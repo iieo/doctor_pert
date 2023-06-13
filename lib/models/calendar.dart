@@ -1,22 +1,23 @@
 import 'package:doctor_pert/handler/firestore_handler.dart';
 import 'package:doctor_pert/models/calendar_event.dart';
-import 'package:doctor_pert/models/person.dart';
 import 'package:doctor_pert/models/reservation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Calendar {
-  String id;
-  String name;
-  String ownerId;
-  List<CalendarEvent>
-      calendarEvents; //es werden nicht alle geladen, sondern nur die im Zeitraum x bis y
+part 'calendar.freezed.dart';
+part 'calendar.g.dart';
 
-  Calendar({
-    required this.id,
-    required this.name,
-    required this.ownerId,
-    required this.calendarEvents,
-  });
+@unfreezed
+class Calendar with _$Calendar {
+  factory Calendar({
+    required String id,
+    required String name,
+    required String ownerId,
+    required List<String> calendarEvents,
+  }) = _Calendar;
 
+  factory Calendar.fromJson(Map<String, dynamic> json) =>
+      _$CalendarFromJson(json);
+/*
   List<CalendarEvent> getEventsForWeek(
       DateTime startOfWeek, DateTime endOfWeek) {
     return calendarEvents
@@ -46,5 +47,5 @@ class Calendar {
             !reservations.any((reservation) => reservation.eventId == event.id))
         .toList();
     return availableEvents;
-  }
+  }*/
 }

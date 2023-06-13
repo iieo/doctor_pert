@@ -1,29 +1,19 @@
-class Person {
-  String? titles;
-  String firstName;
-  String lastName;
-  String email;
-  String phone;
-  Person({
-    this.titles,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.phone,
-  });
-  Person.empty()
-      : titles = "",
-        firstName = "",
-        lastName = "",
-        email = "",
-        phone = "";
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Person.fromMap(Map<String, dynamic> map)
-      : titles = map['titles'],
-        firstName = map['firstName'],
-        lastName = map['lastName'],
-        email = map['email'],
-        phone = map['phone'];
+part 'person.freezed.dart';
+part 'person.g.dart';
 
-  String get name => "${titles ?? ""} $firstName $lastName".trim();
+@unfreezed
+class Person with _$Person {
+  factory Person({
+    String? titles,
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String phone,
+  }) = _Person;
+
+  factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
+
+  //String get name => "${titles ?? ""} $firstName $lastName".trim();
 }

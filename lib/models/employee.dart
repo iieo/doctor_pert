@@ -1,41 +1,20 @@
 import 'package:doctor_pert/models/calendar.dart';
-import 'package:doctor_pert/models/person.dart';
-import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-abstract class Employee extends Person {
-  String id;
-  Calendar calendar;
+part 'employee.freezed.dart';
+part 'employee.g.dart';
 
-  Employee(
-      {required super.firstName,
-      required super.lastName,
-      required super.email,
-      required super.phone,
-      required this.id,
-      required this.calendar});
+@freezed
+class Employee with _$Employee {
+  factory Employee({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String phone,
+    required String id,
+    required Calendar calendar,
+  }) = _Employee;
 
-}
-
-class Doctor extends Employee {
-  /// nur ein vorschlag
-  String? speciality;
-
-  Doctor(
-      {required super.firstName,
-      required super.lastName,
-      required super.email,
-      required super.phone,
-      required super.id,
-      required super.calendar,
-      this.speciality});
-}
-
-class Assistant extends Employee {
-  Assistant(
-      {required super.firstName,
-      required super.lastName,
-      required super.email,
-      required super.phone,
-      required super.id,
-      required super.calendar});
+  factory Employee.fromJson(Map<String, dynamic> json) =>
+      _$EmployeeFromJson(json);
 }

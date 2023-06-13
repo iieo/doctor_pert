@@ -1,4 +1,4 @@
-import 'package:doctor_pert/models/medical_practice.dart';
+import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
 import 'package:doctor_pert/screens/search_screen/components/doctor_card.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/overview.dart';
 import 'package:flutter/material.dart';

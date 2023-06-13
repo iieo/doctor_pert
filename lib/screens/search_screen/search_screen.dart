@@ -1,4 +1,4 @@
-import 'package:doctor_pert/models/medical_practice.dart';
+import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
 import 'package:doctor_pert/models/dummy_data.dart';
 import 'package:doctor_pert/screens/home_screen/components/osm_map.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/animated_overview.dart';
