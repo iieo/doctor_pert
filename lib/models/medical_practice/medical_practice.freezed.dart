@@ -40,18 +40,22 @@ mixin _$MedicalPractice {
   set description(String? value) => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   set imageUrl(String? value) => throw _privateConstructorUsedError;
+  List<String> get employeeIds => throw _privateConstructorUsedError;
+  set employeeIds(List<String> value) => throw _privateConstructorUsedError;
   List<String> get languages => throw _privateConstructorUsedError;
   set languages(List<String> value) => throw _privateConstructorUsedError;
-  List<Employee> get employees => throw _privateConstructorUsedError;
-  set employees(List<Employee> value) => throw _privateConstructorUsedError;
   OpeningHours get openingHours => throw _privateConstructorUsedError;
   set openingHours(OpeningHours value) => throw _privateConstructorUsedError;
   List<Rating> get ratings => throw _privateConstructorUsedError;
   set ratings(List<Rating> value) => throw _privateConstructorUsedError;
-  List<LatLng> get locations => throw _privateConstructorUsedError;
-  set locations(List<LatLng> value) => throw _privateConstructorUsedError;
+  LatLng get location => throw _privateConstructorUsedError;
+  set location(LatLng value) => throw _privateConstructorUsedError;
   List<String> get services => throw _privateConstructorUsedError;
   set services(List<String> value) => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  List<Employee>? get employees => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  set employees(List<Employee>? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -76,12 +80,14 @@ abstract class $MedicalPracticeCopyWith<$Res> {
       String? website,
       String? description,
       String? imageUrl,
+      List<String> employeeIds,
       List<String> languages,
-      List<Employee> employees,
       OpeningHours openingHours,
       List<Rating> ratings,
-      List<LatLng> locations,
-      List<String> services});
+      LatLng location,
+      List<String> services,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+          List<Employee>? employees});
 
   $AddressCopyWith<$Res> get address;
   $OpeningHoursCopyWith<$Res> get openingHours;
@@ -110,12 +116,13 @@ class _$MedicalPracticeCopyWithImpl<$Res, $Val extends MedicalPractice>
     Object? website = freezed,
     Object? description = freezed,
     Object? imageUrl = freezed,
+    Object? employeeIds = null,
     Object? languages = null,
-    Object? employees = null,
     Object? openingHours = null,
     Object? ratings = null,
-    Object? locations = null,
+    Object? location = null,
     Object? services = null,
+    Object? employees = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -158,14 +165,14 @@ class _$MedicalPracticeCopyWithImpl<$Res, $Val extends MedicalPractice>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      employeeIds: null == employeeIds
+          ? _value.employeeIds
+          : employeeIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       languages: null == languages
           ? _value.languages
           : languages // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      employees: null == employees
-          ? _value.employees
-          : employees // ignore: cast_nullable_to_non_nullable
-              as List<Employee>,
       openingHours: null == openingHours
           ? _value.openingHours
           : openingHours // ignore: cast_nullable_to_non_nullable
@@ -174,14 +181,18 @@ class _$MedicalPracticeCopyWithImpl<$Res, $Val extends MedicalPractice>
           ? _value.ratings
           : ratings // ignore: cast_nullable_to_non_nullable
               as List<Rating>,
-      locations: null == locations
-          ? _value.locations
-          : locations // ignore: cast_nullable_to_non_nullable
-              as List<LatLng>,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as LatLng,
       services: null == services
           ? _value.services
           : services // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      employees: freezed == employees
+          ? _value.employees
+          : employees // ignore: cast_nullable_to_non_nullable
+              as List<Employee>?,
     ) as $Val);
   }
 
@@ -221,12 +232,14 @@ abstract class _$$_MedicalPracticeCopyWith<$Res>
       String? website,
       String? description,
       String? imageUrl,
+      List<String> employeeIds,
       List<String> languages,
-      List<Employee> employees,
       OpeningHours openingHours,
       List<Rating> ratings,
-      List<LatLng> locations,
-      List<String> services});
+      LatLng location,
+      List<String> services,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+          List<Employee>? employees});
 
   @override
   $AddressCopyWith<$Res> get address;
@@ -255,12 +268,13 @@ class __$$_MedicalPracticeCopyWithImpl<$Res>
     Object? website = freezed,
     Object? description = freezed,
     Object? imageUrl = freezed,
+    Object? employeeIds = null,
     Object? languages = null,
-    Object? employees = null,
     Object? openingHours = null,
     Object? ratings = null,
-    Object? locations = null,
+    Object? location = null,
     Object? services = null,
+    Object? employees = freezed,
   }) {
     return _then(_$_MedicalPractice(
       id: null == id
@@ -303,14 +317,14 @@ class __$$_MedicalPracticeCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      employeeIds: null == employeeIds
+          ? _value.employeeIds
+          : employeeIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       languages: null == languages
           ? _value.languages
           : languages // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      employees: null == employees
-          ? _value.employees
-          : employees // ignore: cast_nullable_to_non_nullable
-              as List<Employee>,
       openingHours: null == openingHours
           ? _value.openingHours
           : openingHours // ignore: cast_nullable_to_non_nullable
@@ -319,21 +333,25 @@ class __$$_MedicalPracticeCopyWithImpl<$Res>
           ? _value.ratings
           : ratings // ignore: cast_nullable_to_non_nullable
               as List<Rating>,
-      locations: null == locations
-          ? _value.locations
-          : locations // ignore: cast_nullable_to_non_nullable
-              as List<LatLng>,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as LatLng,
       services: null == services
           ? _value.services
           : services // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      employees: freezed == employees
+          ? _value.employees
+          : employees // ignore: cast_nullable_to_non_nullable
+              as List<Employee>?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_MedicalPractice implements _MedicalPractice {
+class _$_MedicalPractice extends _MedicalPractice {
   _$_MedicalPractice(
       {required this.id,
       required this.name,
@@ -345,12 +363,14 @@ class _$_MedicalPractice implements _MedicalPractice {
       required this.website,
       required this.description,
       required this.imageUrl,
+      required this.employeeIds,
       required this.languages,
-      required this.employees,
       required this.openingHours,
       required this.ratings,
-      required this.locations,
-      required this.services});
+      required this.location,
+      required this.services,
+      @JsonKey(includeFromJson: false, includeToJson: false) this.employees})
+      : super._();
 
   factory _$_MedicalPractice.fromJson(Map<String, dynamic> json) =>
       _$$_MedicalPracticeFromJson(json);
@@ -376,21 +396,24 @@ class _$_MedicalPractice implements _MedicalPractice {
   @override
   String? imageUrl;
   @override
-  List<String> languages;
+  List<String> employeeIds;
   @override
-  List<Employee> employees;
+  List<String> languages;
   @override
   OpeningHours openingHours;
   @override
   List<Rating> ratings;
   @override
-  List<LatLng> locations;
+  LatLng location;
   @override
   List<String> services;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  List<Employee>? employees;
 
   @override
   String toString() {
-    return 'MedicalPractice(id: $id, name: $name, owner: $owner, type: $type, address: $address, phone: $phone, email: $email, website: $website, description: $description, imageUrl: $imageUrl, languages: $languages, employees: $employees, openingHours: $openingHours, ratings: $ratings, locations: $locations, services: $services)';
+    return 'MedicalPractice(id: $id, name: $name, owner: $owner, type: $type, address: $address, phone: $phone, email: $email, website: $website, description: $description, imageUrl: $imageUrl, employeeIds: $employeeIds, languages: $languages, openingHours: $openingHours, ratings: $ratings, location: $location, services: $services, employees: $employees)';
   }
 
   @JsonKey(ignore: true)
@@ -407,7 +430,7 @@ class _$_MedicalPractice implements _MedicalPractice {
   }
 }
 
-abstract class _MedicalPractice implements MedicalPractice {
+abstract class _MedicalPractice extends MedicalPractice {
   factory _MedicalPractice(
       {required String id,
       required String name,
@@ -419,12 +442,15 @@ abstract class _MedicalPractice implements MedicalPractice {
       required String? website,
       required String? description,
       required String? imageUrl,
+      required List<String> employeeIds,
       required List<String> languages,
-      required List<Employee> employees,
       required OpeningHours openingHours,
       required List<Rating> ratings,
-      required List<LatLng> locations,
-      required List<String> services}) = _$_MedicalPractice;
+      required LatLng location,
+      required List<String> services,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+          List<Employee>? employees}) = _$_MedicalPractice;
+  _MedicalPractice._() : super._();
 
   factory _MedicalPractice.fromJson(Map<String, dynamic> json) =
       _$_MedicalPractice.fromJson;
@@ -460,11 +486,11 @@ abstract class _MedicalPractice implements MedicalPractice {
   String? get imageUrl;
   set imageUrl(String? value);
   @override
+  List<String> get employeeIds;
+  set employeeIds(List<String> value);
+  @override
   List<String> get languages;
   set languages(List<String> value);
-  @override
-  List<Employee> get employees;
-  set employees(List<Employee> value);
   @override
   OpeningHours get openingHours;
   set openingHours(OpeningHours value);
@@ -472,11 +498,16 @@ abstract class _MedicalPractice implements MedicalPractice {
   List<Rating> get ratings;
   set ratings(List<Rating> value);
   @override
-  List<LatLng> get locations;
-  set locations(List<LatLng> value);
+  LatLng get location;
+  set location(LatLng value);
   @override
   List<String> get services;
   set services(List<String> value);
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  List<Employee>? get employees;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  set employees(List<Employee>? value);
   @override
   @JsonKey(ignore: true)
   _$$_MedicalPracticeCopyWith<_$_MedicalPractice> get copyWith =>

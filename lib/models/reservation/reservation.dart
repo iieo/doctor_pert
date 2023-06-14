@@ -1,4 +1,4 @@
-import 'package:doctor_pert/models/person.dart';
+import 'package:doctor_pert/models/person/person.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'reservation.freezed.dart';

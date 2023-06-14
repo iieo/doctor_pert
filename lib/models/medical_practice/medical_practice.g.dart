@@ -22,19 +22,17 @@ _$_MedicalPractice _$$_MedicalPracticeFromJson(Map<String, dynamic> json) =>
       website: json['website'] as String?,
       description: json['description'] as String?,
       imageUrl: json['imageUrl'] as String?,
+      employeeIds: (json['employeeIds'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       languages:
           (json['languages'] as List<dynamic>).map((e) => e as String).toList(),
-      employees: (json['employees'] as List<dynamic>)
-          .map((e) => Employee.fromJson(e as Map<String, dynamic>))
-          .toList(),
       openingHours:
           OpeningHours.fromJson(json['openingHours'] as Map<String, dynamic>),
       ratings: (json['ratings'] as List<dynamic>)
           .map((e) => Rating.fromJson(e as Map<String, dynamic>))
           .toList(),
-      locations: (json['locations'] as List<dynamic>)
-          .map((e) => LatLng.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      location: LatLng.fromJson(json['location'] as Map<String, dynamic>),
       services:
           (json['services'] as List<dynamic>).map((e) => e as String).toList(),
     );
@@ -51,11 +49,11 @@ Map<String, dynamic> _$$_MedicalPracticeToJson(_$_MedicalPractice instance) =>
       'website': instance.website,
       'description': instance.description,
       'imageUrl': instance.imageUrl,
+      'employeeIds': instance.employeeIds,
       'languages': instance.languages,
-      'employees': instance.employees,
       'openingHours': instance.openingHours,
       'ratings': instance.ratings,
-      'locations': instance.locations,
+      'location': instance.location,
       'services': instance.services,
     };
 

@@ -1,6 +1,3 @@
-import 'package:doctor_pert/handler/firestore_handler.dart';
-import 'package:doctor_pert/models/calendar_event.dart';
-import 'package:doctor_pert/models/reservation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'calendar.freezed.dart';

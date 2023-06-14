@@ -1,6 +1,6 @@
 import 'package:doctor_pert/models/address.dart';
 import 'package:doctor_pert/models/calendar.dart';
-import 'package:doctor_pert/models/calendar_event.dart';
+import 'package:doctor_pert/models/calendar_event/calendar_event.dart';
 import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
 import 'package:doctor_pert/models/person.dart';
 import 'package:doctor_pert/models/reservation.dart';

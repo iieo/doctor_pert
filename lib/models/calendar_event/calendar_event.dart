@@ -1,4 +1,5 @@
-import 'package:doctor_pert/models/person.dart';
+import 'package:doctor_pert/models/person/person.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latlong2/latlong.dart';
 
 abstract class CalendarEvent {

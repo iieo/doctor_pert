@@ -21,11 +21,21 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Employee {
   String get firstName => throw _privateConstructorUsedError;
+  set firstName(String value) => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
+  set lastName(String value) => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  set email(String value) => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
+  set phone(String value) => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
-  Calendar get calendar => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
+  String get calendarId => throw _privateConstructorUsedError;
+  set calendarId(String value) => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  Calendar? get calendar => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  set calendar(Calendar? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,9 +54,11 @@ abstract class $EmployeeCopyWith<$Res> {
       String email,
       String phone,
       String id,
-      Calendar calendar});
+      String calendarId,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+          Calendar? calendar});
 
-  $CalendarCopyWith<$Res> get calendar;
+  $CalendarCopyWith<$Res>? get calendar;
 }
 
 /// @nodoc
@@ -67,7 +79,8 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
     Object? email = null,
     Object? phone = null,
     Object? id = null,
-    Object? calendar = null,
+    Object? calendarId = null,
+    Object? calendar = freezed,
   }) {
     return _then(_value.copyWith(
       firstName: null == firstName
@@ -90,17 +103,25 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      calendar: null == calendar
+      calendarId: null == calendarId
+          ? _value.calendarId
+          : calendarId // ignore: cast_nullable_to_non_nullable
+              as String,
+      calendar: freezed == calendar
           ? _value.calendar
           : calendar // ignore: cast_nullable_to_non_nullable
-              as Calendar,
+              as Calendar?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $CalendarCopyWith<$Res> get calendar {
-    return $CalendarCopyWith<$Res>(_value.calendar, (value) {
+  $CalendarCopyWith<$Res>? get calendar {
+    if (_value.calendar == null) {
+      return null;
+    }
+
+    return $CalendarCopyWith<$Res>(_value.calendar!, (value) {
       return _then(_value.copyWith(calendar: value) as $Val);
     });
   }
@@ -119,10 +140,12 @@ abstract class _$$_EmployeeCopyWith<$Res> implements $EmployeeCopyWith<$Res> {
       String email,
       String phone,
       String id,
-      Calendar calendar});
+      String calendarId,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+          Calendar? calendar});
 
   @override
-  $CalendarCopyWith<$Res> get calendar;
+  $CalendarCopyWith<$Res>? get calendar;
 }
 
 /// @nodoc
@@ -141,7 +164,8 @@ class __$$_EmployeeCopyWithImpl<$Res>
     Object? email = null,
     Object? phone = null,
     Object? id = null,
-    Object? calendar = null,
+    Object? calendarId = null,
+    Object? calendar = freezed,
   }) {
     return _then(_$_Employee(
       firstName: null == firstName
@@ -164,66 +188,54 @@ class __$$_EmployeeCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      calendar: null == calendar
+      calendarId: null == calendarId
+          ? _value.calendarId
+          : calendarId // ignore: cast_nullable_to_non_nullable
+              as String,
+      calendar: freezed == calendar
           ? _value.calendar
           : calendar // ignore: cast_nullable_to_non_nullable
-              as Calendar,
+              as Calendar?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_Employee implements _Employee {
+class _$_Employee extends _Employee {
   _$_Employee(
       {required this.firstName,
       required this.lastName,
       required this.email,
       required this.phone,
       required this.id,
-      required this.calendar});
+      required this.calendarId,
+      @JsonKey(includeFromJson: false, includeToJson: false) this.calendar})
+      : super._();
 
   factory _$_Employee.fromJson(Map<String, dynamic> json) =>
       _$$_EmployeeFromJson(json);
 
   @override
-  final String firstName;
+  String firstName;
   @override
-  final String lastName;
+  String lastName;
   @override
-  final String email;
+  String email;
   @override
-  final String phone;
+  String phone;
   @override
-  final String id;
+  String id;
   @override
-  final Calendar calendar;
+  String calendarId;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  Calendar? calendar;
 
   @override
   String toString() {
-    return 'Employee(firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, id: $id, calendar: $calendar)';
+    return 'Employee(firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, id: $id, calendarId: $calendarId, calendar: $calendar)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Employee &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.calendar, calendar) ||
-                other.calendar == calendar));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, firstName, lastName, email, phone, id, calendar);
 
   @JsonKey(ignore: true)
   @override
@@ -239,29 +251,43 @@ class _$_Employee implements _Employee {
   }
 }
 
-abstract class _Employee implements Employee {
+abstract class _Employee extends Employee {
   factory _Employee(
-      {required final String firstName,
-      required final String lastName,
-      required final String email,
-      required final String phone,
-      required final String id,
-      required final Calendar calendar}) = _$_Employee;
+      {required String firstName,
+      required String lastName,
+      required String email,
+      required String phone,
+      required String id,
+      required String calendarId,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+          Calendar? calendar}) = _$_Employee;
+  _Employee._() : super._();
 
   factory _Employee.fromJson(Map<String, dynamic> json) = _$_Employee.fromJson;
 
   @override
   String get firstName;
+  set firstName(String value);
   @override
   String get lastName;
+  set lastName(String value);
   @override
   String get email;
+  set email(String value);
   @override
   String get phone;
+  set phone(String value);
   @override
   String get id;
+  set id(String value);
   @override
-  Calendar get calendar;
+  String get calendarId;
+  set calendarId(String value);
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  Calendar? get calendar;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  set calendar(Calendar? value);
   @override
   @JsonKey(ignore: true)
   _$$_EmployeeCopyWith<_$_Employee> get copyWith =>

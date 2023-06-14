@@ -1,4 +1,4 @@
-import 'package:doctor_pert/models/calendar_event.dart';
+import 'package:doctor_pert/models/calendar_event/calendar_event.dart';
 import 'package:doctor_pert/models/dummy_data.dart';
 import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
 import 'package:doctor_pert/models/person.dart';

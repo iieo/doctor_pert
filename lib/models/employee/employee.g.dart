@@ -12,7 +12,7 @@ _$_Employee _$$_EmployeeFromJson(Map<String, dynamic> json) => _$_Employee(
       email: json['email'] as String,
       phone: json['phone'] as String,
       id: json['id'] as String,
-      calendar: Calendar.fromJson(json['calendar'] as Map<String, dynamic>),
+      calendarId: json['calendarId'] as String,
     );
 
 Map<String, dynamic> _$$_EmployeeToJson(_$_Employee instance) =>
@@ -22,5 +22,5 @@ Map<String, dynamic> _$$_EmployeeToJson(_$_Employee instance) =>
       'email': instance.email,
       'phone': instance.phone,
       'id': instance.id,
-      'calendar': instance.calendar,
+      'calendarId': instance.calendarId,
     };
