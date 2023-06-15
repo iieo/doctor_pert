@@ -14,6 +14,14 @@ class Person with _$Person {
   }) = _Person;
 
   factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
+  Person._();
 
-  //String get name => "${titles ?? ""} $firstName $lastName".trim();
+  String get name => "${titles ?? ""} $firstName $lastName".trim();
+
+  bool isValidPerson() {
+    return firstName.isNotEmpty &&
+        lastName.isNotEmpty &&
+        email.isNotEmpty &&
+        phone.isNotEmpty;
+  }
 }

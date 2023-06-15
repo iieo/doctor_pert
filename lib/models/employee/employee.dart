@@ -1,5 +1,6 @@
 import 'package:doctor_pert/handler/firestore_handler.dart';
 import 'package:doctor_pert/models/calendar/calendar.dart';
+import 'package:doctor_pert/models/calendar_event/calendar_event.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'employee.freezed.dart';
@@ -21,7 +22,21 @@ class Employee with _$Employee {
   factory Employee.fromJson(Map<String, dynamic> json) =>
       _$EmployeeFromJson(json);
 
-  void loadCalendar() async {
+  Future<void> loadCalendar() async {
     calendar = await FirestoreHandler.getCalendarById(calendarId);
   }
+
+  Future<List<CalendarEvent>> getAvailableAppointments(
+      DateTime from, DateTime to) async {
+    if (calendar == null) {
+      await loadCalendar();
+    }
+    if (calendar != null) {
+      return calendar!.getAvailableAppointments(from, to);
+    } else {
+      return [];
+    }
+  }
+
+  String get name => "$firstName $lastName".trim();
 }

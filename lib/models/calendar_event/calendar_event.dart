@@ -1,51 +1,19 @@
-import 'package:doctor_pert/models/person/person.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:latlong2/latlong.dart';
 
-abstract class CalendarEvent {
-  String id;
-  String title;
-  DateTime startDate;
-  DateTime endDate;
-  CalendarEvent(
-      {required this.id,
-      required this.title,
-      required this.startDate,
-      required this.endDate});
-}
+part 'calendar_event.freezed.dart';
+part 'calendar_event.g.dart';
 
-class CalendarAppointmentEvent extends CalendarEvent {
-  String note; //damit der arzt notizen machen kann
-  LatLng location;
+@freezed
+abstract class CalendarEvent with _$CalendarEvent {
+  factory CalendarEvent.fromJson(Map<String, dynamic> json) =>
+      _$CalendarEventFromJson(json);
 
-  CalendarAppointmentEvent({
-    required this.note,
-    required this.location,
-    required id,
-    required title,
-    required startDate,
-    required endDate,
-  }) : super(id: id, title: title, startDate: startDate, endDate: endDate);
-}
-
-class CalendarHolidayEvent extends CalendarEvent {
-  String description;
-  CalendarHolidayEvent(
-      {required this.description,
-      required id,
-      required title,
-      required startDate,
-      required endDate})
-      : super(id: id, title: title, startDate: startDate, endDate: endDate);
-}
-
-class CalendarBirthdayEvent extends CalendarEvent {
-  Person person;
-  CalendarBirthdayEvent(
-      {required this.person,
-      required id,
-      required title,
-      required startDate,
-      required endDate})
-      : super(id: id, title: title, startDate: startDate, endDate: endDate);
+  factory CalendarEvent({
+    required String id,
+    required String title,
+    required String description,
+    required DateTime startDate,
+    required DateTime endDate,
+  }) = _CalendarEvent;
+  CalendarEvent._();
 }

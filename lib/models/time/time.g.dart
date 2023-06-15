@@ -22,10 +22,12 @@ _$_OpeningHoursDay _$$_OpeningHoursDayFromJson(Map<String, dynamic> json) =>
     _$_OpeningHoursDay(
       open: json['open'] as String,
       close: json['close'] as String,
+      day: json['day'] as int,
     );
 
 Map<String, dynamic> _$$_OpeningHoursDayToJson(_$_OpeningHoursDay instance) =>
     <String, dynamic>{
       'open': instance.open,
       'close': instance.close,
+      'day': instance.day,
     };

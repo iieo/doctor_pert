@@ -13,9 +13,7 @@ _$_MedicalPractice _$$_MedicalPracticeFromJson(Map<String, dynamic> json) =>
       owner: (json['owner'] as List<dynamic>)
           .map((e) => Person.fromJson(e as Map<String, dynamic>))
           .toList(),
-      type: (json['type'] as List<dynamic>)
-          .map((e) => $enumDecode(_$DoctorTypeEnumMap, e))
-          .toList(),
+      type: $enumDecode(_$DoctorTypeEnumMap, json['type']),
       address: Address.fromJson(json['address'] as Map<String, dynamic>),
       phone: json['phone'] as String,
       email: json['email'] as String,
@@ -42,7 +40,7 @@ Map<String, dynamic> _$$_MedicalPracticeToJson(_$_MedicalPractice instance) =>
       'id': instance.id,
       'name': instance.name,
       'owner': instance.owner,
-      'type': instance.type.map((e) => _$DoctorTypeEnumMap[e]!).toList(),
+      'type': _$DoctorTypeEnumMap[instance.type]!,
       'address': instance.address,
       'phone': instance.phone,
       'email': instance.email,

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_pert/firebase_options.dart';
 import 'package:doctor_pert/handler/authentication_handler.dart';
 import 'package:doctor_pert/handler/user_data_handler.dart';
-import 'package:doctor_pert/models/test.dart';
 import 'package:doctor_pert/navigation/routing.dart';
 import 'package:doctor_pert/theme/theme_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,8 +22,6 @@ void main() async {
       print('User is signed in!');
     }
   });
-
-  Test(age: 132, name: "test");
 
   if (kIsWeb) {
     FirebaseAuth.instance.setPersistence(Persistence.LOCAL);

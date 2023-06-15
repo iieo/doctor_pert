@@ -97,8 +97,8 @@ class __$$_OpeningHoursCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_OpeningHours implements _OpeningHours {
-  _$_OpeningHours({required this.days});
+class _$_OpeningHours extends _OpeningHours {
+  _$_OpeningHours({required this.days}) : super._();
 
   factory _$_OpeningHours.fromJson(Map<String, dynamic> json) =>
       _$$_OpeningHoursFromJson(json);
@@ -125,9 +125,10 @@ class _$_OpeningHours implements _OpeningHours {
   }
 }
 
-abstract class _OpeningHours implements OpeningHours {
+abstract class _OpeningHours extends OpeningHours {
   factory _OpeningHours({required List<OpeningHoursDay> days}) =
       _$_OpeningHours;
+  _OpeningHours._() : super._();
 
   factory _OpeningHours.fromJson(Map<String, dynamic> json) =
       _$_OpeningHours.fromJson;
@@ -151,6 +152,8 @@ mixin _$OpeningHoursDay {
   set open(String value) => throw _privateConstructorUsedError;
   String get close => throw _privateConstructorUsedError;
   set close(String value) => throw _privateConstructorUsedError;
+  int get day => throw _privateConstructorUsedError;
+  set day(int value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -164,7 +167,7 @@ abstract class $OpeningHoursDayCopyWith<$Res> {
           OpeningHoursDay value, $Res Function(OpeningHoursDay) then) =
       _$OpeningHoursDayCopyWithImpl<$Res, OpeningHoursDay>;
   @useResult
-  $Res call({String open, String close});
+  $Res call({String open, String close, int day});
 }
 
 /// @nodoc
@@ -182,6 +185,7 @@ class _$OpeningHoursDayCopyWithImpl<$Res, $Val extends OpeningHoursDay>
   $Res call({
     Object? open = null,
     Object? close = null,
+    Object? day = null,
   }) {
     return _then(_value.copyWith(
       open: null == open
@@ -192,6 +196,10 @@ class _$OpeningHoursDayCopyWithImpl<$Res, $Val extends OpeningHoursDay>
           ? _value.close
           : close // ignore: cast_nullable_to_non_nullable
               as String,
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -204,7 +212,7 @@ abstract class _$$_OpeningHoursDayCopyWith<$Res>
       __$$_OpeningHoursDayCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String open, String close});
+  $Res call({String open, String close, int day});
 }
 
 /// @nodoc
@@ -220,6 +228,7 @@ class __$$_OpeningHoursDayCopyWithImpl<$Res>
   $Res call({
     Object? open = null,
     Object? close = null,
+    Object? day = null,
   }) {
     return _then(_$_OpeningHoursDay(
       open: null == open
@@ -230,14 +239,20 @@ class __$$_OpeningHoursDayCopyWithImpl<$Res>
           ? _value.close
           : close // ignore: cast_nullable_to_non_nullable
               as String,
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_OpeningHoursDay implements _OpeningHoursDay {
-  _$_OpeningHoursDay({required this.open, required this.close});
+class _$_OpeningHoursDay extends _OpeningHoursDay {
+  _$_OpeningHoursDay(
+      {required this.open, required this.close, required this.day})
+      : super._();
 
   factory _$_OpeningHoursDay.fromJson(Map<String, dynamic> json) =>
       _$$_OpeningHoursDayFromJson(json);
@@ -246,10 +261,12 @@ class _$_OpeningHoursDay implements _OpeningHoursDay {
   String open;
   @override
   String close;
+  @override
+  int day;
 
   @override
   String toString() {
-    return 'OpeningHoursDay(open: $open, close: $close)';
+    return 'OpeningHoursDay(open: $open, close: $close, day: $day)';
   }
 
   @JsonKey(ignore: true)
@@ -266,9 +283,12 @@ class _$_OpeningHoursDay implements _OpeningHoursDay {
   }
 }
 
-abstract class _OpeningHoursDay implements OpeningHoursDay {
-  factory _OpeningHoursDay({required String open, required String close}) =
-      _$_OpeningHoursDay;
+abstract class _OpeningHoursDay extends OpeningHoursDay {
+  factory _OpeningHoursDay(
+      {required String open,
+      required String close,
+      required int day}) = _$_OpeningHoursDay;
+  _OpeningHoursDay._() : super._();
 
   factory _OpeningHoursDay.fromJson(Map<String, dynamic> json) =
       _$_OpeningHoursDay.fromJson;
@@ -279,6 +299,9 @@ abstract class _OpeningHoursDay implements OpeningHoursDay {
   @override
   String get close;
   set close(String value);
+  @override
+  int get day;
+  set day(int value);
   @override
   @JsonKey(ignore: true)
   _$$_OpeningHoursDayCopyWith<_$_OpeningHoursDay> get copyWith =>

@@ -26,8 +26,8 @@ mixin _$MedicalPractice {
   set name(String value) => throw _privateConstructorUsedError;
   List<Person> get owner => throw _privateConstructorUsedError;
   set owner(List<Person> value) => throw _privateConstructorUsedError;
-  List<DoctorType> get type => throw _privateConstructorUsedError;
-  set type(List<DoctorType> value) => throw _privateConstructorUsedError;
+  DoctorType get type => throw _privateConstructorUsedError;
+  set type(DoctorType value) => throw _privateConstructorUsedError;
   Address get address => throw _privateConstructorUsedError;
   set address(Address value) => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
@@ -73,7 +73,7 @@ abstract class $MedicalPracticeCopyWith<$Res> {
       {String id,
       String name,
       List<Person> owner,
-      List<DoctorType> type,
+      DoctorType type,
       Address address,
       String phone,
       String email,
@@ -140,7 +140,7 @@ class _$MedicalPracticeCopyWithImpl<$Res, $Val extends MedicalPractice>
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as List<DoctorType>,
+              as DoctorType,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -225,7 +225,7 @@ abstract class _$$_MedicalPracticeCopyWith<$Res>
       {String id,
       String name,
       List<Person> owner,
-      List<DoctorType> type,
+      DoctorType type,
       Address address,
       String phone,
       String email,
@@ -292,7 +292,7 @@ class __$$_MedicalPracticeCopyWithImpl<$Res>
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as List<DoctorType>,
+              as DoctorType,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -382,7 +382,7 @@ class _$_MedicalPractice extends _MedicalPractice {
   @override
   List<Person> owner;
   @override
-  List<DoctorType> type;
+  DoctorType type;
   @override
   Address address;
   @override
@@ -435,7 +435,7 @@ abstract class _MedicalPractice extends MedicalPractice {
       {required String id,
       required String name,
       required List<Person> owner,
-      required List<DoctorType> type,
+      required DoctorType type,
       required Address address,
       required String phone,
       required String email,
@@ -465,8 +465,8 @@ abstract class _MedicalPractice extends MedicalPractice {
   List<Person> get owner;
   set owner(List<Person> value);
   @override
-  List<DoctorType> get type;
-  set type(List<DoctorType> value);
+  DoctorType get type;
+  set type(DoctorType value);
   @override
   Address get address;
   set address(Address value);

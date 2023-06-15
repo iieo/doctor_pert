@@ -9,7 +9,7 @@ class Rating with _$Rating {
     required String author,
     required String content,
     required double rating,
-    List<String>? likes,
+    @Default([]) List<String> likes,
     required DateTime created,
     required DateTime updated,
   }) = _Rating;

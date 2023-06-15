@@ -26,8 +26,14 @@ mixin _$Calendar {
   set name(String value) => throw _privateConstructorUsedError;
   String get ownerId => throw _privateConstructorUsedError;
   set ownerId(String value) => throw _privateConstructorUsedError;
-  List<String> get calendarEvents => throw _privateConstructorUsedError;
-  set calendarEvents(List<String> value) => throw _privateConstructorUsedError;
+  List<String> get calendarEventIds => throw _privateConstructorUsedError;
+  set calendarEventIds(List<String> value) =>
+      throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  List<CalendarEvent> get calendarEvents => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  set calendarEvents(List<CalendarEvent> value) =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +47,12 @@ abstract class $CalendarCopyWith<$Res> {
       _$CalendarCopyWithImpl<$Res, Calendar>;
   @useResult
   $Res call(
-      {String id, String name, String ownerId, List<String> calendarEvents});
+      {String id,
+      String name,
+      String ownerId,
+      List<String> calendarEventIds,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+          List<CalendarEvent> calendarEvents});
 }
 
 /// @nodoc
@@ -60,6 +71,7 @@ class _$CalendarCopyWithImpl<$Res, $Val extends Calendar>
     Object? id = null,
     Object? name = null,
     Object? ownerId = null,
+    Object? calendarEventIds = null,
     Object? calendarEvents = null,
   }) {
     return _then(_value.copyWith(
@@ -75,10 +87,14 @@ class _$CalendarCopyWithImpl<$Res, $Val extends Calendar>
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
               as String,
+      calendarEventIds: null == calendarEventIds
+          ? _value.calendarEventIds
+          : calendarEventIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       calendarEvents: null == calendarEvents
           ? _value.calendarEvents
           : calendarEvents // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<CalendarEvent>,
     ) as $Val);
   }
 }
@@ -91,7 +107,12 @@ abstract class _$$_CalendarCopyWith<$Res> implements $CalendarCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id, String name, String ownerId, List<String> calendarEvents});
+      {String id,
+      String name,
+      String ownerId,
+      List<String> calendarEventIds,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+          List<CalendarEvent> calendarEvents});
 }
 
 /// @nodoc
@@ -108,6 +129,7 @@ class __$$_CalendarCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? ownerId = null,
+    Object? calendarEventIds = null,
     Object? calendarEvents = null,
   }) {
     return _then(_$_Calendar(
@@ -123,22 +145,29 @@ class __$$_CalendarCopyWithImpl<$Res>
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
               as String,
+      calendarEventIds: null == calendarEventIds
+          ? _value.calendarEventIds
+          : calendarEventIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       calendarEvents: null == calendarEvents
           ? _value.calendarEvents
           : calendarEvents // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<CalendarEvent>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_Calendar implements _Calendar {
+class _$_Calendar extends _Calendar {
   _$_Calendar(
       {required this.id,
       required this.name,
       required this.ownerId,
-      required this.calendarEvents});
+      required this.calendarEventIds,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+          this.calendarEvents = const []})
+      : super._();
 
   factory _$_Calendar.fromJson(Map<String, dynamic> json) =>
       _$$_CalendarFromJson(json);
@@ -150,11 +179,14 @@ class _$_Calendar implements _Calendar {
   @override
   String ownerId;
   @override
-  List<String> calendarEvents;
+  List<String> calendarEventIds;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  List<CalendarEvent> calendarEvents;
 
   @override
   String toString() {
-    return 'Calendar(id: $id, name: $name, ownerId: $ownerId, calendarEvents: $calendarEvents)';
+    return 'Calendar(id: $id, name: $name, ownerId: $ownerId, calendarEventIds: $calendarEventIds, calendarEvents: $calendarEvents)';
   }
 
   @JsonKey(ignore: true)
@@ -171,12 +203,15 @@ class _$_Calendar implements _Calendar {
   }
 }
 
-abstract class _Calendar implements Calendar {
+abstract class _Calendar extends Calendar {
   factory _Calendar(
       {required String id,
       required String name,
       required String ownerId,
-      required List<String> calendarEvents}) = _$_Calendar;
+      required List<String> calendarEventIds,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+          List<CalendarEvent> calendarEvents}) = _$_Calendar;
+  _Calendar._() : super._();
 
   factory _Calendar.fromJson(Map<String, dynamic> json) = _$_Calendar.fromJson;
 
@@ -190,8 +225,13 @@ abstract class _Calendar implements Calendar {
   String get ownerId;
   set ownerId(String value);
   @override
-  List<String> get calendarEvents;
-  set calendarEvents(List<String> value);
+  List<String> get calendarEventIds;
+  set calendarEventIds(List<String> value);
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  List<CalendarEvent> get calendarEvents;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  set calendarEvents(List<CalendarEvent> value);
   @override
   @JsonKey(ignore: true)
   _$$_CalendarCopyWith<_$_Calendar> get copyWith =>

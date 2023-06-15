@@ -150,13 +150,14 @@ class __$$_PersonCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Person implements _Person {
+class _$_Person extends _Person {
   _$_Person(
       {this.titles,
       required this.firstName,
       required this.lastName,
       required this.email,
-      required this.phone});
+      required this.phone})
+      : super._();
 
   factory _$_Person.fromJson(Map<String, dynamic> json) =>
       _$$_PersonFromJson(json);
@@ -191,13 +192,14 @@ class _$_Person implements _Person {
   }
 }
 
-abstract class _Person implements Person {
+abstract class _Person extends Person {
   factory _Person(
       {String? titles,
       required String firstName,
       required String lastName,
       required String email,
       required String phone}) = _$_Person;
+  _Person._() : super._();
 
   factory _Person.fromJson(Map<String, dynamic> json) = _$_Person.fromJson;
 

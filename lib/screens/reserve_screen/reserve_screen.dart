@@ -1,11 +1,11 @@
 import 'package:doctor_pert/models/calendar_event/calendar_event.dart';
 import 'package:doctor_pert/models/dummy_data.dart';
+import 'package:doctor_pert/models/employee/employee.dart';
 import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
-import 'package:doctor_pert/models/person.dart';
+import 'package:doctor_pert/models/person/person.dart';
 import 'package:doctor_pert/screens/reserve_screen/stepper_content/StepperControls.dart';
 import 'package:doctor_pert/screens/reserve_screen/stepper_content/person_details.dart';
 import 'package:doctor_pert/util.dart';
-import 'package:doctor_pert/models/employee.dart';
 import 'package:doctor_pert/screens/reserve_screen/stepper_content/time_table.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
@@ -23,34 +23,17 @@ class _ReserveScreenState extends State<ReserveScreen> {
   int _currentMaxStep = 0;
   final int _maxStep = 2;
 
-  final Employee _selectedEmployee = practice1.employees[0];
+  final Employee _selectedEmployee = practice1.employees![0];
   final MedicalPractice practice = practice1;
 
-  CalendarAppointmentEvent? _selectedEvent;
-  Person _patient = Person.empty();
+  CalendarEvent? _selectedEvent;
+  Person _patient = Person(firstName: "", lastName: "", email: "", phone: "");
 
-  void setSelectedEvent(CalendarAppointmentEvent event) {
+  void setSelectedEvent(CalendarEvent event) {
     _selectedEvent = event;
   }
 
-  void setPersonFirstName(String name) {
-    _patient.firstName = name;
-  }
-
-  void setPersonLastName(String name) {
-    _patient.lastName = name;
-  }
-
-  void setPersonEmail(String email) {
-    _patient.email = email;
-  }
-
-  void setPersonPhone(String phone) {
-    _patient.phone = phone;
-  }
-
-  void _reserveAppointment(
-      CalendarAppointmentEvent event, Person patient) async {
+  void _reserveAppointment(CalendarEvent event, Person patient) async {
     /*  final bool success = await DummyData.reserveAppointment(event, patient);
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -90,10 +73,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                 duration: const Duration(seconds: 1)));
             return;
           }
-          if (_currentStep == 1 &&
-              (_patient.name.isEmpty ||
-                  _patient.email.isEmpty ||
-                  _patient.phone.isEmpty)) {
+          if (_currentStep == 1 && (_patient.isValidPerson())) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(t(PhraseKey.openingHours)),
                 duration: const Duration(seconds: 1)));
@@ -127,12 +107,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
         Step(
           title: Text(t(PhraseKey.stepper_person_details),
               style: Theme.of(context).textTheme.labelLarge),
-          content: StepperPersonDetails(
-            onFirstNameChanged: setPersonFirstName,
-            onLastNameChanged: setPersonLastName,
-            onEmailChanged: setPersonEmail,
-            onPhoneChanged: setPersonPhone,
-          ),
+          content: StepperPersonDetails(patient: _patient),
         ),
         Step(
           title: Text(t(PhraseKey.stepper_overview),

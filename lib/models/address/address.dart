@@ -13,11 +13,12 @@ class Address with _$Address {
     required String postalCode,
   }) = _Address;
 
+  Address._();
+
   factory Address.fromJson(Map<String, dynamic> json) =>
       _$AddressFromJson(json);
 
-  /*
-      String get fullAddress {
+  String get fullAddress {
     return "$street, $postalCode $city, $country";
-  }*/
+  }
 }

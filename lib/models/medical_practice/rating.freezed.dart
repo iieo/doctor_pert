@@ -26,8 +26,8 @@ mixin _$Rating {
   set content(String value) => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
   set rating(double value) => throw _privateConstructorUsedError;
-  List<String>? get likes => throw _privateConstructorUsedError;
-  set likes(List<String>? value) => throw _privateConstructorUsedError;
+  List<String> get likes => throw _privateConstructorUsedError;
+  set likes(List<String> value) => throw _privateConstructorUsedError;
   DateTime get created => throw _privateConstructorUsedError;
   set created(DateTime value) => throw _privateConstructorUsedError;
   DateTime get updated => throw _privateConstructorUsedError;
@@ -47,7 +47,7 @@ abstract class $RatingCopyWith<$Res> {
       {String author,
       String content,
       double rating,
-      List<String>? likes,
+      List<String> likes,
       DateTime created,
       DateTime updated});
 }
@@ -68,7 +68,7 @@ class _$RatingCopyWithImpl<$Res, $Val extends Rating>
     Object? author = null,
     Object? content = null,
     Object? rating = null,
-    Object? likes = freezed,
+    Object? likes = null,
     Object? created = null,
     Object? updated = null,
   }) {
@@ -85,10 +85,10 @@ class _$RatingCopyWithImpl<$Res, $Val extends Rating>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
-      likes: freezed == likes
+      likes: null == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
       created: null == created
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
@@ -111,7 +111,7 @@ abstract class _$$_RatingCopyWith<$Res> implements $RatingCopyWith<$Res> {
       {String author,
       String content,
       double rating,
-      List<String>? likes,
+      List<String> likes,
       DateTime created,
       DateTime updated});
 }
@@ -129,7 +129,7 @@ class __$$_RatingCopyWithImpl<$Res>
     Object? author = null,
     Object? content = null,
     Object? rating = null,
-    Object? likes = freezed,
+    Object? likes = null,
     Object? created = null,
     Object? updated = null,
   }) {
@@ -146,10 +146,10 @@ class __$$_RatingCopyWithImpl<$Res>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
-      likes: freezed == likes
+      likes: null == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
       created: null == created
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
@@ -169,7 +169,7 @@ class _$_Rating implements _Rating {
       {required this.author,
       required this.content,
       required this.rating,
-      this.likes,
+      this.likes = const [],
       required this.created,
       required this.updated});
 
@@ -183,7 +183,8 @@ class _$_Rating implements _Rating {
   @override
   double rating;
   @override
-  List<String>? likes;
+  @JsonKey()
+  List<String> likes;
   @override
   DateTime created;
   @override
@@ -213,7 +214,7 @@ abstract class _Rating implements Rating {
       {required String author,
       required String content,
       required double rating,
-      List<String>? likes,
+      List<String> likes,
       required DateTime created,
       required DateTime updated}) = _$_Rating;
 
@@ -229,8 +230,8 @@ abstract class _Rating implements Rating {
   double get rating;
   set rating(double value);
   @override
-  List<String>? get likes;
-  set likes(List<String>? value);
+  List<String> get likes;
+  set likes(List<String> value);
   @override
   DateTime get created;
   set created(DateTime value);

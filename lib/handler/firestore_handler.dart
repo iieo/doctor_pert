@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_pert/models/calendar/calendar.dart';
-import 'package:doctor_pert/models/dummy_data.dart';
+import 'package:doctor_pert/models/calendar_event/calendar_event.dart';
 import 'package:doctor_pert/models/employee/employee.dart';
 import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
 import 'package:doctor_pert/models/reservation/reservation.dart';
@@ -77,5 +77,27 @@ class FirestoreHandler {
     }).toList();
   }
 
-  
+  static Future<List<CalendarEvent>> getCalendarEventsByIds(
+      List<String> calendarEventIds, DateTime from, DateTime to) async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('calendar_events')
+        .where('id', whereIn: calendarEventIds)
+        .where('start', isGreaterThanOrEqualTo: from)
+        .where('end', isLessThanOrEqualTo: to)
+        .get();
+    return snapshot.docs.map((e) {
+      return CalendarEvent.fromJson(e.data() as Map<String, dynamic>);
+    }).toList();
+  }
+
+  static Future<List<Reservation>> getReservationsWithEventId(
+      List<String> eventIds) async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('reservations')
+        .where('eventId', whereIn: eventIds)
+        .get();
+    return snapshot.docs.map((e) {
+      return Reservation.fromJson(e.data() as Map<String, dynamic>);
+    }).toList();
+  }
 }

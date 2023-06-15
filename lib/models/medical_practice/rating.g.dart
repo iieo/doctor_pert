@@ -11,7 +11,8 @@ _$_Rating _$$_RatingFromJson(Map<String, dynamic> json) => _$_Rating(
       content: json['content'] as String,
       rating: (json['rating'] as num).toDouble(),
       likes:
-          (json['likes'] as List<dynamic>?)?.map((e) => e as String).toList(),
+          (json['likes'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const [],
       created: DateTime.parse(json['created'] as String),
       updated: DateTime.parse(json['updated'] as String),
     );

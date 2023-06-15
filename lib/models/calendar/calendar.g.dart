@@ -10,7 +10,7 @@ _$_Calendar _$$_CalendarFromJson(Map<String, dynamic> json) => _$_Calendar(
       id: json['id'] as String,
       name: json['name'] as String,
       ownerId: json['ownerId'] as String,
-      calendarEvents: (json['calendarEvents'] as List<dynamic>)
+      calendarEventIds: (json['calendarEventIds'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
     );
@@ -20,5 +20,5 @@ Map<String, dynamic> _$$_CalendarToJson(_$_Calendar instance) =>
       'id': instance.id,
       'name': instance.name,
       'ownerId': instance.ownerId,
-      'calendarEvents': instance.calendarEvents,
+      'calendarEventIds': instance.calendarEventIds,
     };
