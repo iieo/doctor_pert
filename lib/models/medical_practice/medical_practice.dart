@@ -41,23 +41,38 @@ class MedicalPractice with _$MedicalPractice {
   factory MedicalPractice.fromJson(Map<String, dynamic> json) =>
       _$MedicalPracticeFromJson(json);
 
-  Future<void> loadEmployees() async {
+  Future<void> _loadEmployees() async {
     employees = await FirestoreHandler.getEmployeesByIds(employeeIds);
   }
 
-  Future<List<CalendarEvent>> getAvailableAppointments(
-      DateTime from, DateTime to) async {
+  Future<List<CalendarEvent>> getAvailableAppointments(DateTime from,
+      {DateTime? to = null}) async {
     List<CalendarEvent> availableAppointments = [];
     if (employees == null) {
-      await loadEmployees();
+      await _loadEmployees();
     }
     if (employees != null) {
       for (Employee employee in employees!) {
         List<CalendarEvent> employeeAppointments =
-            await employee.getAvailableAppointments(from, to);
+            await employee.getAvailableAppointments(from, to: to);
         availableAppointments.addAll(employeeAppointments);
       }
     }
     return availableAppointments;
+  }
+
+  getEmployeeWithCalendarEvent(List<String> eventIds) async {
+    if (employees == null) {
+      _loadEmployees();
+    }
+    for (Employee employee in employees!) {
+      employee.loadCalendar();
+    }
+
+    return employees!
+        .where((employee) => employee.calendar!.calendarEventIds.any(
+              (element) => eventIds.contains(element),
+            ))
+        .toList();
   }
 }

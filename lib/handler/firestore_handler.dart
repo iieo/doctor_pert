@@ -90,6 +90,18 @@ class FirestoreHandler {
     }).toList();
   }
 
+  static Future<List<CalendarEvent>> getCalendarEventsAtByIds(
+      List<String> calendarEventIds, DateTime from) async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('calendar_events')
+        .where('id', whereIn: calendarEventIds)
+        .where('start', isEqualTo: from)
+        .get();
+    return snapshot.docs.map((e) {
+      return CalendarEvent.fromJson(e.data() as Map<String, dynamic>);
+    }).toList();
+  }
+
   static Future<List<Reservation>> getReservationsWithEventId(
       List<String> eventIds) async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance

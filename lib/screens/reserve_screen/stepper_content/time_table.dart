@@ -11,7 +11,7 @@ import 'package:collection/collection.dart';
 
 class TimeTable extends StatefulWidget {
   final MedicalPractice practice;
-  final Function(CalendarEvent) onSelected;
+  final Function(DateTime) onSelected;
   const TimeTable(
       {super.key, required this.practice, required this.onSelected});
 
@@ -32,7 +32,7 @@ class _TimeTableState extends State<TimeTable> {
     setState(() {
       _selected = event;
     });
-    widget.onSelected(event);
+    widget.onSelected(event.startDate);
   }
 
   Set<TimeOfDay> _getAllTimesFromEvents(List<CalendarEvent> events) {
@@ -94,7 +94,7 @@ class _TimeTableState extends State<TimeTable> {
     return FutureBuilder(
       future: widget.practice.getAvailableAppointments(
           widget.startOfCurrentWeek,
-          widget.startOfCurrentWeek.add(const Duration(days: 7))),
+          to: widget.startOfCurrentWeek.add(const Duration(days: 7))),
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data is List<CalendarEvent>) {
           return _buildTimeTable(context, snapshot.data as List<CalendarEvent>);

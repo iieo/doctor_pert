@@ -26,13 +26,13 @@ class Employee with _$Employee {
     calendar = await FirestoreHandler.getCalendarById(calendarId);
   }
 
-  Future<List<CalendarEvent>> getAvailableAppointments(
-      DateTime from, DateTime to) async {
+  Future<List<CalendarEvent>> getAvailableAppointments(DateTime from,
+      {DateTime? to = null}) async {
     if (calendar == null) {
       await loadCalendar();
     }
     if (calendar != null) {
-      return calendar!.getAvailableAppointments(from, to);
+      return calendar!.getAvailableAppointments(from, to: to);
     } else {
       return [];
     }

@@ -21,16 +21,16 @@ class Calendar with _$Calendar {
   factory Calendar.fromJson(Map<String, dynamic> json) =>
       _$CalendarFromJson(json);
 
-  Future<List<CalendarEvent>> loadCalendarEvents(
-      DateTime from, DateTime to) async {
-    return await FirestoreHandler.getCalendarEventsByIds(
-        calendarEventIds, from, to);
-  }
-
-  Future<List<CalendarEvent>> getAvailableAppointments(
-      DateTime from, DateTime to) async {
-    List<CalendarEvent> availableAppointments =
-        await loadCalendarEvents(from, to);
+  Future<List<CalendarEvent>> getAvailableAppointments(DateTime from,
+      {DateTime? to = null}) async {
+    List<CalendarEvent> availableAppointments;
+    if (to == null) {
+      availableAppointments = await FirestoreHandler.getCalendarEventsAtByIds(
+          calendarEventIds, from);
+    } else {
+      availableAppointments = await FirestoreHandler.getCalendarEventsByIds(
+          calendarEventIds, from, to);
+    }
     List<String> eventIds = availableAppointments.map((e) => e.id).toList();
     List<Reservation> reservations =
         await FirestoreHandler.getReservationsWithEventId(eventIds);
