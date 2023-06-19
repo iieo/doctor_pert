@@ -7,6 +7,7 @@ import 'package:doctor_pert/models/employee/employee.dart';
 import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
 import 'package:doctor_pert/models/reservation/reservation.dart';
 import 'package:doctor_pert/models/userinfo/userinfo.dart';
+import 'package:latlong2/latlong.dart';
 
 class FirestoreHandler {
   static Future<List<Reservation>> getReservationsByIds(
@@ -39,7 +40,7 @@ class FirestoreHandler {
         snapshot.docs.first.data() as Map<String, dynamic>);
   }
 
-  static Future<List<MedicalPractice>> getMedicalPracticesNearby(
+  static Future<List<MedicalPractice>> getMedicalPracticesNear(
       double latitude, double longitude, int radiusKM) async {
     double minLat = latitude - radiusKM / 110.574;
     double maxLat = latitude + radiusKM / 110.574;
@@ -110,6 +111,28 @@ class FirestoreHandler {
         .get();
     return snapshot.docs.map((e) {
       return Reservation.fromJson(e.data() as Map<String, dynamic>);
+    }).toList();
+  }
+
+  static Future<List<MedicalPractice>> searchMedicalPractices(
+      String searchTerm, LatLng location) async {
+    double latitude = location.latitude;
+    double longitude = location.longitude;
+    double radiusKM = 50;
+    double minLat = latitude - radiusKM / 110.574;
+    double maxLat = latitude + radiusKM / 110.574;
+    double minLong = longitude - radiusKM / (111.320 * cos(latitude));
+    double maxLong = longitude + radiusKM / (111.320 * cos(latitude));
+
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('medical_practices')
+        .where('location', isGreaterThanOrEqualTo: GeoPoint(minLat, minLong))
+        .where('location', isLessThanOrEqualTo: GeoPoint(maxLat, maxLong))
+        .where('name', isGreaterThanOrEqualTo: searchTerm)
+        .where('name', isLessThanOrEqualTo: searchTerm + '\uf8ff')
+        .get();
+    return snapshot.docs.map((e) {
+      return MedicalPractice.fromJson(e.data() as Map<String, dynamic>);
     }).toList();
   }
 }

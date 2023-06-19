@@ -22,10 +22,6 @@ const List<String> sliverRoutes = <String>[
 final GoRouter router = GoRouter(
   initialLocation: "/",
   navigatorKey: _rootNavigatorKey,
-  redirect: (context, state) {
-    // TODO
-    return null;
-  },
   refreshListenable:
       GoRouterRefreshStream(FirebaseAuth.instance.authStateChanges()),
   errorBuilder: (context, state) => const NotFoundScreen(),
@@ -73,7 +69,7 @@ final GoRouter router = GoRouter(
                 LatLng locationLatLng = LatLng(latitude, longitude);
 
                 return NoTransitionPage(
-                    child: SearchScreen(
+                    child: SearchScreenLoader(
                   location: locationLatLng,
                   searchQuery: searchQuery,
                 ));
@@ -88,7 +84,7 @@ final GoRouter router = GoRouter(
                   //TODO: reroute
                 }
                 return const NoTransitionPage(
-                    child: ReserveScreen(doctorId: "dummyId"));
+                    child: ReserveScreenLoader(practiceId: "dummyId"));
               }),
           GoRoute(
             parentNavigatorKey: _shellNavigatorKey,

@@ -51,6 +51,30 @@ enum DoctorType {
     }
   }
 
+  static List<DoctorType> get list {
+    return [
+      DoctorType.general,
+      DoctorType.chiropractor,
+      DoctorType.dentist,
+      DoctorType.dermatologist,
+      DoctorType.dietitian,
+      DoctorType.gynecologist,
+      DoctorType.neurologist,
+      DoctorType.ophthalmologist,
+      DoctorType.orthopedist,
+      DoctorType.pediatrician,
+      DoctorType.psychiatrist,
+      DoctorType.urologist,
+      DoctorType.veterinarian,
+      DoctorType.other
+    ];
+  }
+
+  @override
+  String toString() {
+    return t(this.name);
+  }
+
   PhraseKey get name {
     switch (this) {
       case DoctorType.general:
