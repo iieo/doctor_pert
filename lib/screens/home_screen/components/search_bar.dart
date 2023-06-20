@@ -154,8 +154,10 @@ class _GeoTypeAheadState extends State<GeoTypeAhead> {
         ),
       ),
       suggestionsCallback: (pattern) async {
+        //final response = await http.get(Uri.parse(
+        //    'https://api.geoapify.com/v1/geocode/autocomplete?text=$pattern&limit=5&apiKey=${widget.apiKey}'));
         final response = await http.get(Uri.parse(
-            'https://api.geoapify.com/v1/geocode/autocomplete?text=$pattern&limit=5&apiKey=${widget.apiKey}'));
+            'https://api.geoapify.com/v2/places?categories=healthcare&text=$pattern&limit=5&apiKey=${widget.apiKey}'));
         if (response.statusCode == 200) {
           final data = jsonDecode(response.body);
           return data['features'];
