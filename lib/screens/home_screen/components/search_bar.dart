@@ -127,7 +127,7 @@ class DoctorTypeAheadState extends State<DoctorTypeAhead> {
 }
 
 class GeoTypeAhead extends StatefulWidget {
-  final String apiKey = "a84268c387aa4c4291eed3af2d421ea7";
+  final String apiKey = "YOUR-KEY-HERE";
   const GeoTypeAhead({super.key});
 
   @override
