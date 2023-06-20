@@ -1,18 +1,46 @@
-import 'package:doctor_pert/models/calendar_event.dart';
-import 'package:doctor_pert/models/dummy_data.dart';
-import 'package:doctor_pert/models/medical_practice.dart';
-import 'package:doctor_pert/models/person.dart';
-import 'package:doctor_pert/screens/reserve_screen/stepper_content/StepperControls.dart';
+import 'package:doctor_pert/handler/firestore_handler.dart';
+import 'package:doctor_pert/models/employee/employee.dart';
+import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
+import 'package:doctor_pert/models/person/person.dart';
+import 'package:doctor_pert/screens/reserve_screen/stepper_content/stepper_controls.dart';
 import 'package:doctor_pert/screens/reserve_screen/stepper_content/person_details.dart';
+import 'package:doctor_pert/screens/reserve_screen/stepper_content/stepper_employee.dart';
 import 'package:doctor_pert/util.dart';
-import 'package:doctor_pert/models/employee.dart';
 import 'package:doctor_pert/screens/reserve_screen/stepper_content/time_table.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
 
+class ReserveScreenLoader extends StatelessWidget {
+  final String practiceId;
+
+  const ReserveScreenLoader({super.key, required this.practiceId});
+
+  Future<MedicalPractice> _loadMedicalPractice() async {
+    return await FirestoreHandler.getMedicalPracticeById(practiceId);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            MedicalPractice? medicalPractice = snapshot.data;
+            if (medicalPractice == null) {
+              return Text(t(PhraseKey.practice_not_found));
+            }
+            return ReserveScreen(medicalPractice: snapshot.data!);
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return const CircularProgressIndicator();
+        },
+        future: _loadMedicalPractice());
+  }
+}
+
 class ReserveScreen extends StatefulWidget {
-  final String doctorId;
-  const ReserveScreen({super.key, required this.doctorId});
+  final MedicalPractice medicalPractice;
+  const ReserveScreen({super.key, required this.medicalPractice});
 
   @override
   State<ReserveScreen> createState() => _ReserveScreenState();
@@ -21,36 +49,19 @@ class ReserveScreen extends StatefulWidget {
 class _ReserveScreenState extends State<ReserveScreen> {
   int _currentStep = 0;
   int _currentMaxStep = 0;
-  final int _maxStep = 2;
+  final int _maxStep = 3;
 
-  final Employee _selectedEmployee = practice1.employees[0];
-  final MedicalPractice practice = practice1;
+  DateTime? _selectedTime;
+  Person _patient = Person(firstName: "", lastName: "", email: "", phone: "");
+  Employee? _selectedEmployee;
 
-  CalendarAppointmentEvent? _selectedEvent;
-  Person _patient = Person.empty();
-
-  void setSelectedEvent(CalendarAppointmentEvent event) {
-    _selectedEvent = event;
+  void setSelectedTime(DateTime time) {
+    setState(() {
+      _selectedTime = time;
+    });
   }
 
-  void setPersonFirstName(String name) {
-    _patient.firstName = name;
-  }
-
-  void setPersonLastName(String name) {
-    _patient.lastName = name;
-  }
-
-  void setPersonEmail(String email) {
-    _patient.email = email;
-  }
-
-  void setPersonPhone(String phone) {
-    _patient.phone = phone;
-  }
-
-  void _reserveAppointment(
-      CalendarAppointmentEvent event, Person patient) async {
+  void _reserveAppointment() async {
     /*  final bool success = await DummyData.reserveAppointment(event, patient);
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -81,23 +92,26 @@ class _ReserveScreenState extends State<ReserveScreen> {
       },
       onStepContinue: () {
         if (_currentStep < _maxStep) {
-          if (_currentStep == 2) {
-            _reserveAppointment(_selectedEvent!, _patient);
-          }
-          if (_currentStep == 0 && _selectedEvent == null) {
+          if (_currentStep == 0 && _selectedTime == null) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(t(PhraseKey.no_entry)),
                 duration: const Duration(seconds: 1)));
             return;
           }
-          if (_currentStep == 1 &&
-              (_patient.name.isEmpty ||
-                  _patient.email.isEmpty ||
-                  _patient.phone.isEmpty)) {
+          if (_currentStep == 1 && (_patient.isValidPerson())) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(t(PhraseKey.openingHours)),
                 duration: const Duration(seconds: 1)));
             return;
+          }
+          if (_currentStep == 2 && _selectedEmployee == null) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(t(PhraseKey.no_entry)),
+                duration: const Duration(seconds: 1)));
+            return;
+          }
+          if (_currentStep == 3) {
+            _reserveAppointment();
           }
           setState(() {
             _currentStep++;
@@ -121,19 +135,19 @@ class _ReserveScreenState extends State<ReserveScreen> {
             title: Text(t(PhraseKey.stepper_select_time),
                 style: Theme.of(context).textTheme.labelLarge),
             content: TimeTable(
-              practice: practice,
-              onSelected: setSelectedEvent,
+              practice: widget.medicalPractice,
+              onSelected: setSelectedTime,
             )),
         Step(
           title: Text(t(PhraseKey.stepper_person_details),
               style: Theme.of(context).textTheme.labelLarge),
-          content: StepperPersonDetails(
-            onFirstNameChanged: setPersonFirstName,
-            onLastNameChanged: setPersonLastName,
-            onEmailChanged: setPersonEmail,
-            onPhoneChanged: setPersonPhone,
-          ),
+          content: StepperPersonDetails(patient: _patient),
         ),
+        Step(
+            title: Text(t(PhraseKey.stepper_employee)),
+            content: StepperEmployee(
+                practice: widget.medicalPractice,
+                selectedTime: _selectedTime!)),
         Step(
           title: Text(t(PhraseKey.stepper_overview),
               style: Theme.of(context).textTheme.labelLarge),
@@ -142,22 +156,22 @@ class _ReserveScreenState extends State<ReserveScreen> {
               ListTile(
                 title: Text(t(PhraseKey.date)),
                 //print month and day
-                trailing: Text(_selectedEvent?.startDate.toMonthDayString() ??
-                    "No date selected"),
+                trailing: Text(
+                    _selectedTime?.toMonthDayString() ?? "No date selected"),
               ),
               ListTile(
                 title: Text(t(PhraseKey.time)),
-                trailing: Text(
-                    "${_selectedEvent?.startDate.toTimeOfDay().format(context)} - ${_selectedEvent?.endDate.toTimeOfDay().format(context)}"),
+                trailing:
+                    Text("${_selectedTime?.toTimeOfDay().format(context)}"),
               ),
               const Divider(),
               ListTile(
                 title: Text(t(PhraseKey.doctor)),
-                trailing: Text(practice.name),
+                trailing: Text(widget.medicalPractice.name),
               ),
               ListTile(
                 title: Text(t(PhraseKey.employee)),
-                trailing: Text(_selectedEmployee.name),
+                trailing: Text("TODO select employee"),
               ),
               const Divider(),
               ListTile(

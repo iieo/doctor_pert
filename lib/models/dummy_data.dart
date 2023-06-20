@@ -1,12 +1,11 @@
-import 'package:doctor_pert/models/address.dart';
+/*import 'package:doctor_pert/models/address.dart';
 import 'package:doctor_pert/models/calendar.dart';
-import 'package:doctor_pert/models/calendar_event.dart';
-import 'package:doctor_pert/models/medical_practice.dart';
+import 'package:doctor_pert/models/calendar_event/calendar_event.dart';
+import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
 import 'package:doctor_pert/models/person.dart';
 import 'package:doctor_pert/models/reservation.dart';
 import 'package:doctor_pert/models/employee.dart';
 import 'package:doctor_pert/models/time.dart';
-import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
 Person person1 = Person(
@@ -82,21 +81,21 @@ MedicalPractice practice1 = MedicalPractice(
     ]);
 
 Calendar calendar1 = Calendar(calendarEvents: [
-  CalendarAppointmentEvent(
+  CalendarEvent(
       note: "Test",
       startDate: DateTime.now(),
       endDate: DateTime.now().add(const Duration(hours: 1)),
       id: "1",
       title: "Test",
       location: LatLng(48.2475327, 12.1612037)),
-  CalendarAppointmentEvent(
+  CalendarEvent(
       note: "Test",
       startDate: DateTime.now().add(const Duration(days: 1)),
       endDate: DateTime.now().add(const Duration(days: 1, hours: 1)),
       id: "2",
       title: "Test",
       location: LatLng(48.2475327, 12.1612037)),
-  CalendarAppointmentEvent(
+  CalendarEvent(
       note: "Test",
       startDate: DateTime.now().add(const Duration(days: 2, hours: 2)),
       endDate: DateTime.now().add(const Duration(days: 2, hours: 3)),
@@ -117,3 +116,4 @@ List<Reservation> reservations1 = [
     userId: "1",
   ),
 ];
+*/

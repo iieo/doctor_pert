@@ -1,5 +1,5 @@
-import 'package:doctor_pert/models/calendar_event.dart';
-import 'package:doctor_pert/models/medical_practice.dart';
+import 'package:doctor_pert/models/calendar_event/calendar_event.dart';
+import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:doctor_pert/util.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ import 'package:collection/collection.dart';
 
 class TimeTable extends StatefulWidget {
   final MedicalPractice practice;
-  final Function(CalendarAppointmentEvent) onSelected;
+  final Function(DateTime) onSelected;
   const TimeTable(
       {super.key, required this.practice, required this.onSelected});
 
@@ -26,18 +26,18 @@ class TimeTable extends StatefulWidget {
 }
 
 class _TimeTableState extends State<TimeTable> {
-  CalendarAppointmentEvent? _selected;
+  CalendarEvent? _selected;
 
-  void onSelected(CalendarAppointmentEvent event) {
+  void onSelected(CalendarEvent event) {
     setState(() {
       _selected = event;
     });
-    widget.onSelected(event);
+    widget.onSelected(event.startDate);
   }
 
-  Set<TimeOfDay> _getAllTimesFromEvents(List<CalendarAppointmentEvent> events) {
+  Set<TimeOfDay> _getAllTimesFromEvents(List<CalendarEvent> events) {
     Set<TimeOfDay> times = {};
-    for (CalendarAppointmentEvent event in events) {
+    for (CalendarEvent event in events) {
       times.add(event.startDate.toTimeOfDay());
       times.add(event.endDate.toTimeOfDay());
     }
@@ -49,8 +49,7 @@ class _TimeTableState extends State<TimeTable> {
     return times;
   }
 
-  Widget _buildTimeTable(
-      BuildContext context, List<CalendarAppointmentEvent> events) {
+  Widget _buildTimeTable(BuildContext context, List<CalendarEvent> events) {
     if (events.isEmpty) {
       return Container(
           alignment: Alignment.centerLeft,
@@ -70,7 +69,7 @@ class _TimeTableState extends State<TimeTable> {
       List<TimeTableItem> items = [];
       for (TimeOfDay time in sortedTimes) {
         //find event on currentDate with time as start time
-        CalendarAppointmentEvent? event = events.firstWhereOrNull((event) =>
+        CalendarEvent? event = events.firstWhereOrNull((event) =>
             event.startDate.toTimeOfDay() == time &&
             event.startDate.year == currentDate.year &&
             event.startDate.month == currentDate.month &&
@@ -93,13 +92,12 @@ class _TimeTableState extends State<TimeTable> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: widget.practice.availableAppointments(widget.startOfCurrentWeek,
-          widget.startOfCurrentWeek.add(const Duration(days: 7))),
+      future: widget.practice.getAvailableAppointments(
+          widget.startOfCurrentWeek,
+          to: widget.startOfCurrentWeek.add(const Duration(days: 7))),
       builder: (context, snapshot) {
-        if (snapshot.hasData &&
-            snapshot.data is List<CalendarAppointmentEvent>) {
-          return _buildTimeTable(
-              context, snapshot.data as List<CalendarAppointmentEvent>);
+        if (snapshot.hasData && snapshot.data is List<CalendarEvent>) {
+          return _buildTimeTable(context, snapshot.data as List<CalendarEvent>);
         } else {
           return const CircularProgressIndicator();
         }
@@ -109,9 +107,9 @@ class _TimeTableState extends State<TimeTable> {
 }
 
 class TimeTableItem extends StatelessWidget {
-  final CalendarAppointmentEvent? event;
+  final CalendarEvent? event;
   final bool active;
-  final Function(CalendarAppointmentEvent) onSelected;
+  final Function(CalendarEvent) onSelected;
   const TimeTableItem(
       {super.key,
       required this.event,

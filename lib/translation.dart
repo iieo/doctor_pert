@@ -101,7 +101,9 @@ enum PhraseKey {
   submit,
   cancelStep,
   continueStep,
-  abort
+  abort,
+  practice_not_found,
+  stepper_employee
 }
 
 Map<PhraseKey, Map<Language, String>> languageMapping = {
@@ -413,6 +415,14 @@ Map<PhraseKey, Map<Language, String>> languageMapping = {
     Language.german: "Weiter"
   },
   PhraseKey.abort: {Language.english: "Abort", Language.german: "Abbrechen"},
+  PhraseKey.practice_not_found: {
+    Language.english: "Practice not found",
+    Language.german: "Praxis nicht gefunden"
+  },
+  PhraseKey.stepper_employee: {
+    Language.english: "Select employee",
+    Language.german: "Mitarbeiter auswählen"
+  },
 };
 
 Language language = Language.german;

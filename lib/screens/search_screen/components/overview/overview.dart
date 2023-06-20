@@ -1,5 +1,5 @@
 
-import 'package:doctor_pert/models/medical_practice.dart';
+import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/overview_header.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/tabs/about_overview_tab.dart';
 import 'package:doctor_pert/screens/search_screen/components/overview/tabs/contact_overview_tab.dart';

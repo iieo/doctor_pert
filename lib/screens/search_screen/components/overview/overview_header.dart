@@ -1,4 +1,4 @@
-import 'package:doctor_pert/models/medical_practice.dart';
+import 'package:doctor_pert/models/medical_practice/medical_practice.dart';
 import 'package:doctor_pert/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,7 +26,7 @@ class OverviewHeader extends StatelessWidget {
             const SizedBox(height: 10),
             //DoctorRatingBar(rating: doctorRating),
             const SizedBox(height: 10),
-            Text(t(fromDoctorType(doctor.type[0])),
+            Text(t(doctor.type.name),
                 style: Theme.of(context).textTheme.labelSmall),
             const SizedBox(height: 10),
           ],

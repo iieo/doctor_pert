@@ -42,3 +42,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+OSM_crawler/parsed.json
+OSM_crawler/healthcare_facilities.json

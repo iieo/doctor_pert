@@ -1,5 +1,18 @@
-class OpeningHours {
-  List<OpeningHoursDay> days;
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'time.freezed.dart';
+part 'time.g.dart';
+
+@unfreezed
+class OpeningHours with _$OpeningHours {
+  factory OpeningHours({
+    required List<OpeningHoursDay> days,
+  }) = _OpeningHours;
+
+  OpeningHours._();
+
+  factory OpeningHours.fromJson(Map<String, dynamic> json) =>
+      _$OpeningHoursFromJson(json);
 
   OpeningHoursDay get monday {
     return days.firstWhere((element) => element.day == 1);
@@ -28,14 +41,20 @@ class OpeningHours {
   OpeningHoursDay get sunday {
     return days.firstWhere((element) => element.day == 7);
   }
-
-  OpeningHours({required this.days});
 }
 
-class OpeningHoursDay {
-  int day;
-  String open;
-  String close;
+@unfreezed
+class OpeningHoursDay with _$OpeningHoursDay {
+  factory OpeningHoursDay({
+    required String open,
+    required String close,
+    required int day,
+  }) = _OpeningHoursDay;
+
+  factory OpeningHoursDay.fromJson(Map<String, dynamic> json) =>
+      _$OpeningHoursDayFromJson(json);
+
+  OpeningHoursDay._();
 
   String get weekdayName {
     switch (day) {
@@ -57,6 +76,4 @@ class OpeningHoursDay {
         return "monday";
     }
   }
-
-  OpeningHoursDay({required this.day, required this.open, required this.close});
 }
