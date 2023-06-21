@@ -106,11 +106,6 @@ class _$_OpeningHours extends _OpeningHours {
   @override
   List<OpeningHoursDay> days;
 
-  @override
-  String toString() {
-    return 'OpeningHours(days: $days)';
-  }
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -148,10 +143,10 @@ OpeningHoursDay _$OpeningHoursDayFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OpeningHoursDay {
-  String get open => throw _privateConstructorUsedError;
-  set open(String value) => throw _privateConstructorUsedError;
-  String get close => throw _privateConstructorUsedError;
-  set close(String value) => throw _privateConstructorUsedError;
+  DateTime get open => throw _privateConstructorUsedError;
+  set open(DateTime value) => throw _privateConstructorUsedError;
+  DateTime get close => throw _privateConstructorUsedError;
+  set close(DateTime value) => throw _privateConstructorUsedError;
   int get day => throw _privateConstructorUsedError;
   set day(int value) => throw _privateConstructorUsedError;
 
@@ -167,7 +162,7 @@ abstract class $OpeningHoursDayCopyWith<$Res> {
           OpeningHoursDay value, $Res Function(OpeningHoursDay) then) =
       _$OpeningHoursDayCopyWithImpl<$Res, OpeningHoursDay>;
   @useResult
-  $Res call({String open, String close, int day});
+  $Res call({DateTime open, DateTime close, int day});
 }
 
 /// @nodoc
@@ -191,11 +186,11 @@ class _$OpeningHoursDayCopyWithImpl<$Res, $Val extends OpeningHoursDay>
       open: null == open
           ? _value.open
           : open // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       close: null == close
           ? _value.close
           : close // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       day: null == day
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
@@ -212,7 +207,7 @@ abstract class _$$_OpeningHoursDayCopyWith<$Res>
       __$$_OpeningHoursDayCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String open, String close, int day});
+  $Res call({DateTime open, DateTime close, int day});
 }
 
 /// @nodoc
@@ -234,11 +229,11 @@ class __$$_OpeningHoursDayCopyWithImpl<$Res>
       open: null == open
           ? _value.open
           : open // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       close: null == close
           ? _value.close
           : close // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       day: null == day
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
@@ -258,16 +253,11 @@ class _$_OpeningHoursDay extends _OpeningHoursDay {
       _$$_OpeningHoursDayFromJson(json);
 
   @override
-  String open;
+  DateTime open;
   @override
-  String close;
+  DateTime close;
   @override
   int day;
-
-  @override
-  String toString() {
-    return 'OpeningHoursDay(open: $open, close: $close, day: $day)';
-  }
 
   @JsonKey(ignore: true)
   @override
@@ -285,8 +275,8 @@ class _$_OpeningHoursDay extends _OpeningHoursDay {
 
 abstract class _OpeningHoursDay extends OpeningHoursDay {
   factory _OpeningHoursDay(
-      {required String open,
-      required String close,
+      {required DateTime open,
+      required DateTime close,
       required int day}) = _$_OpeningHoursDay;
   _OpeningHoursDay._() : super._();
 
@@ -294,11 +284,11 @@ abstract class _OpeningHoursDay extends OpeningHoursDay {
       _$_OpeningHoursDay.fromJson;
 
   @override
-  String get open;
-  set open(String value);
+  DateTime get open;
+  set open(DateTime value);
   @override
-  String get close;
-  set close(String value);
+  DateTime get close;
+  set close(DateTime value);
   @override
   int get day;
   set day(int value);

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:doctor_pert/handler/firestore_handler.dart';
 import 'package:doctor_pert/models/calendar_event/calendar_event.dart';
 import 'package:doctor_pert/models/reservation/reservation.dart';
@@ -17,6 +19,11 @@ class Calendar with _$Calendar {
       @JsonKey(includeFromJson: false, includeToJson: false)
       List<CalendarEvent> calendarEvents}) = _Calendar;
   Calendar._();
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
 
   factory Calendar.fromJson(Map<String, dynamic> json) =>
       _$CalendarFromJson(json);

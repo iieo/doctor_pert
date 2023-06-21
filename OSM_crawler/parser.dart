@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:latlong2/latlong.dart';
+
 void main(List<String> args) {
   print("Parsing...");
   List<dynamic> data = getHealthcareFacilities();
-  String currentDirectory = Directory.current.path;
   data = parseData(data);
-  save(data, '$currentDirectory/parsed.json');
+  save(data, 'parsed.json');
   print("Done.");
 }
 
@@ -45,13 +46,23 @@ String readFile(String filename) {
 }
 
 void save(List<dynamic> data, String filename) {
-  String jsonString = json.encode(data);
-  //convert to (UTF-8)
-  jsonString = utf8.decode(jsonString.runes.toList());
+  //split into lists of 19000 items
+  List<List<dynamic>> splitData = [];
+  int splitSize = 19000;
+  for (int i = 0; i < data.length; i += splitSize) {
+    splitData.add(data.sublist(
+        i, i + splitSize > data.length ? data.length : i + splitSize));
+  }
+  for (int i = 0; i < splitData.length; i++) {
+    String jsonString = json.encode(splitData[i]);
+    //convert to (UTF-8)
+    jsonString = utf8.decode(jsonString.runes.toList());
 
-  final file = File(filename);
-  print("writing file: ${file.absolute}");
-  file.createSync();
+    final file =
+        File("${filename.replaceAll('.json', '')}_${i.toString()}.json");
+    print("writing file: ${file.absolute}");
+    file.createSync();
 
-  file.writeAsStringSync(jsonString, encoding: Encoding.getByName('utf-8')!);
+    file.writeAsStringSync(jsonString, encoding: Encoding.getByName('utf-8')!);
+  }
 }

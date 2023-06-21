@@ -24,10 +24,10 @@ mixin _$Address {
   set street(String value) => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   set city(String value) => throw _privateConstructorUsedError;
-  String get state => throw _privateConstructorUsedError;
-  set state(String value) => throw _privateConstructorUsedError;
-  String get country => throw _privateConstructorUsedError;
-  set country(String value) => throw _privateConstructorUsedError;
+  String? get state => throw _privateConstructorUsedError;
+  set state(String? value) => throw _privateConstructorUsedError;
+  String? get country => throw _privateConstructorUsedError;
+  set country(String? value) => throw _privateConstructorUsedError;
   String get postalCode => throw _privateConstructorUsedError;
   set postalCode(String value) => throw _privateConstructorUsedError;
 
@@ -44,8 +44,8 @@ abstract class $AddressCopyWith<$Res> {
   $Res call(
       {String street,
       String city,
-      String state,
-      String country,
+      String? state,
+      String? country,
       String postalCode});
 }
 
@@ -64,8 +64,8 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
   $Res call({
     Object? street = null,
     Object? city = null,
-    Object? state = null,
-    Object? country = null,
+    Object? state = freezed,
+    Object? country = freezed,
     Object? postalCode = null,
   }) {
     return _then(_value.copyWith(
@@ -77,14 +77,14 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
-      state: null == state
+      state: freezed == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
-              as String,
-      country: null == country
+              as String?,
+      country: freezed == country
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       postalCode: null == postalCode
           ? _value.postalCode
           : postalCode // ignore: cast_nullable_to_non_nullable
@@ -103,8 +103,8 @@ abstract class _$$_AddressCopyWith<$Res> implements $AddressCopyWith<$Res> {
   $Res call(
       {String street,
       String city,
-      String state,
-      String country,
+      String? state,
+      String? country,
       String postalCode});
 }
 
@@ -120,8 +120,8 @@ class __$$_AddressCopyWithImpl<$Res>
   $Res call({
     Object? street = null,
     Object? city = null,
-    Object? state = null,
-    Object? country = null,
+    Object? state = freezed,
+    Object? country = freezed,
     Object? postalCode = null,
   }) {
     return _then(_$_Address(
@@ -133,14 +133,14 @@ class __$$_AddressCopyWithImpl<$Res>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
-      state: null == state
+      state: freezed == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
-              as String,
-      country: null == country
+              as String?,
+      country: freezed == country
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       postalCode: null == postalCode
           ? _value.postalCode
           : postalCode // ignore: cast_nullable_to_non_nullable
@@ -155,8 +155,8 @@ class _$_Address extends _Address {
   _$_Address(
       {required this.street,
       required this.city,
-      required this.state,
-      required this.country,
+      this.state,
+      this.country,
       required this.postalCode})
       : super._();
 
@@ -168,16 +168,11 @@ class _$_Address extends _Address {
   @override
   String city;
   @override
-  String state;
+  String? state;
   @override
-  String country;
+  String? country;
   @override
   String postalCode;
-
-  @override
-  String toString() {
-    return 'Address(street: $street, city: $city, state: $state, country: $country, postalCode: $postalCode)';
-  }
 
   @JsonKey(ignore: true)
   @override
@@ -197,8 +192,8 @@ abstract class _Address extends Address {
   factory _Address(
       {required String street,
       required String city,
-      required String state,
-      required String country,
+      String? state,
+      String? country,
       required String postalCode}) = _$_Address;
   _Address._() : super._();
 
@@ -211,11 +206,11 @@ abstract class _Address extends Address {
   String get city;
   set city(String value);
   @override
-  String get state;
-  set state(String value);
+  String? get state;
+  set state(String? value);
   @override
-  String get country;
-  set country(String value);
+  String? get country;
+  set country(String? value);
   @override
   String get postalCode;
   set postalCode(String value);

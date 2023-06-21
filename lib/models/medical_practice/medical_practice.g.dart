@@ -8,36 +8,43 @@ part of 'medical_practice.dart';
 
 _$_MedicalPractice _$$_MedicalPracticeFromJson(Map<String, dynamic> json) =>
     _$_MedicalPractice(
-      id: json['id'] as String,
+      id: json['id'] as String?,
       name: json['name'] as String,
-      owner: (json['owner'] as List<dynamic>)
-          .map((e) => Person.fromJson(e as Map<String, dynamic>))
+      owner: (json['owner'] as List<dynamic>?)
+          ?.map((e) => Person.fromJson(e as Map<String, dynamic>))
           .toList(),
       type: $enumDecode(_$DoctorTypeEnumMap, json['type']),
-      address: Address.fromJson(json['address'] as Map<String, dynamic>),
-      phone: json['phone'] as String,
-      email: json['email'] as String,
+      address: json['address'] == null
+          ? null
+          : Address.fromJson(json['address'] as Map<String, dynamic>),
+      phone: json['phone'] as String?,
+      email: json['email'] as String?,
       website: json['website'] as String?,
       description: json['description'] as String?,
       imageUrl: json['imageUrl'] as String?,
       employeeIds: (json['employeeIds'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      languages:
-          (json['languages'] as List<dynamic>).map((e) => e as String).toList(),
-      openingHours:
-          OpeningHours.fromJson(json['openingHours'] as Map<String, dynamic>),
+      languages: (json['languages'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      openingHours: json['openingHours'] == null
+          ? null
+          : OpeningHours.fromJson(json['openingHours'] as Map<String, dynamic>),
       ratings: (json['ratings'] as List<dynamic>)
           .map((e) => Rating.fromJson(e as Map<String, dynamic>))
           .toList(),
-      location: LatLng.fromJson(json['location'] as Map<String, dynamic>),
-      services:
-          (json['services'] as List<dynamic>).map((e) => e as String).toList(),
+      lat: (json['lat'] as num).toDouble(),
+      lon: (json['lon'] as num).toDouble(),
+      services: (json['services'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      isVerified: json['isVerified'] as bool,
+      isWheelchairAccessible: json['isWheelchairAccessible'] as bool?,
     );
 
 Map<String, dynamic> _$$_MedicalPracticeToJson(_$_MedicalPractice instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'name': instance.name,
       'owner': instance.owner,
       'type': _$DoctorTypeEnumMap[instance.type]!,
@@ -51,12 +58,19 @@ Map<String, dynamic> _$$_MedicalPracticeToJson(_$_MedicalPractice instance) =>
       'languages': instance.languages,
       'openingHours': instance.openingHours,
       'ratings': instance.ratings,
-      'location': instance.location,
+      'lat': instance.lat,
+      'lon': instance.lon,
       'services': instance.services,
+      'isVerified': instance.isVerified,
+      'isWheelchairAccessible': instance.isWheelchairAccessible,
     };
 
 const _$DoctorTypeEnumMap = {
   DoctorType.general: 'general',
+  DoctorType.hospital: 'hospital',
+  DoctorType.clinic: 'clinic',
+  DoctorType.pharmacy: 'pharmacy',
+  DoctorType.nursing_home: 'nursing_home',
   DoctorType.chiropractor: 'chiropractor',
   DoctorType.dentist: 'dentist',
   DoctorType.dermatologist: 'dermatologist',

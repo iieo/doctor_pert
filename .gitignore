@@ -44,3 +44,4 @@ app.*.map.json
 /android/app/release
 OSM_crawler/parsed.json
 OSM_crawler/healthcare_facilities.json
+OSM_crawler/parser.dart

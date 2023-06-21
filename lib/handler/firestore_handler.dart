@@ -135,4 +135,18 @@ class FirestoreHandler {
       return MedicalPractice.fromJson(e.data() as Map<String, dynamic>);
     }).toList();
   }
+
+  static Future<void> updateMedicalPractice(MedicalPractice practice) async {
+    await FirebaseFirestore.instance
+        .collection('medical_practices')
+        .doc(practice.id)
+        .set(practice.toJson());
+  }
+
+  //add medical practice
+  static Future<void> pushMedicalPractice(MedicalPractice practice) async {
+    await FirebaseFirestore.instance
+        .collection('medical_practices')
+        .add(practice.toJson());
+  }
 }

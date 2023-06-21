@@ -20,20 +20,22 @@ MedicalPractice _$MedicalPracticeFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MedicalPractice {
-  String get id => throw _privateConstructorUsedError;
-  set id(String value) => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: true, includeToJson: false)
+  String? get id => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: true, includeToJson: false)
+  set id(String? value) => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   set name(String value) => throw _privateConstructorUsedError;
-  List<Person> get owner => throw _privateConstructorUsedError;
-  set owner(List<Person> value) => throw _privateConstructorUsedError;
+  List<Person>? get owner => throw _privateConstructorUsedError;
+  set owner(List<Person>? value) => throw _privateConstructorUsedError;
   DoctorType get type => throw _privateConstructorUsedError;
   set type(DoctorType value) => throw _privateConstructorUsedError;
-  Address get address => throw _privateConstructorUsedError;
-  set address(Address value) => throw _privateConstructorUsedError;
-  String get phone => throw _privateConstructorUsedError;
-  set phone(String value) => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  set email(String value) => throw _privateConstructorUsedError;
+  Address? get address => throw _privateConstructorUsedError;
+  set address(Address? value) => throw _privateConstructorUsedError;
+  String? get phone => throw _privateConstructorUsedError;
+  set phone(String? value) => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  set email(String? value) => throw _privateConstructorUsedError;
   String? get website => throw _privateConstructorUsedError;
   set website(String? value) => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -42,16 +44,22 @@ mixin _$MedicalPractice {
   set imageUrl(String? value) => throw _privateConstructorUsedError;
   List<String> get employeeIds => throw _privateConstructorUsedError;
   set employeeIds(List<String> value) => throw _privateConstructorUsedError;
-  List<String> get languages => throw _privateConstructorUsedError;
-  set languages(List<String> value) => throw _privateConstructorUsedError;
-  OpeningHours get openingHours => throw _privateConstructorUsedError;
-  set openingHours(OpeningHours value) => throw _privateConstructorUsedError;
+  List<String>? get languages => throw _privateConstructorUsedError;
+  set languages(List<String>? value) => throw _privateConstructorUsedError;
+  OpeningHours? get openingHours => throw _privateConstructorUsedError;
+  set openingHours(OpeningHours? value) => throw _privateConstructorUsedError;
   List<Rating> get ratings => throw _privateConstructorUsedError;
   set ratings(List<Rating> value) => throw _privateConstructorUsedError;
-  LatLng get location => throw _privateConstructorUsedError;
-  set location(LatLng value) => throw _privateConstructorUsedError;
-  List<String> get services => throw _privateConstructorUsedError;
-  set services(List<String> value) => throw _privateConstructorUsedError;
+  double get lat => throw _privateConstructorUsedError;
+  set lat(double value) => throw _privateConstructorUsedError;
+  double get lon => throw _privateConstructorUsedError;
+  set lon(double value) => throw _privateConstructorUsedError;
+  List<String>? get services => throw _privateConstructorUsedError;
+  set services(List<String>? value) => throw _privateConstructorUsedError;
+  bool get isVerified => throw _privateConstructorUsedError;
+  set isVerified(bool value) => throw _privateConstructorUsedError;
+  bool? get isWheelchairAccessible => throw _privateConstructorUsedError;
+  set isWheelchairAccessible(bool? value) => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false, includeToJson: false)
   List<Employee>? get employees => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -70,27 +78,31 @@ abstract class $MedicalPracticeCopyWith<$Res> {
       _$MedicalPracticeCopyWithImpl<$Res, MedicalPractice>;
   @useResult
   $Res call(
-      {String id,
+      {@JsonKey(includeFromJson: true, includeToJson: false)
+          String? id,
       String name,
-      List<Person> owner,
+      List<Person>? owner,
       DoctorType type,
-      Address address,
-      String phone,
-      String email,
+      Address? address,
+      String? phone,
+      String? email,
       String? website,
       String? description,
       String? imageUrl,
       List<String> employeeIds,
-      List<String> languages,
-      OpeningHours openingHours,
+      List<String>? languages,
+      OpeningHours? openingHours,
       List<Rating> ratings,
-      LatLng location,
-      List<String> services,
+      double lat,
+      double lon,
+      List<String>? services,
+      bool isVerified,
+      bool? isWheelchairAccessible,
       @JsonKey(includeFromJson: false, includeToJson: false)
           List<Employee>? employees});
 
-  $AddressCopyWith<$Res> get address;
-  $OpeningHoursCopyWith<$Res> get openingHours;
+  $AddressCopyWith<$Res>? get address;
+  $OpeningHoursCopyWith<$Res>? get openingHours;
 }
 
 /// @nodoc
@@ -106,53 +118,56 @@ class _$MedicalPracticeCopyWithImpl<$Res, $Val extends MedicalPractice>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = null,
-    Object? owner = null,
+    Object? owner = freezed,
     Object? type = null,
-    Object? address = null,
-    Object? phone = null,
-    Object? email = null,
+    Object? address = freezed,
+    Object? phone = freezed,
+    Object? email = freezed,
     Object? website = freezed,
     Object? description = freezed,
     Object? imageUrl = freezed,
     Object? employeeIds = null,
-    Object? languages = null,
-    Object? openingHours = null,
+    Object? languages = freezed,
+    Object? openingHours = freezed,
     Object? ratings = null,
-    Object? location = null,
-    Object? services = null,
+    Object? lat = null,
+    Object? lon = null,
+    Object? services = freezed,
+    Object? isVerified = null,
+    Object? isWheelchairAccessible = freezed,
     Object? employees = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      owner: null == owner
+      owner: freezed == owner
           ? _value.owner
           : owner // ignore: cast_nullable_to_non_nullable
-              as List<Person>,
+              as List<Person>?,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as DoctorType,
-      address: null == address
+      address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as Address,
-      phone: null == phone
+              as Address?,
+      phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
+              as String?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
@@ -169,26 +184,38 @@ class _$MedicalPracticeCopyWithImpl<$Res, $Val extends MedicalPractice>
           ? _value.employeeIds
           : employeeIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      languages: null == languages
+      languages: freezed == languages
           ? _value.languages
           : languages // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      openingHours: null == openingHours
+              as List<String>?,
+      openingHours: freezed == openingHours
           ? _value.openingHours
           : openingHours // ignore: cast_nullable_to_non_nullable
-              as OpeningHours,
+              as OpeningHours?,
       ratings: null == ratings
           ? _value.ratings
           : ratings // ignore: cast_nullable_to_non_nullable
               as List<Rating>,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as LatLng,
-      services: null == services
+      lat: null == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double,
+      lon: null == lon
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double,
+      services: freezed == services
           ? _value.services
           : services // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
+      isVerified: null == isVerified
+          ? _value.isVerified
+          : isVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isWheelchairAccessible: freezed == isWheelchairAccessible
+          ? _value.isWheelchairAccessible
+          : isWheelchairAccessible // ignore: cast_nullable_to_non_nullable
+              as bool?,
       employees: freezed == employees
           ? _value.employees
           : employees // ignore: cast_nullable_to_non_nullable
@@ -198,16 +225,24 @@ class _$MedicalPracticeCopyWithImpl<$Res, $Val extends MedicalPractice>
 
   @override
   @pragma('vm:prefer-inline')
-  $AddressCopyWith<$Res> get address {
-    return $AddressCopyWith<$Res>(_value.address, (value) {
+  $AddressCopyWith<$Res>? get address {
+    if (_value.address == null) {
+      return null;
+    }
+
+    return $AddressCopyWith<$Res>(_value.address!, (value) {
       return _then(_value.copyWith(address: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $OpeningHoursCopyWith<$Res> get openingHours {
-    return $OpeningHoursCopyWith<$Res>(_value.openingHours, (value) {
+  $OpeningHoursCopyWith<$Res>? get openingHours {
+    if (_value.openingHours == null) {
+      return null;
+    }
+
+    return $OpeningHoursCopyWith<$Res>(_value.openingHours!, (value) {
       return _then(_value.copyWith(openingHours: value) as $Val);
     });
   }
@@ -222,29 +257,33 @@ abstract class _$$_MedicalPracticeCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
+      {@JsonKey(includeFromJson: true, includeToJson: false)
+          String? id,
       String name,
-      List<Person> owner,
+      List<Person>? owner,
       DoctorType type,
-      Address address,
-      String phone,
-      String email,
+      Address? address,
+      String? phone,
+      String? email,
       String? website,
       String? description,
       String? imageUrl,
       List<String> employeeIds,
-      List<String> languages,
-      OpeningHours openingHours,
+      List<String>? languages,
+      OpeningHours? openingHours,
       List<Rating> ratings,
-      LatLng location,
-      List<String> services,
+      double lat,
+      double lon,
+      List<String>? services,
+      bool isVerified,
+      bool? isWheelchairAccessible,
       @JsonKey(includeFromJson: false, includeToJson: false)
           List<Employee>? employees});
 
   @override
-  $AddressCopyWith<$Res> get address;
+  $AddressCopyWith<$Res>? get address;
   @override
-  $OpeningHoursCopyWith<$Res> get openingHours;
+  $OpeningHoursCopyWith<$Res>? get openingHours;
 }
 
 /// @nodoc
@@ -258,53 +297,56 @@ class __$$_MedicalPracticeCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? name = null,
-    Object? owner = null,
+    Object? owner = freezed,
     Object? type = null,
-    Object? address = null,
-    Object? phone = null,
-    Object? email = null,
+    Object? address = freezed,
+    Object? phone = freezed,
+    Object? email = freezed,
     Object? website = freezed,
     Object? description = freezed,
     Object? imageUrl = freezed,
     Object? employeeIds = null,
-    Object? languages = null,
-    Object? openingHours = null,
+    Object? languages = freezed,
+    Object? openingHours = freezed,
     Object? ratings = null,
-    Object? location = null,
-    Object? services = null,
+    Object? lat = null,
+    Object? lon = null,
+    Object? services = freezed,
+    Object? isVerified = null,
+    Object? isWheelchairAccessible = freezed,
     Object? employees = freezed,
   }) {
     return _then(_$_MedicalPractice(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      owner: null == owner
+      owner: freezed == owner
           ? _value.owner
           : owner // ignore: cast_nullable_to_non_nullable
-              as List<Person>,
+              as List<Person>?,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as DoctorType,
-      address: null == address
+      address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as Address,
-      phone: null == phone
+              as Address?,
+      phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
+              as String?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       website: freezed == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
@@ -321,26 +363,38 @@ class __$$_MedicalPracticeCopyWithImpl<$Res>
           ? _value.employeeIds
           : employeeIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      languages: null == languages
+      languages: freezed == languages
           ? _value.languages
           : languages // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      openingHours: null == openingHours
+              as List<String>?,
+      openingHours: freezed == openingHours
           ? _value.openingHours
           : openingHours // ignore: cast_nullable_to_non_nullable
-              as OpeningHours,
+              as OpeningHours?,
       ratings: null == ratings
           ? _value.ratings
           : ratings // ignore: cast_nullable_to_non_nullable
               as List<Rating>,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as LatLng,
-      services: null == services
+      lat: null == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double,
+      lon: null == lon
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double,
+      services: freezed == services
           ? _value.services
           : services // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
+      isVerified: null == isVerified
+          ? _value.isVerified
+          : isVerified // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isWheelchairAccessible: freezed == isWheelchairAccessible
+          ? _value.isWheelchairAccessible
+          : isWheelchairAccessible // ignore: cast_nullable_to_non_nullable
+              as bool?,
       employees: freezed == employees
           ? _value.employees
           : employees // ignore: cast_nullable_to_non_nullable
@@ -353,22 +407,25 @@ class __$$_MedicalPracticeCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_MedicalPractice extends _MedicalPractice {
   _$_MedicalPractice(
-      {required this.id,
+      {@JsonKey(includeFromJson: true, includeToJson: false) this.id,
       required this.name,
-      required this.owner,
+      this.owner,
       required this.type,
-      required this.address,
-      required this.phone,
-      required this.email,
-      required this.website,
-      required this.description,
-      required this.imageUrl,
+      this.address,
+      this.phone,
+      this.email,
+      this.website,
+      this.description,
+      this.imageUrl,
       required this.employeeIds,
-      required this.languages,
-      required this.openingHours,
+      this.languages,
+      this.openingHours,
       required this.ratings,
-      required this.location,
-      required this.services,
+      required this.lat,
+      required this.lon,
+      this.services,
+      required this.isVerified,
+      this.isWheelchairAccessible,
       @JsonKey(includeFromJson: false, includeToJson: false) this.employees})
       : super._();
 
@@ -376,19 +433,20 @@ class _$_MedicalPractice extends _MedicalPractice {
       _$$_MedicalPracticeFromJson(json);
 
   @override
-  String id;
+  @JsonKey(includeFromJson: true, includeToJson: false)
+  String? id;
   @override
   String name;
   @override
-  List<Person> owner;
+  List<Person>? owner;
   @override
   DoctorType type;
   @override
-  Address address;
+  Address? address;
   @override
-  String phone;
+  String? phone;
   @override
-  String email;
+  String? email;
   @override
   String? website;
   @override
@@ -398,22 +456,28 @@ class _$_MedicalPractice extends _MedicalPractice {
   @override
   List<String> employeeIds;
   @override
-  List<String> languages;
+  List<String>? languages;
   @override
-  OpeningHours openingHours;
+  OpeningHours? openingHours;
   @override
   List<Rating> ratings;
   @override
-  LatLng location;
+  double lat;
   @override
-  List<String> services;
+  double lon;
+  @override
+  List<String>? services;
+  @override
+  bool isVerified;
+  @override
+  bool? isWheelchairAccessible;
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   List<Employee>? employees;
 
   @override
   String toString() {
-    return 'MedicalPractice(id: $id, name: $name, owner: $owner, type: $type, address: $address, phone: $phone, email: $email, website: $website, description: $description, imageUrl: $imageUrl, employeeIds: $employeeIds, languages: $languages, openingHours: $openingHours, ratings: $ratings, location: $location, services: $services, employees: $employees)';
+    return 'MedicalPractice(id: $id, name: $name, owner: $owner, type: $type, address: $address, phone: $phone, email: $email, website: $website, description: $description, imageUrl: $imageUrl, employeeIds: $employeeIds, languages: $languages, openingHours: $openingHours, ratings: $ratings, lat: $lat, lon: $lon, services: $services, isVerified: $isVerified, isWheelchairAccessible: $isWheelchairAccessible, employees: $employees)';
   }
 
   @JsonKey(ignore: true)
@@ -432,22 +496,26 @@ class _$_MedicalPractice extends _MedicalPractice {
 
 abstract class _MedicalPractice extends MedicalPractice {
   factory _MedicalPractice(
-      {required String id,
+      {@JsonKey(includeFromJson: true, includeToJson: false)
+          String? id,
       required String name,
-      required List<Person> owner,
+      List<Person>? owner,
       required DoctorType type,
-      required Address address,
-      required String phone,
-      required String email,
-      required String? website,
-      required String? description,
-      required String? imageUrl,
+      Address? address,
+      String? phone,
+      String? email,
+      String? website,
+      String? description,
+      String? imageUrl,
       required List<String> employeeIds,
-      required List<String> languages,
-      required OpeningHours openingHours,
+      List<String>? languages,
+      OpeningHours? openingHours,
       required List<Rating> ratings,
-      required LatLng location,
-      required List<String> services,
+      required double lat,
+      required double lon,
+      List<String>? services,
+      required bool isVerified,
+      bool? isWheelchairAccessible,
       @JsonKey(includeFromJson: false, includeToJson: false)
           List<Employee>? employees}) = _$_MedicalPractice;
   _MedicalPractice._() : super._();
@@ -456,26 +524,28 @@ abstract class _MedicalPractice extends MedicalPractice {
       _$_MedicalPractice.fromJson;
 
   @override
-  String get id;
-  set id(String value);
+  @JsonKey(includeFromJson: true, includeToJson: false)
+  String? get id;
+  @JsonKey(includeFromJson: true, includeToJson: false)
+  set id(String? value);
   @override
   String get name;
   set name(String value);
   @override
-  List<Person> get owner;
-  set owner(List<Person> value);
+  List<Person>? get owner;
+  set owner(List<Person>? value);
   @override
   DoctorType get type;
   set type(DoctorType value);
   @override
-  Address get address;
-  set address(Address value);
+  Address? get address;
+  set address(Address? value);
   @override
-  String get phone;
-  set phone(String value);
+  String? get phone;
+  set phone(String? value);
   @override
-  String get email;
-  set email(String value);
+  String? get email;
+  set email(String? value);
   @override
   String? get website;
   set website(String? value);
@@ -489,20 +559,29 @@ abstract class _MedicalPractice extends MedicalPractice {
   List<String> get employeeIds;
   set employeeIds(List<String> value);
   @override
-  List<String> get languages;
-  set languages(List<String> value);
+  List<String>? get languages;
+  set languages(List<String>? value);
   @override
-  OpeningHours get openingHours;
-  set openingHours(OpeningHours value);
+  OpeningHours? get openingHours;
+  set openingHours(OpeningHours? value);
   @override
   List<Rating> get ratings;
   set ratings(List<Rating> value);
   @override
-  LatLng get location;
-  set location(LatLng value);
+  double get lat;
+  set lat(double value);
   @override
-  List<String> get services;
-  set services(List<String> value);
+  double get lon;
+  set lon(double value);
+  @override
+  List<String>? get services;
+  set services(List<String>? value);
+  @override
+  bool get isVerified;
+  set isVerified(bool value);
+  @override
+  bool? get isWheelchairAccessible;
+  set isWheelchairAccessible(bool? value);
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   List<Employee>? get employees;

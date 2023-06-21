@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'time.freezed.dart';
@@ -10,6 +13,11 @@ class OpeningHours with _$OpeningHours {
   }) = _OpeningHours;
 
   OpeningHours._();
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
 
   factory OpeningHours.fromJson(Map<String, dynamic> json) =>
       _$OpeningHoursFromJson(json);
@@ -46,8 +54,8 @@ class OpeningHours with _$OpeningHours {
 @unfreezed
 class OpeningHoursDay with _$OpeningHoursDay {
   factory OpeningHoursDay({
-    required String open,
-    required String close,
+    required DateTime open,
+    required DateTime close,
     required int day,
   }) = _OpeningHoursDay;
 
@@ -55,6 +63,13 @@ class OpeningHoursDay with _$OpeningHoursDay {
       _$OpeningHoursDayFromJson(json);
 
   OpeningHoursDay._();
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+
+  String get formattedString => "$weekdayName: $open-$close";
 
   String get weekdayName {
     switch (day) {

@@ -4,6 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 enum DoctorType {
   general,
+  hospital,
+  clinic,
+  pharmacy,
+  nursing_home,
   chiropractor,
   dentist,
   dermatologist,
@@ -20,33 +24,9 @@ enum DoctorType {
 
   IconData get iconData {
     switch (this) {
-      case DoctorType.general:
-        return FontAwesomeIcons.userDoctor;
-      case DoctorType.chiropractor:
-        return FontAwesomeIcons.userDoctor;
       case DoctorType.dentist:
         return FontAwesomeIcons.tooth;
-      case DoctorType.dermatologist:
-        return FontAwesomeIcons.userDoctor;
-      case DoctorType.dietitian:
-        return FontAwesomeIcons.userDoctor;
-      case DoctorType.gynecologist:
-        return FontAwesomeIcons.userDoctor;
-      case DoctorType.neurologist:
-        return FontAwesomeIcons.userDoctor;
-      case DoctorType.ophthalmologist:
-        return FontAwesomeIcons.userDoctor;
-      case DoctorType.orthopedist:
-        return FontAwesomeIcons.userDoctor;
-      case DoctorType.pediatrician:
-        return FontAwesomeIcons.userDoctor;
-      case DoctorType.psychiatrist:
-        return FontAwesomeIcons.userDoctor;
-      case DoctorType.urologist:
-        return FontAwesomeIcons.userDoctor;
-      case DoctorType.veterinarian:
-        return FontAwesomeIcons.userDoctor;
-      case DoctorType.other:
+      default:
         return FontAwesomeIcons.userDoctor;
     }
   }
@@ -66,7 +46,12 @@ enum DoctorType {
       DoctorType.psychiatrist,
       DoctorType.urologist,
       DoctorType.veterinarian,
-      DoctorType.other
+      DoctorType.other,
+      DoctorType.hospital,
+      DoctorType.clinic,
+      DoctorType.pharmacy,
+      DoctorType.nursing_home,
+      
     ];
   }
 

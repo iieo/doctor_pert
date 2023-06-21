@@ -20,6 +20,10 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Employee {
+  @JsonKey(includeFromJson: true, includeToJson: false)
+  String get id => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: true, includeToJson: false)
+  set id(String value) => throw _privateConstructorUsedError;
   String get firstName => throw _privateConstructorUsedError;
   set firstName(String value) => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
@@ -28,8 +32,6 @@ mixin _$Employee {
   set email(String value) => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
   set phone(String value) => throw _privateConstructorUsedError;
-  String get id => throw _privateConstructorUsedError;
-  set id(String value) => throw _privateConstructorUsedError;
   String get calendarId => throw _privateConstructorUsedError;
   set calendarId(String value) => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,11 +51,12 @@ abstract class $EmployeeCopyWith<$Res> {
       _$EmployeeCopyWithImpl<$Res, Employee>;
   @useResult
   $Res call(
-      {String firstName,
+      {@JsonKey(includeFromJson: true, includeToJson: false)
+          String id,
+      String firstName,
       String lastName,
       String email,
       String phone,
-      String id,
       String calendarId,
       @JsonKey(includeFromJson: false, includeToJson: false)
           Calendar? calendar});
@@ -74,15 +77,19 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? firstName = null,
     Object? lastName = null,
     Object? email = null,
     Object? phone = null,
-    Object? id = null,
     Object? calendarId = null,
     Object? calendar = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       firstName: null == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -98,10 +105,6 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
       phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
               as String,
       calendarId: null == calendarId
           ? _value.calendarId
@@ -135,11 +138,12 @@ abstract class _$$_EmployeeCopyWith<$Res> implements $EmployeeCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String firstName,
+      {@JsonKey(includeFromJson: true, includeToJson: false)
+          String id,
+      String firstName,
       String lastName,
       String email,
       String phone,
-      String id,
       String calendarId,
       @JsonKey(includeFromJson: false, includeToJson: false)
           Calendar? calendar});
@@ -159,15 +163,19 @@ class __$$_EmployeeCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? firstName = null,
     Object? lastName = null,
     Object? email = null,
     Object? phone = null,
-    Object? id = null,
     Object? calendarId = null,
     Object? calendar = freezed,
   }) {
     return _then(_$_Employee(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       firstName: null == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -183,10 +191,6 @@ class __$$_EmployeeCopyWithImpl<$Res>
       phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
               as String,
       calendarId: null == calendarId
           ? _value.calendarId
@@ -204,11 +208,11 @@ class __$$_EmployeeCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Employee extends _Employee {
   _$_Employee(
-      {required this.firstName,
+      {@JsonKey(includeFromJson: true, includeToJson: false) required this.id,
+      required this.firstName,
       required this.lastName,
       required this.email,
       required this.phone,
-      required this.id,
       required this.calendarId,
       @JsonKey(includeFromJson: false, includeToJson: false) this.calendar})
       : super._();
@@ -216,6 +220,9 @@ class _$_Employee extends _Employee {
   factory _$_Employee.fromJson(Map<String, dynamic> json) =>
       _$$_EmployeeFromJson(json);
 
+  @override
+  @JsonKey(includeFromJson: true, includeToJson: false)
+  String id;
   @override
   String firstName;
   @override
@@ -225,17 +232,10 @@ class _$_Employee extends _Employee {
   @override
   String phone;
   @override
-  String id;
-  @override
   String calendarId;
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   Calendar? calendar;
-
-  @override
-  String toString() {
-    return 'Employee(firstName: $firstName, lastName: $lastName, email: $email, phone: $phone, id: $id, calendarId: $calendarId, calendar: $calendar)';
-  }
 
   @JsonKey(ignore: true)
   @override
@@ -253,11 +253,12 @@ class _$_Employee extends _Employee {
 
 abstract class _Employee extends Employee {
   factory _Employee(
-      {required String firstName,
+      {@JsonKey(includeFromJson: true, includeToJson: false)
+          required String id,
+      required String firstName,
       required String lastName,
       required String email,
       required String phone,
-      required String id,
       required String calendarId,
       @JsonKey(includeFromJson: false, includeToJson: false)
           Calendar? calendar}) = _$_Employee;
@@ -265,6 +266,11 @@ abstract class _Employee extends Employee {
 
   factory _Employee.fromJson(Map<String, dynamic> json) = _$_Employee.fromJson;
 
+  @override
+  @JsonKey(includeFromJson: true, includeToJson: false)
+  String get id;
+  @JsonKey(includeFromJson: true, includeToJson: false)
+  set id(String value);
   @override
   String get firstName;
   set firstName(String value);
@@ -277,9 +283,6 @@ abstract class _Employee extends Employee {
   @override
   String get phone;
   set phone(String value);
-  @override
-  String get id;
-  set id(String value);
   @override
   String get calendarId;
   set calendarId(String value);

@@ -65,8 +65,7 @@ class _SearchScreenState extends State<SearchScreen>
       Marker marker = Marker(
           width: 55.0,
           height: 55.0,
-          point:
-              LatLng(practice.location.latitude, practice.location.longitude),
+          point: LatLng(practice.lat, practice.lon),
           builder: (ctx) => GestureDetector(
               onTap: () {
                 if (_selectedIndex == i) {

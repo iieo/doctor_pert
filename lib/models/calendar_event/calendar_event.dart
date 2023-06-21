@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'calendar_event.freezed.dart';
@@ -11,9 +13,13 @@ abstract class CalendarEvent with _$CalendarEvent {
     required String description,
     required DateTime startDate,
     required DateTime endDate,
-    
   }) = _CalendarEvent;
   CalendarEvent._();
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
 
   factory CalendarEvent.fromJson(Map<String, dynamic> json) =>
       _$CalendarEventFromJson(json);

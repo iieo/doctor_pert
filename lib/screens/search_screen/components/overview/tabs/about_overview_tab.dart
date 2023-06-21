@@ -33,10 +33,10 @@ class AboutOverviewTab extends StatelessWidget {
               leading: const Icon(Icons.location_on_outlined),
               title: Text(t(PhraseKey.address),
                   style: Theme.of(context).textTheme.labelMedium),
-              subtitle: Text(doctor.address.fullAddress,
+              subtitle: Text(doctor.address?.fullAddress ?? "No Address",
                   style: Theme.of(context).textTheme.labelMedium),
             ),
-            ListTile(
+            /*ListTile(
               leading: const Icon(Icons.phone_outlined),
               title: Text(t(PhraseKey.phone),
                   style: Theme.of(context).textTheme.labelMedium),
@@ -49,16 +49,14 @@ class AboutOverviewTab extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelMedium),
               subtitle: Text(doctor.email,
                   style: Theme.of(context).textTheme.labelMedium),
+            ),*/
+            ListTile(
+              leading: const Icon(Icons.language_outlined),
+              title: Text(t(PhraseKey.website),
+                  style: Theme.of(context).textTheme.labelMedium),
+              subtitle: Text(doctor.website!,
+                  style: Theme.of(context).textTheme.labelMedium),
             ),
-            doctor.website != null
-                ? ListTile(
-                    leading: const Icon(Icons.language_outlined),
-                    title: Text(t(PhraseKey.website),
-                        style: Theme.of(context).textTheme.labelMedium),
-                    subtitle: Text(doctor.website!,
-                        style: Theme.of(context).textTheme.labelMedium),
-                  )
-                : const SizedBox.shrink(),
             //öffnungszeiten
             const Divider(
               height: 40,
@@ -66,9 +64,9 @@ class AboutOverviewTab extends StatelessWidget {
             Text(t(PhraseKey.openingHours),
                 style: Theme.of(context).textTheme.labelMedium),
             const SizedBox(height: 10),
-            for (OpeningHoursDay day in doctor.openingHours.days)
+            /*for (OpeningHoursDay day in doctor.openingHours.days)
               OpeningHoursDayView(
-                  openingHours: doctor.openingHours, day: day.weekdayName),
+                  openingHours: doctor.openingHours, day: day.weekdayName))*/
           ],
         )));
   }
@@ -84,11 +82,7 @@ class OpeningHoursDayView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(t(PhraseKey.monday),
-            style: Theme.of(context).textTheme.labelMedium),
-        Text(openingHours.monday.open,
-            style: Theme.of(context).textTheme.labelMedium),
-        Text(openingHours.monday.close,
+        Text(openingHours.monday.toString(),
             style: Theme.of(context).textTheme.labelMedium),
       ],
     );

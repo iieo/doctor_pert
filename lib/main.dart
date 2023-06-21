@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_pert/OSM_crawler/pusher.dart';
 import 'package:doctor_pert/firebase_options.dart';
 import 'package:doctor_pert/handler/authentication_handler.dart';
 import 'package:doctor_pert/handler/user_data_handler.dart';
@@ -23,6 +24,8 @@ void main() async {
     }
   });
 
+  await pushToFirebase();
+
   if (kIsWeb) {
     FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
     initRecaptcha();
@@ -31,9 +34,17 @@ void main() async {
     persistenceEnabled: true,
   );
 
-  runApp(MaterialApp(
-    theme: lightTheme,
-    builder: (context, child) => const App(),
+  runApp(FutureBuilder(
+    builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        return const Text("Error");
+      }
+      if (snapshot.connectionState == ConnectionState.done) {
+        return Text("finished");
+      }
+      return const CircularProgressIndicator.adaptive();
+    },
+    future: pushToFirebase(),
   ));
 }
 

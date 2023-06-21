@@ -14,17 +14,13 @@ class ContactOverviewTab extends StatelessWidget {
             child: Column(
           children: [
             ListTile(
-              title: Text(t(PhraseKey.phone)),
-              subtitle: Text(doctor.phone),
-            ),
-            ListTile(
-              title: Text(t(PhraseKey.email)),
-              subtitle: Text(doctor.email),
+              title: Text(t(PhraseKey.website)),
+              subtitle: Text(doctor.website ?? "No Website"),
             ),
             for (int i = 0; i < 30; i++)
               ListTile(
                 title: Text(t(PhraseKey.address)),
-                subtitle: Text(doctor.address.fullAddress),
+                subtitle: Text(doctor.address?.fullAddress ?? "No Address"),
               ),
           ],
         )));

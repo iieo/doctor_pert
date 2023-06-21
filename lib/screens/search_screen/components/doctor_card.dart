@@ -13,7 +13,7 @@ class DoctorCard extends StatelessWidget {
       child: Card(
           child: ListTile(
         title: Text(doctor.name),
-        subtitle: Text(doctor.phone),
+        subtitle: Text(doctor.address?.city ?? "No City"),
       )),
     );
   }

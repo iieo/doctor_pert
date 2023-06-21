@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'address.freezed.dart';
@@ -8,8 +10,8 @@ class Address with _$Address {
   factory Address({
     required String street,
     required String city,
-    required String state,
-    required String country,
+    String? state,
+    String? country,
     required String postalCode,
   }) = _Address;
 
@@ -20,5 +22,10 @@ class Address with _$Address {
 
   String get fullAddress {
     return "$street, $postalCode $city, $country";
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
   }
 }

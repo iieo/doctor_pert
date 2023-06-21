@@ -174,11 +174,6 @@ class _$_CalendarEvent extends _CalendarEvent {
   final DateTime endDate;
 
   @override
-  String toString() {
-    return 'CalendarEvent(id: $id, title: $title, description: $description, startDate: $startDate, endDate: $endDate)';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&

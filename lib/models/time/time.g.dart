@@ -20,14 +20,14 @@ Map<String, dynamic> _$$_OpeningHoursToJson(_$_OpeningHours instance) =>
 
 _$_OpeningHoursDay _$$_OpeningHoursDayFromJson(Map<String, dynamic> json) =>
     _$_OpeningHoursDay(
-      open: json['open'] as String,
-      close: json['close'] as String,
+      open: DateTime.parse(json['open'] as String),
+      close: DateTime.parse(json['close'] as String),
       day: json['day'] as int,
     );
 
 Map<String, dynamic> _$$_OpeningHoursDayToJson(_$_OpeningHoursDay instance) =>
     <String, dynamic>{
-      'open': instance.open,
-      'close': instance.close,
+      'open': instance.open.toIso8601String(),
+      'close': instance.close.toIso8601String(),
       'day': instance.day,
     };

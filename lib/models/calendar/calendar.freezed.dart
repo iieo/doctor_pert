@@ -184,11 +184,6 @@ class _$_Calendar extends _Calendar {
   @JsonKey(includeFromJson: false, includeToJson: false)
   List<CalendarEvent> calendarEvents;
 
-  @override
-  String toString() {
-    return 'Calendar(id: $id, name: $name, ownerId: $ownerId, calendarEventIds: $calendarEventIds, calendarEvents: $calendarEvents)';
-  }
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
